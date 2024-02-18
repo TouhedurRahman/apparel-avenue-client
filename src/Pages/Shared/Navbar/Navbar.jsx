@@ -50,7 +50,7 @@ const Navbar = () => {
                                     <div className="badge bg-green-300 ml-1 text-green-900 p-2">{99}</div>
                                 </label>
                             </div>
-                            <div className="drawer-side mt-20">
+                            <div className="drawer-side mt-20 z-[1]">
                                 <label htmlFor="my-drawer-4" aria-label="close sidebar" className=""></label>
                                 <ul className="menu p-4 w-80 min-h-full bg-green-200 text-base-content">
                                     {/* Sidebar content here */}
