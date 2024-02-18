@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import { GiSelfLove } from "react-icons/gi";
 import { FaCartArrowDown } from "react-icons/fa6";
+import { FaCircleUser } from "react-icons/fa6";
+import { MdDashboardCustomize } from "react-icons/md";
+import { RiLogoutCircleRFill } from "react-icons/ri";
 
 const Navbar = () => {
     return (
@@ -11,16 +14,16 @@ const Navbar = () => {
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                         </div>
-                        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-[#40ca91] rounded-box w-52">
+                        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-[#40ca91] rounded-box rounded-t-none w-52">
                             <li><Link>Home</Link></li>
-                            <li><Link>Men</Link></li>
-                            <li><Link>Women</Link></li>
+                            <li><Link>Shop Now</Link></li>
+                            <li><Link>Feedback</Link></li>
                         </ul>
                     </div>
-                    <Link>
+                    <Link to="/">
                         <img
                             src="../../../../src/assets/images/Logo/apperal-avenue-logo.png"
-                            className="w-40 h-16"
+                            className="w-24 md:w-40 lg:w-40 h-16"
                             alt="Logo..."
                         />
                     </Link>
@@ -75,9 +78,9 @@ const Navbar = () => {
                                 </div>
                             </div>
                             <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-[#40ca91] rounded-box w-52 rounded-t-none shadow-0">
-                                <li><a>Profile</a></li>
-                                <li><a>Dashboard</a></li>
-                                <li><a>Log Out</a></li>
+                                <li><a><FaCircleUser />Profile</a></li>
+                                <li><a><MdDashboardCustomize />Dashboard</a></li>
+                                <li><a><RiLogoutCircleRFill />Log Out</a></li>
                             </ul>
                         </div>
                     </div>
