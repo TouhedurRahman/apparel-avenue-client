@@ -1,0 +1,138 @@
+[
+    {
+        "__id": 1,
+        "name": "Panjabi Coffee Mix",
+        "category": "panjabi",
+        "forGender": "male",
+        "size": {
+            "M": 5,
+            "L": 8,
+            "XL": 10,
+            "XXL": 8
+        },
+        "price": 800,
+        "discountRate": 30,
+        "discountPrice": 560,
+        "description": "Premium Panjabi for men.",
+        "imageURL": "https://i.ibb.co/80K51XY/panjabi-1.webp"
+    },
+    {
+        "__id": 2,
+        "name": "Pure Black",
+        "category": "t-shirt",
+        "forGender": "male",
+        "size": {
+            "M": 5,
+            "L": 8,
+            "XL": 10,
+            "XXL": 8
+        },
+        "price": 1250,
+        "discountRate": 15,
+        "discountPrice": 1062,
+        "description": "Pure black t-shirt for men.",
+        "imageURL": "https://i.ibb.co/6rjdpkQ/tshirt-2.jpg"
+    },
+    {
+        "__id": 3,
+        "name": "Shirt Navy Blue - Formal",
+        "category": "shirt",
+        "forGender": "male",
+        "size": {
+            "M": 5,
+            "L": 8,
+            "XL": 10,
+            "XXL": 8
+        },
+        "price": 1350,
+        "discountRate": 0,
+        "discountPrice": 1350,
+        "description": "Premium office shirt for men.",
+        "imageURL": "https://i.ibb.co/sm9XYzJ/formal-shirt.webp"
+    },
+    {
+        "__id": 4,
+        "name": "Formal Office Pant - Navy Blue",
+        "category": "pant",
+        "forGender": "male",
+        "size": {
+            "M": 5,
+            "L": 8,
+            "XL": 10,
+            "XXL": 8
+        },
+        "price": 800,
+        "discountRate": 30,
+        "discountPrice": 560,
+        "description": "Premium Navy Blue formal office Pant for men.",
+        "imageURL": "https://i.ibb.co/3cbHzvJ/mens-formal-pant.jpg"
+    },
+    {
+        "__id": 5,
+        "name": "Borkha - Black",
+        "category": "borkha",
+        "forGender": "female",
+        "size": {
+            "M": 5,
+            "L": 8,
+            "XL": 10,
+            "XXL": 8
+        },
+        "price": 800,
+        "discountRate": 30,
+        "discountPrice": 560,
+        "description": "Premium Black borkha with niqab for women.",
+        "imageURL": "https://i.ibb.co/7YGdHb5/borkha.webp"
+    },
+    {
+        "__id": 6,
+        "name": "Floral Print Three Piece",
+        "category": "three-piece",
+        "forGender": "female",
+        "size": {
+            "M": 5,
+            "L": 8,
+            "XL": 10,
+            "XXL": 8
+        },
+        "price": 1980,
+        "discountRate": 16,
+        "discountPrice": 1643,
+        "description": "Premium cotton three piece for women.",
+        "imageURL": "https://i.ibb.co/Z63VfQn/Floral-Print-Three-Piece.jpg"
+    },
+    {
+        "__id": 7,
+        "name": "Shari - Blue & Gold Mix",
+        "category": "shari",
+        "forGender": "female",
+        "size": {
+            "M": 5,
+            "L": 8,
+            "XL": 10,
+            "XXL": 8
+        },
+        "price": 800,
+        "discountRate": 30,
+        "discountPrice": 560,
+        "description": "Premium Shari - Blue & Gold Mix for women.",
+        "imageURL": "https://i.ibb.co/mCX2Z8K/shari.webp"
+    },
+    {
+        "__id": 8,
+        "name": "Lehenga - Smoke White",
+        "category": "lehenga",
+        "forGender": "female",
+        "size": {
+            "M": 5,
+            "L": 8,
+            "XL": 10,
+            "XXL": 8
+        },
+        "price": 2350,
+        "discountRate": 0,
+        "discountPrice": 2350,
+        "description": "Lehenga - Smoke White",
+        "imageURL": "https://i.ibb.co/XVrw2rj/lehenga-white.webp"
+    }
+]

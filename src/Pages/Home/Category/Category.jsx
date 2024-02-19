@@ -4,7 +4,7 @@ import { FaHandsHoldingChild } from "react-icons/fa6";
 
 const Category = () => {
     return (
-        <div className="h-10 flex flex-col lg:flex-row justify-between items-center mx-3">
+        <div className="my-2 mx-3 flex flex-col lg:flex-row justify-between items-center">
             <Link
                 to=""
                 className="w-full bg-[#40ca91] text-center text-2xl font-serif font-extrabold border py-5 mx-1 my-1 rounded-lg lg:rounded-br-full hover:bg-white hover:border-4 hover:border-green-600 hover:text-green-800"
