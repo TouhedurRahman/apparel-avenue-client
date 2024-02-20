@@ -8,7 +8,7 @@ import { RiLogoutCircleRFill } from "react-icons/ri";
 const Navbar = () => {
     return (
         <>
-            <div className="navbar fixed fixed-top z-[1] bg-[#40ca91] px-10 text-4xl font-extrabold font-serif">
+            <div className="navbar fixed fixed-top z-[1] bg-[#40ca91] px-2 lg:px-10 text-4xl font-extrabold font-serif">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

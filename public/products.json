@@ -19,7 +19,7 @@
     {
         "__id": 2,
         "name": "Pure Black",
-        "category": "t-shirt",
+        "category": "tshirt",
         "forGender": "male",
         "size": {
             "M": 5,
@@ -134,5 +134,73 @@
         "discountPrice": 2350,
         "description": "Lehenga - Smoke White",
         "imageURL": "https://i.ibb.co/XVrw2rj/lehenga-white.webp"
+    },
+    {
+        "__id": 9,
+        "name": "T-shirt Half Pant Combo",
+        "category": "combo",
+        "forGender": "kids",
+        "size": {
+            "M": 5,
+            "L": 8,
+            "XL": 10,
+            "XXL": 8
+        },
+        "price": 625,
+        "discountRate": 8,
+        "discountPrice": 575,
+        "description": "T-shirt Half Pant Combo cotton collection.",
+        "imageURL": "https://i.ibb.co/qpnhjSh/kids-tshirt-hpant.png"
+    },
+    {
+        "__id": 10,
+        "name": "Junior Panjabi set",
+        "category": "panjabi",
+        "forGender": "kids",
+        "size": {
+            "M": 5,
+            "L": 8,
+            "XL": 10,
+            "XXL": 8
+        },
+        "price": 990,
+        "discountRate": 21,
+        "discountPrice": 782,
+        "description": "premium panjabi for kids",
+        "imageURL": "https://i.ibb.co/g9bZSns/kids-panjabi.jpg"
+    },
+    {
+        "__id": 11,
+        "name": "Polo T-Shirt - Cat Pack",
+        "category": "tshirt",
+        "forGender": "kids",
+        "size": {
+            "M": 5,
+            "L": 8,
+            "XL": 10,
+            "XXL": 8
+        },
+        "price": 680,
+        "discountRate": 0,
+        "discountPrice": 680,
+        "description": "Organic Ringspun Combed Compact Cotton. 100% Cotton for kids",
+        "imageURL": "https://i.ibb.co/N79GG3s/Polo-t-shirt.jpg"
+    },
+    {
+        "__id": 12,
+        "name": "Premium Boys Trouser - Spiderman",
+        "category": "trouser",
+        "forGender": "kids",
+        "size": {
+            "M": 5,
+            "L": 8,
+            "XL": 10,
+            "XXL": 8
+        },
+        "price": 485,
+        "discountRate": 10,
+        "discountPrice": 436,
+        "description": "Ringspum Combed Compact 100% Cotton, Organic. Fabric Color: Reactive Dye",
+        "imageURL": "https://i.ibb.co/7CF8Kf1/trouser.png"
     }
 ]

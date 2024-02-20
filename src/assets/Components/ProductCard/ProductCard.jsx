@@ -17,7 +17,10 @@ const ProductCard = ({ product }) => {
 
     return (
         <div>
-            <Link to="" className="card card-compact bg-green-200 border border-green-600 group relative">
+            <Link
+                to=""
+                className="card card-compact bg-green-200 border-2 border-orange-100 rounded-none group relative"
+            >
                 <figure><img className="w-full h-72" src={imageURL} alt="Shoes" /></figure>
                 {
                     discountRate > 0
@@ -28,9 +31,7 @@ const ProductCard = ({ product }) => {
                 }
                 <div className="hidden w-full h-64 group-hover:flex justify-end items-center absolute">
                     <div
-                        className="m-2 p-1 bg-green-100 border border-green-600 rounded-full text-2xl"
-                        data-aos="fade-up"
-                        data-aos-duration="3000"
+                        className="m-2 p-1 bg-green-100 border border-orange-600 rounded-badge text-2xl"
                     >
                         <FaHeart
                             className="my-5 mx-2"
@@ -65,9 +66,9 @@ const ProductCard = ({ product }) => {
                         }
                     </h2>
                 </div>
-                <div className="card-title flex justify-center items-center p-3">
+                <div className="flex justify-center items-center">
                     <button
-                        className="w-full btn bg-green-400 font-serif font-extrabold hover:bg-white hover:border-green-700 hover:text-green-800"
+                        className="w-full btn rounded-none bg-green-400 font-serif font-extrabold hover:bg-white hover:border-orange-300 hover:text-orange-800"
                     >
                         Bye Now
                     </button>
