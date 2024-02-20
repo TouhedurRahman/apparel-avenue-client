@@ -45,7 +45,7 @@ const ProductCard = ({ product }) => {
                     discountRate > 0
                     &&
                     <div
-                        className="absolute w-1/2 mx-[25%] bg-orange-300 mt-[265px] px-4 py-1 rounded-lg border-4 border-green-200 text-center font-serif font-extrabold"
+                        className="absolute w-1/2 mx-[25%] bg-orange-300 mt-[265px] lg:px-4 py-1 rounded-lg border-4 border-green-200 text-center font-serif font-extrabold"
                     >
                         Save ৳ {price - discountPrice}/-
                     </div>
@@ -70,7 +70,7 @@ const ProductCard = ({ product }) => {
                     <button
                         className="w-full btn rounded-none bg-green-400 font-serif font-extrabold hover:bg-white hover:border-orange-300 hover:text-orange-800"
                     >
-                        Bye Now
+                        Buy Now
                     </button>
                 </div>
             </Link>

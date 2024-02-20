@@ -1,9 +1,8 @@
 import useProducts from "../../../Hooks/useProducts";
-import ProductCard from "../../../assets/Components/ProductCard/ProductCard";
+import ProductCard from "../../../Components/ProductCard/ProductCard";
 
 const CollectionsHome = () => {
     const [products, loading] = useProducts();
-    // console.log(products);
 
     const maleCollections = products.filter(product => product.forGender === "male");
     const femaleCollections = products.filter(product => product.forGender === "female");

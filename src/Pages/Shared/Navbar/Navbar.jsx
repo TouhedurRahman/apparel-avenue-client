@@ -6,6 +6,31 @@ import { MdDashboardCustomize } from "react-icons/md";
 import { RiLogoutCircleRFill } from "react-icons/ri";
 
 const Navbar = () => {
+    const navOptions = <>
+        <li>
+            <Link
+                to="/"
+                className="mx-3 border-b-4 rounded-none border-b-transparent hover:border-b-white hover:bg-transparent"
+            >
+                Home
+            </Link>
+        </li>
+        <li>
+            <Link
+                to="/shop-now"
+                className="mx-3 border-b-4 rounded-none border-b-transparent hover:border-b-white hover:bg-transparent"
+            >
+                Shop Now
+            </Link>
+        </li>
+        <li>
+            <Link
+                className="mx-3 border-b-4 rounded-none border-b-transparent hover:border-b-white hover:bg-transparent"
+            >
+                Feedback
+            </Link>
+        </li>
+    </>
     return (
         <>
             <div className="navbar fixed fixed-top z-[1] bg-[#40ca91] px-2 lg:px-10 text-4xl font-extrabold font-serif">
@@ -15,9 +40,9 @@ const Navbar = () => {
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                         </div>
                         <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-[#40ca91] rounded-box rounded-t-none w-52">
-                            <li><Link>Home</Link></li>
-                            <li><Link>Shop Now</Link></li>
-                            <li><Link>Feedback</Link></li>
+                            {
+                                navOptions
+                            }
                         </ul>
                     </div>
                     <Link to="/">
@@ -30,9 +55,9 @@ const Navbar = () => {
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
-                        <li className="mx-3 border-b-4 border-b-transparent hover:border-b-white"><Link>Home</Link></li>
-                        <li className="mx-3 border-b-4 border-b-transparent hover:border-b-white"><Link>Shop Now</Link></li>
-                        <li className="mx-3 border-b-4 border-b-transparent hover:border-b-white"><Link>Feedback</Link></li>
+                        {
+                            navOptions
+                        }
                     </ul>
                 </div>
                 <div className="navbar-end">
