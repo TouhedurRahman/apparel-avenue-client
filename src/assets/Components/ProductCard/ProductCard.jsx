@@ -26,7 +26,7 @@ const ProductCard = ({ product }) => {
                         -{discountRate}%
                     </div>
                 }
-                <div className="hidden w-full h-72 group-hover:flex justify-end items-center absolute">
+                <div className="hidden w-full h-64 group-hover:flex justify-end items-center absolute">
                     <div
                         className="m-2 p-1 bg-green-100 border border-green-600 rounded-full text-2xl"
                         data-aos="fade-up"
