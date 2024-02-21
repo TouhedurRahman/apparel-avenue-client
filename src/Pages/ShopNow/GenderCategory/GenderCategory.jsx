@@ -1,9 +1,8 @@
-import React from 'react';
 import CoverImage from '../../Shared/CoverImage/CoverImage';
 import ProductCard from '../../../Components/ProductCard/ProductCard';
 import { Link } from 'react-router-dom';
 
-const GenderCategory = ({ title, products, img, loading }) => {
+const GenderCategory = ({ title, products, img, loading, gotoPage }) => {
     return (
         <div>
             {
@@ -37,6 +36,7 @@ const GenderCategory = ({ title, products, img, loading }) => {
                     <hr className="border-black border-b-2 my-4 mx-2" />
                 </div>
                 <Link
+                    to={`/${gotoPage}`}
                     className='w-full flex justify-center items-center'
                 >
                     <button className="btn btn-outline px-10 border-0 border-b-4 font-extrabold font-serif border-b-green-500 mt-4 bg-orange-300 text-black">

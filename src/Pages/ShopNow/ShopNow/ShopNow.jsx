@@ -18,18 +18,21 @@ const ShopNow = () => {
                 products={maleCollections}
                 img={mensCollectionImage}
                 loading={loading}
+                gotoPage={"mens-collections"}
             />
             <GenderCategory
                 title={"WOMENS COLLECTION"}
                 products={femaleCollections}
                 img={womensCollectionImage}
                 loading={loading}
+                gotoPage={"womens-collections"}
             />
             <GenderCategory
                 title={"KIDS COLLECTION"}
                 products={kidsCollections}
                 img={kidsCollectionImage}
                 loading={loading}
+                gotoPage={"kids-collections"}
             />
         </div>
     );

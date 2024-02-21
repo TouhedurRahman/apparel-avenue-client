@@ -4,6 +4,7 @@ import {
 import Main from "../../Layout/Main";
 import Home from "../../Pages/Home/Home/Home";
 import ShopNow from "../../Pages/ShopNow/ShopNow/ShopNow";
+import MensCollections from "../../Pages/ShopNow/MensCollections/MensCollections";
 
 const router = createBrowserRouter([
     {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
             {
                 path: 'shop-now',
                 element: <ShopNow />
+            },
+            {
+                path: 'mens-collections',
+                element: <MensCollections />
             }
         ]
     },

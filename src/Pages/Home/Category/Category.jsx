@@ -6,7 +6,7 @@ const Category = () => {
     return (
         <div className="my-2 mx-3 flex flex-col lg:flex-row justify-between items-center">
             <Link
-                to=""
+                to="/mens-collections"
                 className="w-full bg-orange-100 text-center text-2xl font-serif font-extrabold border-4 border-transparent py-5 mx-1 my-1 rounded-lg lg:rounded-br-full hover:bg-white hover:border-4 hover:border-green-600 hover:text-green-800"
             >
                 <h1 className="flex justify-center items-center"><IoMan className="mr-1" />MEN</h1>
