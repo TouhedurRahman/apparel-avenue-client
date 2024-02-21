@@ -38,6 +38,7 @@ const ProductCard = ({ product }) => {
         <div>
             <Link
                 to={`/product/${_id}`}
+                reloadDocument={true}
                 className="card card-compact bg-green-200 border-2 border-orange-100 border-b-0 rounded-none group relative"
             >
                 <figure><img className="w-full h-72" src={imageURL} alt="Shoes" /></figure>

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-import AOS from 'aos';
+import Aos from 'aos';
 import 'aos/dist/aos.css';
 import Navbar from '../Pages/Shared/Navbar/Navbar';
 import Footer from '../Pages/Shared/Footer/Footer';
@@ -9,7 +9,7 @@ import ScrollToTop from '../Components/ScrollToTop/ScrollToTop';
 
 const Main = () => {
     useEffect(() => {
-        AOS.init();
+        Aos.init();
     }, []);
 
     return (

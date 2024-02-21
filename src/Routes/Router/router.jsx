@@ -7,6 +7,7 @@ import ShopNow from "../../Pages/ShopNow/ShopNow/ShopNow";
 import MensCollections from "../../Pages/ShopNow/MensCollections/MensCollections";
 import WomensCollections from "../../Pages/ShopNow/WomensCollections/WomensCollections";
 import KidsCollections from "../../Pages/ShopNow/ShopNow/KidsCollections/KidsCollections";
+import SingleProduct from "../../Pages/SingleProduct/SingleProduct";
 
 const router = createBrowserRouter([
     {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
             {
                 path: 'kids-collections',
                 element: <KidsCollections />
+            },
+            {
+                path: 'product/:id',
+                element: <SingleProduct />
             }
         ]
     },
