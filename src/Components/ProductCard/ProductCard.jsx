@@ -4,6 +4,7 @@ import { FaCartArrowDown } from "react-icons/fa6";
 
 const ProductCard = ({ product }) => {
     const {
+        _id,
         name,
         category,
         forGender,
@@ -15,11 +16,29 @@ const ProductCard = ({ product }) => {
         imageURL
     } = product;
 
+    const handleFavourite = (e) => {
+        console.log("Favourite Added");
+
+        e.preventDefault();
+        e.stopPropagation();
+    };
+
+    const handleAddToCart = (e) => {
+        console.log("Add to cart");
+
+        e.preventDefault();
+        e.stopPropagation();
+    };
+
+    const handleBuyNow = (id) => {
+        console.log(id)
+    }
+
     return (
         <div>
             <Link
-                to=""
-                className="card card-compact bg-green-200 border-2 border-orange-100 rounded-none group relative"
+                to={`/product/${_id}`}
+                className="card card-compact bg-green-200 border-2 border-orange-100 border-b-0 rounded-none group relative"
             >
                 <figure><img className="w-full h-72" src={imageURL} alt="Shoes" /></figure>
                 {
@@ -35,9 +54,11 @@ const ProductCard = ({ product }) => {
                     >
                         <FaHeart
                             className="my-5 mx-2"
+                            onClick={(e) => handleFavourite(e)}
                         />
                         <FaCartArrowDown
                             className="my-5 mx-2"
+                            onClick={(e) => handleAddToCart(e)}
                         />
                     </div>
                 </div>
@@ -66,14 +87,15 @@ const ProductCard = ({ product }) => {
                         }
                     </h2>
                 </div>
-                <div className="flex justify-center items-center">
-                    <button
-                        className="w-full btn rounded-none bg-green-400 font-serif font-extrabold hover:bg-white hover:border-orange-300 hover:text-orange-800"
-                    >
-                        Buy Now
-                    </button>
-                </div>
             </Link>
+            <div className="flex justify-center items-center bg-green-200 border-2 border-orange-100 border-t-0">
+                <button
+                    className="w-full btn rounded-none bg-green-400 font-serif font-extrabold hover:bg-white hover:border-orange-300 hover:text-orange-800"
+                    onClick={() => handleBuyNow(_id)}
+                >
+                    Buy Now
+                </button>
+            </div>
         </div>
     );
 };

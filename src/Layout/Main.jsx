@@ -5,6 +5,7 @@ import 'aos/dist/aos.css';
 import Navbar from '../Pages/Shared/Navbar/Navbar';
 import Footer from '../Pages/Shared/Footer/Footer';
 import OurSuppurt from '../Pages/Home/OurSuppurt/OurSuppurt';
+import ScrollToTop from '../Components/ScrollToTop/ScrollToTop';
 
 const Main = () => {
     useEffect(() => {
@@ -17,6 +18,7 @@ const Main = () => {
             <Outlet />
             <OurSuppurt />
             <Footer />
+            <ScrollToTop />
         </div>
     );
 };
