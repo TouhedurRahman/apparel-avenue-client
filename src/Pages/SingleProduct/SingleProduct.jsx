@@ -10,6 +10,7 @@ const SingleProduct = () => {
     const [product, loadingSingleProduct] = useSingleProduct();
     const [selectedSize, setSelectedSize] = useState('');
     const [quantity, setQuantity] = useState(1);
+    const [showAll, setShowAll] = useState(false);
 
     const relatedProducts = products.filter(
         relatedProduct =>
@@ -76,11 +77,11 @@ const SingleProduct = () => {
                                                 </>
                                                 :
                                                 <>
-                                                    ৳ {product.discountPrice}/-
+                                                    ৳ <span className="text-3xl font-sans font-bold">{product.discountPrice}</span>/-
                                                 </>
                                         }
                                     </h2>
-                                    <p className="text-xl font-semibold">Available Sizes</p>
+                                    <p className="text-xl font-serif font-bold">Available Sizes</p>
                                     <div>
                                         <SelectSize
                                             selectedSize={selectedSize}
@@ -110,10 +111,32 @@ const SingleProduct = () => {
                                     <div className='w-full'>
                                         <hr className="border-black border-b-2 my-4" />
                                     </div>
-                                    <p className="text-xl font-semibold">Description</p>
-                                    <p className="text-justify">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus totam, inventore ducimus autem voluptatem, quisquam incidunt fugit officiis facilis fuga corporis laudantium. Commodi aliquid eveniet, veniam voluptatum porro odit alias.
-                                    </p>
+                                    <p className="text-xl font-serif font-bold">Description</p>
+                                    <div className="py-3 font-semibold">
+                                        {
+                                            product.description.split('. ').map((line, index) => (
+                                                (!showAll && index >= 3)
+                                                    ?
+                                                    null
+                                                    :
+                                                    (
+                                                        <p key={index} className="list-disc pl-4">
+                                                            • {line}{index === product.description.split('. ').length - 1 ? '' : '.'}
+                                                        </p>
+                                                    )
+                                            ))
+                                        }
+                                        {
+                                            product.description.split('. ').length > 3 && (
+                                                <button
+                                                    className="text-blue-500 hover:link"
+                                                    onClick={() => setShowAll(!showAll)}
+                                                >
+                                                    {showAll ? 'Show less' : 'Show more...'}
+                                                </button>
+                                            )
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
