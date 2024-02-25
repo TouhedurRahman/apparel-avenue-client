@@ -9,6 +9,7 @@ import WomensCollections from "../../Pages/ShopNow/WomensCollections/WomensColle
 import KidsCollections from "../../Pages/ShopNow/ShopNow/KidsCollections/KidsCollections";
 import SingleProduct from "../../Pages/SingleProduct/SingleProduct";
 import Login from "../../Pages/LoginAndResgistration/Login/Login";
+import Register from "../../Pages/LoginAndResgistration/Register/Register";
 
 const router = createBrowserRouter([
     {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
             {
                 path: 'login',
                 element: <Login />
+            },
+            {
+                path: 'register',
+                element: <Register />
             }
         ]
     },

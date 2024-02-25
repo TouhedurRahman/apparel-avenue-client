@@ -47,7 +47,7 @@ const Login = () => {
                     <form onSubmit={handleSubmit(handleLogin)}>
                         <div className="form-control w-full max-w-xs">
                             <label className="label">
-                                <span className="label-text">Email</span>
+                                <span className="label-text font-bold italic">Email</span>
                             </label>
                             <input
                                 type="email"
@@ -62,7 +62,7 @@ const Login = () => {
 
                         <div className="form-control w-full max-w-xs">
                             <label className="label">
-                                <span className="label-text">password</span>
+                                <span className="label-text font-bold italic">password</span>
                             </label>
                             <div className='relative'>
                                 <div className='flex'>
@@ -105,18 +105,18 @@ const Login = () => {
                                         <LoadCanvasTemplate />
                                     </label>
                                 </div>
-                                <div className='w-full flex justify between items-center'>
+                                <div className='form-control w-full max-w-xs flex flex-row justify between items-center'>
                                     <input
                                         type="text"
                                         name="captcha"
                                         ref={captchaRef}
-                                        placeholder="Type the captcha above"
-                                        className="input input-accent input-bordered border-2 border-green-400 focus:outline-none"
+                                        placeholder="Type the captcha"
+                                        className="w-[60%] input input-accent text-center input-bordered border-2 border-green-400 focus:outline-none"
                                         required
                                     />
                                     <button
                                         onClick={handleValidateCaptcha}
-                                        className='btn bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600'
+                                        className='w-[40%] btn bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600'
                                     >Validate <GrValidate size={24} className='text-green-600 font-extrabold' /></button>
                                 </div>
                             </div>
@@ -125,11 +125,13 @@ const Login = () => {
                                 <span className="label-text-alt text-blue-600 font-bold hover:link">Forget password?</span>
                             </label>
                         </div>
-                        <input type="submit" className='w-full btn bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600' value='Login' disabled={loginDisabled} />
+                        <div className="form-control w-full max-w-xs">
+                            <input type="submit" className='w-full btn bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600' value='Login' disabled={loginDisabled} />
+                        </div>
                     </form>
 
                     <p className='pt-3 text-center'>
-                        New Here? <Link className='text-blue-600 font-bold hover:link' to='/register'>Create an account</Link>
+                        <span className='font-bold'>New Here?</span> <Link className='text-blue-600 font-bold hover:link' to='/register'>Create an account</Link>
                     </p>
                 </div>
             </div>
