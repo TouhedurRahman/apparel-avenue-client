@@ -5,6 +5,8 @@ import QuanntityUpdate from "../../Components/QuanntityUpdate/QuanntityUpdate";
 import useProducts from "../../Hooks/useProducts";
 import ProductCard from "../../Components/ProductCard/ProductCard";
 import { Transition } from "@headlessui/react";
+import ShareSocialMedia from "../../Components/ShareSocialMedia/ShareSocialMedia";
+import { useLocation } from "react-router-dom";
 
 const SingleProduct = () => {
     const [products, loading] = useProducts();
@@ -14,6 +16,9 @@ const SingleProduct = () => {
     const [showAll, setShowAll] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
+    const location = useLocation();
+
+    const url = location.pathname;
     const relatedProducts = products.filter(
         relatedProduct =>
             (relatedProduct.forGender === product.forGender)
@@ -47,131 +52,136 @@ const SingleProduct = () => {
                             <span className="loading loading-dots loading-lg"></span>
                         </div>
                         :
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mx-5 lg:mx-10 my-2">
-                            <div className="w-full flex flex-col items-center">
-                                <div className="w-full lg:w-[85%] pt-3">
-                                    <img
-                                        src={product.imageURL}
-                                        className="w-full h-96 pt-3" />
-                                </div>
-                                <div className="w-full lg:w-[85%] border border-gray-300 rounded-lg mt-2">
-                                    <div
-                                        className="flex justify-between items-center px-4 py-2 cursor-pointer
+                        <div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mx-5 lg:mx-10 my-2">
+                                <div className="w-full flex flex-col items-center">
+                                    <div className="w-full lg:w-[85%] pt-3">
+                                        <img
+                                            src={product.imageURL}
+                                            className="w-full h-96 pt-3" />
+                                    </div>
+                                    <div className="w-full lg:w-[85%] border border-gray-300 rounded-lg mt-2">
+                                        <div
+                                            className="flex justify-between items-center px-4 py-2 cursor-pointer
                                         bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600 rounded-t-lg
                                         "
-                                        onClick={() => setIsOpen(!isOpen)}
-                                    >
-                                        <h3 className="text-lg font-medium">
-                                            Size chart  (Expected Deviation 3%)
-                                        </h3>
-                                        <button className="text-gray-600 focus:outline-none">
-                                            {isOpen ? '-' : '+'}
-                                        </button>
+                                            onClick={() => setIsOpen(!isOpen)}
+                                        >
+                                            <h3 className="text-lg font-medium">
+                                                Size Chart  (Expected Deviation 3%)
+                                            </h3>
+                                            <button className="text-black text-2xl font-serif font-extrabold focus:outline-none">
+                                                {isOpen ? '-' : '+'}
+                                            </button>
+                                        </div>
+                                        <Transition
+                                            show={isOpen}
+                                            enter="transition-opacity duration-200"
+                                            enterFrom="opacity-0"
+                                            enterTo="opacity-100"
+                                            leave="transition-opacity duration-200"
+                                            leaveFrom="opacity-100"
+                                            leaveTo="opacity-0"
+                                        >
+                                            {(ref) => (
+                                                <div ref={ref} className="px-4 py-2 border-t border-2 border-green-400">
+                                                    {/* Accordion content goes here */}
+                                                    <p>This is the accordion content!</p>
+                                                </div>
+                                            )}
+                                        </Transition>
                                     </div>
-                                    <Transition
-                                        show={isOpen}
-                                        enter="transition-opacity duration-200"
-                                        enterFrom="opacity-0"
-                                        enterTo="opacity-100"
-                                        leave="transition-opacity duration-200"
-                                        leaveFrom="opacity-100"
-                                        leaveTo="opacity-0"
-                                    >
-                                        {(ref) => (
-                                            <div ref={ref} className="px-4 py-2 border-t border-2 border-green-400">
-                                                {/* Accordion content goes here */}
-                                                <p>This is the accordion content!</p>
-                                            </div>
-                                        )}
-                                    </Transition>
                                 </div>
-                            </div>
-                            <div className="w-full pt-5 pl-2">
-                                <h1 className="text-4xl font-serif font-bold">{product.name}</h1>
-                                {
-                                    product.discountRate > 0
-                                    &&
-                                    <div
-                                        className="w-48 mt-4 bg-orange-100 rounded-r-lg border-2 border-green-200 text-center font-bold"
-                                    >
-                                        Save {product.discountRate}%
-                                    </div>
-                                }
-                                <h2 className="card-title flex justify-start items-center my-3">
+                                <div className="w-full pt-5 pl-2">
+                                    <h1 className="text-4xl font-serif font-bold">{product.name}</h1>
                                     {
                                         product.discountRate > 0
-                                            ?
-                                            <>
-                                                <span className="text-gray-500">
-                                                    ৳ <del>{product.price}/-</del>
-                                                </span>
-                                                <span className="flex justify-center items-center">
-                                                    ৳ <span className="text-3xl font-sans font-bold">{product.discountPrice}</span>/-
-                                                </span>
-                                            </>
-                                            :
-                                            <>
-                                                ৳ <span className="text-3xl font-sans font-bold">{product.discountPrice}</span>/-
-                                            </>
+                                        &&
+                                        <div
+                                            className="w-48 mt-4 bg-orange-100 rounded-r-lg border-2 border-green-200 text-center font-bold"
+                                        >
+                                            Save {product.discountRate}%
+                                        </div>
                                     }
-                                </h2>
-                                <p className="text-xl font-serif font-bold">Available Sizes</p>
-                                <div>
-                                    <SelectSize
-                                        selectedSize={selectedSize}
-                                        setSelectedSize={setSelectedSize}
-                                        handleSizeSelection={handleSizeSelection}
-                                    />
-                                </div>
-                                <div className="mt-10">
-                                    <QuanntityUpdate
-                                        quantity={quantity}
-                                        handleIncrement={handleIncrement}
-                                        handleDecrement={handleDecrement}
-                                    />
-                                </div>
-                                <div className="mt-5">
-                                    <button
-                                        className="mr-2 btn px-10 py-3 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600"
-                                    >
-                                        Add to cart
-                                    </button>
-                                    <button
-                                        className="ml-2 btn px-10 py-3 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600"
-                                    >
-                                        Buy Now
-                                    </button>
-                                </div>
-                                <div className='w-full'>
-                                    <hr className="border-black border-b-2 my-4" />
-                                </div>
-                                <p className="text-xl font-serif font-bold">Description</p>
-                                <div className="py-3 font-semibold">
-                                    {
-                                        product.description.split('. ').map((line, index) => (
-                                            (!showAll && index >= 3)
+                                    <h2 className="card-title flex justify-start items-center my-3">
+                                        {
+                                            product.discountRate > 0
                                                 ?
-                                                null
+                                                <>
+                                                    <span className="text-gray-500">
+                                                        ৳ <del>{product.price}/-</del>
+                                                    </span>
+                                                    <span className="flex justify-center items-center">
+                                                        ৳ <span className="text-3xl font-sans font-bold">{product.discountPrice}</span>/-
+                                                    </span>
+                                                </>
                                                 :
-                                                (
-                                                    <p key={index} className="list-disc pl-4">
-                                                        • {line}{index === product.description.split('. ').length - 1 ? '' : '.'}
-                                                    </p>
-                                                )
-                                        ))
-                                    }
-                                    {
-                                        product.description.split('. ').length > 3 && (
-                                            <button
-                                                className="text-blue-500 hover:link"
-                                                onClick={() => setShowAll(!showAll)}
-                                            >
-                                                {showAll ? '...Show less' : 'Show more...'}
-                                            </button>
-                                        )
-                                    }
+                                                <>
+                                                    ৳ <span className="text-3xl font-sans font-bold">{product.discountPrice}</span>/-
+                                                </>
+                                        }
+                                    </h2>
+                                    <p className="text-xl font-serif font-bold">Available Sizes</p>
+                                    <div>
+                                        <SelectSize
+                                            selectedSize={selectedSize}
+                                            setSelectedSize={setSelectedSize}
+                                            handleSizeSelection={handleSizeSelection}
+                                        />
+                                    </div>
+                                    <div className="mt-10">
+                                        <QuanntityUpdate
+                                            quantity={quantity}
+                                            handleIncrement={handleIncrement}
+                                            handleDecrement={handleDecrement}
+                                        />
+                                    </div>
+                                    <div className="mt-5">
+                                        <button
+                                            className="mr-2 btn px-10 py-3 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600"
+                                        >
+                                            Add to cart
+                                        </button>
+                                        <button
+                                            className="ml-2 btn px-10 py-3 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600"
+                                        >
+                                            Buy Now
+                                        </button>
+                                    </div>
+                                    <div className='w-full'>
+                                        <hr className="border-black border-b-2 my-4" />
+                                    </div>
+                                    <p className="text-xl font-serif font-bold">Description</p>
+                                    <div className="py-3 font-semibold">
+                                        {
+                                            product.description.split('. ').map((line, index) => (
+                                                (!showAll && index >= 3)
+                                                    ?
+                                                    null
+                                                    :
+                                                    (
+                                                        <p key={index} className="list-disc pl-4">
+                                                            • {line}{index === product.description.split('. ').length - 1 ? '' : '.'}
+                                                        </p>
+                                                    )
+                                            ))
+                                        }
+                                        {
+                                            product.description.split('. ').length > 3 && (
+                                                <button
+                                                    className="text-blue-500 hover:link"
+                                                    onClick={() => setShowAll(!showAll)}
+                                                >
+                                                    {showAll ? '...Show less' : 'Show more...'}
+                                                </button>
+                                            )
+                                        }
+                                    </div>
                                 </div>
                             </div>
+                            <ShareSocialMedia
+                                url={url}
+                            />
                         </div>
                 }
                 <div className="mx-5">
