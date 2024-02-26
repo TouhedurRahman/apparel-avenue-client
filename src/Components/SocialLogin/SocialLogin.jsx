@@ -1,6 +1,8 @@
 import useAuth from "../../Hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 const SocialLogin = () => {
     const { googleLogIn } = useAuth();
@@ -15,9 +17,22 @@ const SocialLogin = () => {
             .then(result => {
                 const loggedUser = result.user;
                 navigate(from, { replace: true })
-                // console.log(loggedUser);
+
+                const user = { name: loggedUser.displayName, email: loggedUser.email };
+                const url = "http://localhost:5000/users";
+                axios.post(url, user)
+                    .then(() => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'User Login successfull.',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        navigate(from, { replace: true })
+                    })
             })
     }
+
     return (
         <div>
             <div className="divider">OR</div>
