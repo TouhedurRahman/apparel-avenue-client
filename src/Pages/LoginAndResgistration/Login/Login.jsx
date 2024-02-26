@@ -135,7 +135,7 @@ const Login = () => {
                                         required
                                     />
                                     <button
-                                        onClick={() => handleValidateCaptcha()}
+                                        onClick={handleValidateCaptcha}
                                         className='w-[40%] btn bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600'
                                     >Validate <GrValidate size={24} className='text-green-600 font-extrabold' /></button>
                                 </div>
