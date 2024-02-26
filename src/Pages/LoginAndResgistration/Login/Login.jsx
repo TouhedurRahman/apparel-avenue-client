@@ -7,6 +7,7 @@ import { GrValidate } from "react-icons/gr";
 import { FaUserCircle } from 'react-icons/fa';
 import useAuth from '../../../Hooks/useAuth';
 import Swal from 'sweetalert2';
+import SocialLogin from '../../../Components/SocialLogin/SocialLogin';
 
 const Login = () => {
     const { logIn } = useAuth();
@@ -82,7 +83,7 @@ const Login = () => {
 
                         <div className="form-control w-full max-w-xs">
                             <label className="label">
-                                <span className="label-text font-bold italic">password</span>
+                                <span className="label-text font-bold italic">Password</span>
                             </label>
                             <div className='relative'>
                                 <div className='flex'>
@@ -153,6 +154,10 @@ const Login = () => {
                     <p className='w-full max-w-xs pt-3 text-center'>
                         <span className='font-bold'>New Here?</span> <Link className='text-blue-600 font-bold hover:link' to='/register'>Create an Account</Link>
                     </p>
+
+                    <div className='w-full max-w-xs'>
+                        <SocialLogin />
+                    </div>
                 </div>
             </div>
         </div>

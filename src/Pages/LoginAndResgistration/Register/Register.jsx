@@ -4,6 +4,7 @@ import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { FaUsersCog } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import useAuth from '../../../Hooks/useAuth';
+import SocialLogin from '../../../Components/SocialLogin/SocialLogin';
 
 const Register = () => {
     const { createUser, updateUserProfile } = useAuth();
@@ -81,7 +82,7 @@ const Register = () => {
 
                         <div className="form-control w-full max-w-xs">
                             <label className="label">
-                                <span className="label-text font-bold italic">password</span>
+                                <span className="label-text font-bold italic">Password</span>
                             </label>
                             <div className="relative">
                                 <div className="flex">
@@ -119,7 +120,7 @@ const Register = () => {
 
                         <div className="form-control w-full max-w-xs">
                             <label className="label">
-                                <span className="label-text font-bold italic">Confirm password</span>
+                                <span className="label-text font-bold italic">Confirm Password</span>
                             </label>
                             <div className="relative">
                                 <div className="flex">
@@ -171,6 +172,10 @@ const Register = () => {
                     <p className='w-full max-w-xs pt-3 text-center'>
                         <span className='font-bold'>Already have an account?</span> <Link className='text-blue-600 font-bold hover:link' to='/login'>Please Login</Link>
                     </p>
+
+                    <div className='w-full max-w-xs'>
+                        <SocialLogin />
+                    </div>
                 </div>
             </div>
         </div>
