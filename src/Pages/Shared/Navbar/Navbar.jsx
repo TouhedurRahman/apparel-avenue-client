@@ -4,8 +4,13 @@ import { FaCartArrowDown } from "react-icons/fa6";
 import { FaCircleUser } from "react-icons/fa6";
 import { MdDashboardCustomize } from "react-icons/md";
 import { RiLogoutCircleRFill } from "react-icons/ri";
+import useAuth from "../../../Hooks/useAuth";
+import useLogOut from "../../../Hooks/useLogOut";
 
 const Navbar = () => {
+    const { user } = useAuth();
+    const handleLogOut = useLogOut();
+
     const navOptions = <>
         <li>
             <Link
@@ -103,9 +108,19 @@ const Navbar = () => {
                                 </div>
                             </div>
                             <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-[#40ca91] rounded-box w-52 rounded-t-none shadow-0">
-                                <li><a><FaCircleUser />Profile</a></li>
-                                <li><a><MdDashboardCustomize />Dashboard</a></li>
-                                <li><a><RiLogoutCircleRFill />Log Out</a></li>
+                                {
+                                    user
+                                        ?
+                                        <>
+                                            <li><Link to=""><FaCircleUser />Profile</Link></li>
+                                            <li><Link to=""><MdDashboardCustomize />Dashboard</Link></li>
+                                            <li><Link to="" onClick={handleLogOut}><RiLogoutCircleRFill />Log Out</Link></li>
+                                        </>
+                                        :
+                                        <>
+                                            <li><Link to="/login"><FaCircleUser />Login</Link></li>
+                                        </>
+                                }
                             </ul>
                         </div>
                     </div>

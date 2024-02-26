@@ -3,8 +3,10 @@ import { useForm } from 'react-hook-form';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { FaUsersCog } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import useAuth from '../../../Hooks/useAuth';
 
 const Register = () => {
+    const { createUser, updateUserProfile } = useAuth();
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const [openPassword, setOpenPassword] = useState(false);
@@ -16,7 +18,24 @@ const Register = () => {
         const userPass = data.password;
         const userConPass = data.confirmPassword;
 
-        console.log(userName, userEmail, userPass, userConPass)
+        try {
+            if (userPass === userConPass) {
+                const userCredential = await createUser(userEmail, userPass);
+                const registeredUser = userCredential.user;
+
+                console.log(registeredUser);
+
+                const userInfo = {
+                    displayName: userName
+                };
+
+                await updateUserProfile(userInfo);
+            } else {
+                console.log("Password & confirm password must be the same.");
+            }
+        } catch (error) {
+            console.error("Error during registration: ", error);
+        }
     }
 
     return (
@@ -149,7 +168,7 @@ const Register = () => {
                         </div>
                     </form>
 
-                    <p className='pt-3 text-center'>
+                    <p className='w-full max-w-xs pt-3 text-center'>
                         <span className='font-bold'>Already have an account?</span> <Link className='text-blue-600 font-bold hover:link' to='/login'>Please Login</Link>
                     </p>
                 </div>

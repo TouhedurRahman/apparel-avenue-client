@@ -1,16 +1,24 @@
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { GrValidate } from "react-icons/gr";
 import { FaUserCircle } from 'react-icons/fa';
+import useAuth from '../../../Hooks/useAuth';
+import Swal from 'sweetalert2';
 
 const Login = () => {
+    const { logIn } = useAuth();
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const [isOpen, setIsOpen] = useState(false);
     const [loginDisabled, setLoginDisabled] = useState(true);
+
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const from = location.state?.from?.pathname || "/";
 
     const captchaRef = useRef(null);
 
@@ -31,7 +39,19 @@ const Login = () => {
     const handleLogin = (data) => {
         const email = data.email;
         const password = data.password;
-        console.log(email, password);
+
+        logIn(email, password)
+            .then(userCredential => {
+                const user = userCredential.user;
+                console.log(user);
+                Swal.fire({
+                    icon: "success",
+                    title: "Login successfull!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                navigate(from, { replace: true });
+            })
     }
 
     return (
@@ -100,7 +120,7 @@ const Login = () => {
                             }
 
                             <div className="form-control">
-                                <div className='w-full flex justify-center items-center'>
+                                <div className='w-full max-w-xs flex justify-center items-center'>
                                     <label className="label">
                                         <LoadCanvasTemplate />
                                     </label>
@@ -115,7 +135,7 @@ const Login = () => {
                                         required
                                     />
                                     <button
-                                        onClick={handleValidateCaptcha}
+                                        onClick={() => handleValidateCaptcha()}
                                         className='w-[40%] btn bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600'
                                     >Validate <GrValidate size={24} className='text-green-600 font-extrabold' /></button>
                                 </div>
@@ -130,8 +150,8 @@ const Login = () => {
                         </div>
                     </form>
 
-                    <p className='pt-3 text-center'>
-                        <span className='font-bold'>New Here?</span> <Link className='text-blue-600 font-bold hover:link' to='/register'>Create an account</Link>
+                    <p className='w-full max-w-xs pt-3 text-center'>
+                        <span className='font-bold'>New Here?</span> <Link className='text-blue-600 font-bold hover:link' to='/register'>Create an Account</Link>
                     </p>
                 </div>
             </div>
