@@ -5,7 +5,7 @@ const useSingleProduct = () => {
     const { id } = useParams();
 
     const { data: product = {}, isLoading: loadingSingleProduct } = useQuery({
-        queryKey: ['product'],
+        queryKey: ['product', id],
         queryFn: async () => {
             const url = `http://localhost:5000/product/${id}`;
             const result = await fetch(url);
@@ -13,7 +13,7 @@ const useSingleProduct = () => {
         }
     })
 
-    return [product, loadingSingleProduct]
+    return [product, loadingSingleProduct];
 };
 
 export default useSingleProduct;

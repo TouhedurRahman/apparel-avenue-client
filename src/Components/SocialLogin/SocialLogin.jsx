@@ -18,7 +18,12 @@ const SocialLogin = () => {
                 const loggedUser = result.user;
                 navigate(from, { replace: true })
 
-                const user = { name: loggedUser.displayName, email: loggedUser.email };
+                const user = {
+                    name: loggedUser.displayName,
+                    email: loggedUser.email,
+                    profilePicture: loggedUser.photoURL
+                };
+
                 const url = "http://localhost:5000/users";
                 axios.post(url, user)
                     .then(() => {

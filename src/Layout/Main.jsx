@@ -6,6 +6,8 @@ import Navbar from '../Pages/Shared/Navbar/Navbar';
 import Footer from '../Pages/Shared/Footer/Footer';
 import OurSuppurt from '../Pages/Home/OurSuppurt/OurSuppurt';
 import ScrollToTop from '../Components/ScrollToTop/ScrollToTop';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Main = () => {
     useEffect(() => {
@@ -18,6 +20,7 @@ const Main = () => {
             <Outlet />
             <OurSuppurt />
             <Footer />
+            <ToastContainer />
             <ScrollToTop />
         </div>
     );

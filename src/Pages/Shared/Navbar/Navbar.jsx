@@ -6,9 +6,11 @@ import { MdDashboardCustomize } from "react-icons/md";
 import { RiLogoutCircleRFill } from "react-icons/ri";
 import useAuth from "../../../Hooks/useAuth";
 import useLogOut from "../../../Hooks/useLogOut";
+import useSingleUser from "../../../Hooks/useSingleUser";
 
 const Navbar = () => {
     const { user } = useAuth();
+    const [singleUser] = useSingleUser();
     const handleLogOut = useLogOut();
 
     const navOptions = <>
@@ -109,9 +111,9 @@ const Navbar = () => {
                                                 className="w-10 h-10 rounded-full ring ring-green-600 ring-offset-orange-100 ring-offset-2">
                                                 <img
                                                     src={
-                                                        user.photoURL
+                                                        singleUser.profilePicture
                                                             ?
-                                                            `${user.photoURL}`
+                                                            `${singleUser.profilePicture}`
                                                             :
                                                             "https://i.ibb.co/6r3zmMg/user.jpg"
                                                     }
