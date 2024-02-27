@@ -105,15 +105,24 @@ const Navbar = () => {
                                 <div className="dropdown dropdown-bottom dropdown-end ml-3 my-auto">
                                     <div tabIndex={0} role="button" className="mt-2">
                                         <div className="avatar">
-                                            <div className="w-10 h-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                                                <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                            <div
+                                                className="w-10 h-10 rounded-full ring ring-green-600 ring-offset-orange-100 ring-offset-2">
+                                                <img
+                                                    src={
+                                                        user.photoURL
+                                                            ?
+                                                            `${user.photoURL}`
+                                                            :
+                                                            "https://i.ibb.co/6r3zmMg/user.jpg"
+                                                    }
+                                                />
                                             </div>
                                         </div>
                                     </div>
                                     <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-[#40ca91] rounded-box w-52 rounded-t-none shadow-0">
-                                        <li><Link to=""><FaCircleUser />Profile</Link></li>
+                                        <li><Link to="my-profile"><FaCircleUser />Profile</Link></li>
                                         <li><Link to=""><MdDashboardCustomize />Dashboard</Link></li>
-                                        <li><Link to="" onClick={handleLogOut}><RiLogoutCircleRFill />Log Out</Link></li>
+                                        <li><Link onClick={handleLogOut}><RiLogoutCircleRFill />Log Out</Link></li>
                                     </ul>
                                 </div>
                                 :

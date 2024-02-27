@@ -10,6 +10,7 @@ import KidsCollections from "../../Pages/ShopNow/ShopNow/KidsCollections/KidsCol
 import SingleProduct from "../../Pages/SingleProduct/SingleProduct";
 import Login from "../../Pages/LoginAndResgistration/Login/Login";
 import Register from "../../Pages/LoginAndResgistration/Register/Register";
+import MyProfile from "../../Pages/MyProfile/MyProfile";
 
 const router = createBrowserRouter([
     {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
             {
                 path: 'register',
                 element: <Register />
+            },
+            {
+                path: 'my-profile',
+                element: <MyProfile />
             }
         ]
     },
