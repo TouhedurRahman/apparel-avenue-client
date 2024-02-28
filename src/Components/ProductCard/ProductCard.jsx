@@ -39,9 +39,9 @@ const ProductCard = ({ product }) => {
             <Link
                 to={`/product/${_id}`}
                 reloadDocument={true}
-                className="card card-compact bg-green-200 border-2 border-orange-100 border-b-0 rounded-none group relative"
+                className="card card-compact mx-3 bg-green-200 border-2 border-orange-100 border-b-0 rounded-none group relative"
             >
-                <figure><img className="w-full h-72" src={imageURL} alt="Shoes" /></figure>
+                <figure><img className="w-full h-72" src={imageURL} alt="Loading..." /></figure>
                 {
                     discountRate > 0
                     &&
@@ -49,7 +49,21 @@ const ProductCard = ({ product }) => {
                         -{discountRate}%
                     </div>
                 }
-                <div className="hidden w-full h-64 group-hover:flex justify-end items-center absolute">
+                <div className="hidden w-full h-64 lg:group-hover:flex justify-end items-center absolute">
+                    <div
+                        className="m-2 p-1 bg-green-100 border border-orange-600 rounded-badge text-2xl"
+                    >
+                        <FaHeart
+                            className="my-5 mx-2"
+                            onClick={(e) => handleFavourite(e)}
+                        />
+                        <FaCartArrowDown
+                            className="my-5 mx-2"
+                            onClick={(e) => handleAddToCart(e)}
+                        />
+                    </div>
+                </div>
+                <div className="w-full h-64 flex justify-end items-center absolute lg:hidden">
                     <div
                         className="m-2 p-1 bg-green-100 border border-orange-600 rounded-badge text-2xl"
                     >
@@ -89,7 +103,7 @@ const ProductCard = ({ product }) => {
                     </h2>
                 </div>
             </Link>
-            <div className="flex justify-center items-center bg-green-200 border-2 border-orange-100 border-t-0">
+            <div className="flex justify-center items-center mx-3 bg-green-200 border-2 border-orange-100 border-t-0">
                 <button
                     className="w-full btn rounded-none bg-green-400 font-serif font-extrabold hover:bg-white hover:border-orange-300 hover:text-orange-800"
                     onClick={() => handleBuyNow(_id)}
