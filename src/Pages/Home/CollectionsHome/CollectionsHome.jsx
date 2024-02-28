@@ -9,7 +9,7 @@ const CollectionsHome = () => {
     const kidsCollections = products.filter(product => product.forGender === "kids");
 
     return (
-        <>
+        <div className="mx-3">
             <div className="grid grid-cols-1 md:grid-cols-2 items-center m-3 mb-10">
                 <div className="w-full">
                     <img src="src/assets/images/HomeCollections/new-collection-1.jpg" alt="Mens Collection..." />
@@ -79,7 +79,7 @@ const CollectionsHome = () => {
                     }
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

@@ -39,7 +39,7 @@ const ProductCard = ({ product }) => {
             <Link
                 to={`/product/${_id}`}
                 reloadDocument={true}
-                className="card card-compact mx-3 bg-green-200 border-2 border-orange-100 border-b-0 rounded-none group relative"
+                className="card card-compact bg-green-200 border-2 border-orange-100 border-b-0 rounded-none group relative"
             >
                 <figure><img className="w-full h-72" src={imageURL} alt="Loading..." /></figure>
                 {
@@ -103,7 +103,7 @@ const ProductCard = ({ product }) => {
                     </h2>
                 </div>
             </Link>
-            <div className="flex justify-center items-center mx-3 bg-green-200 border-2 border-orange-100 border-t-0">
+            <div className="flex justify-center items-center bg-green-200 border-2 border-orange-100 border-t-0">
                 <button
                     className="w-full btn rounded-none bg-green-400 font-serif font-extrabold hover:bg-white hover:border-orange-300 hover:text-orange-800"
                     onClick={() => handleBuyNow(_id)}
