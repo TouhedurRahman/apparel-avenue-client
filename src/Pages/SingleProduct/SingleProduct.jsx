@@ -10,6 +10,7 @@ import { useLocation } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 const SingleProduct = () => {
     const { user } = useAuth();
@@ -32,7 +33,6 @@ const SingleProduct = () => {
 
     const handleSizeSelection = (size) => {
         setSelectedSize(size);
-        console.log(size);
     };
 
     const handleIncrement = () => {
@@ -46,6 +46,11 @@ const SingleProduct = () => {
     };
 
     const handleAddToCart = (product) => {
+        if (!selectedSize) {
+            toast.error("Opps! Please select a size.");
+            return;
+        }
+
         const cartProduct = {
             userEmail: user.email,
             productName: product.name,

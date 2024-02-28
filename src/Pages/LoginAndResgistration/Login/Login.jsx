@@ -49,7 +49,7 @@ const Login = () => {
                 const user = userCredential.user;
                 Swal.fire({
                     icon: "success",
-                    title: "Login successfull!",
+                    title: "Login successful!",
                     showConfirmButton: false,
                     timer: 1500
                 });

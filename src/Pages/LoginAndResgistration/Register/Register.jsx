@@ -26,7 +26,7 @@ const Register = () => {
                     reset();
                     Swal.fire({
                         icon: 'success',
-                        title: 'User created successfull.',
+                        title: 'User created successful.',
                         showConfirmButton: false,
                         timer: 1500
                     })
