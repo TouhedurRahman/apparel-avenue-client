@@ -8,10 +8,12 @@ import useAuth from "../../../Hooks/useAuth";
 import useLogOut from "../../../Hooks/useLogOut";
 import useSingleUser from "../../../Hooks/useSingleUser";
 import MyCartSidebar from "../../Cart/MyCartSidebar/MyCartSidebar";
+import useMyCart from "../../../Hooks/useMyCart";
 
 const Navbar = () => {
     const { user } = useAuth();
     const [singleUser] = useSingleUser();
+    const [cartProduct] = useMyCart();
     const handleLogOut = useLogOut();
 
     const navOptions = <>
@@ -71,28 +73,36 @@ const Navbar = () => {
                 <div className="navbar-end">
                     <div className="flex">
                         {/***** Favourite section *****/}
-                        <div className="mt-3 flex items-center drawer-button btn-transparent text-2xl hover:bg-green-200 p-1 cursor-pointer rounded-lg shadow-lg my-auto mx-3">
+                        <div className="my-auto flex items-center btn-transparent text-3xl hover:bg-green-200 p-1 cursor-pointer rounded-lg shadow-lg mx-3">
                             < GiSelfLove />
                             <div className="badge bg-green-300 ml-1 text-green-900 p-2">{99}</div>
                         </div>
 
                         {/***** cart section *****/}
-                        <div className="drawer drawer-end">
-                            <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
+                        <div className="drawer drawer-end my-auto">
+                            <input id="my-cart-drawer" type="checkbox" className="drawer-toggle" />
                             <div className="drawer-content">
                                 {/* Page content here */}
-                                <label htmlFor="my-drawer-4" className="mt-3 flex items-center drawer-button btn-transparent text-2xl hover:bg-green-200 p-1 cursor-pointer rounded-lg shadow-lg my-auto mx-3">
+                                <label htmlFor="my-cart-drawer" className="flex items-center drawer-button btn-transparent text-3xl hover:bg-green-200 p-1 cursor-pointer rounded-lg shadow-lg my-auto mx-3">
                                     <FaCartArrowDown />
-                                    <div className="badge bg-green-300 ml-1 text-green-900 p-2">{99}</div>
+                                    <div className="badge bg-green-300 ml-1 text-green-900 p-2">
+                                        {
+                                            cartProduct.length < 10
+                                                ?
+                                                `0${cartProduct.length}`
+                                                :
+                                                `${cartProduct.length}`
+                                        }
+                                    </div>
                                 </label>
                             </div>
                             <div className="drawer-side mt-20 z-[1]">
-                                <label htmlFor="my-drawer-4" aria-label="close sidebar" className=""></label>
+                                <label htmlFor="my-cart-drawer" aria-label="close sidebar" className=""></label>
                                 <ul className="menu p-4 w-80 min-h-full bg-green-200 text-base-content">
                                     {/* Sidebar content here */}
                                     <div className="flex justify-between items-center mr-2">
                                         <p className="text-xl">Shopping Cart</p>
-                                        <label htmlFor="my-drawer-4" className="drawer-button btn-transparent cursor-pointer hover:bg-green-400 p-1 rounded-badge">❌ Close</label>
+                                        <label htmlFor="my-cart-drawer" className="drawer-button btn-transparent cursor-pointer hover:bg-green-400 p-2 rounded-lg">❌ Close</label>
                                     </div>
                                     <hr className="border-black border-b-2 my-4 mr-2" />
                                     <MyCartSidebar />

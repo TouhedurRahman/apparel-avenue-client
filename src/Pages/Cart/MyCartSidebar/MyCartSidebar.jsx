@@ -1,8 +1,11 @@
+import { Link } from "react-router-dom";
 
 const MyCartSidebar = () => {
     return (
         <div>
-            <h1>Cart</h1>
+            <Link to="/my-cart">
+                View Cart
+            </Link>
         </div>
     );
 };

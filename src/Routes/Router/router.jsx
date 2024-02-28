@@ -11,6 +11,7 @@ import SingleProduct from "../../Pages/SingleProduct/SingleProduct";
 import Login from "../../Pages/LoginAndResgistration/Login/Login";
 import Register from "../../Pages/LoginAndResgistration/Register/Register";
 import MyProfile from "../../Pages/MyProfile/MyProfile";
+import MyCart from "../../Pages/Cart/MyCart/MyCart";
 
 const router = createBrowserRouter([
     {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
             {
                 path: 'my-profile',
                 element: <MyProfile />
+            },
+            {
+                path: 'my-cart',
+                element: <MyCart />
             }
         ]
     },

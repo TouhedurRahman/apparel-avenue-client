@@ -11,11 +11,13 @@ import useAuth from "../../Hooks/useAuth";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import useMyCart from "../../Hooks/useMyCart";
 
 const SingleProduct = () => {
     const { user } = useAuth();
     const [products, loading] = useProducts();
     const [product, loadingSingleProduct] = useSingleProduct();
+    const [, , refetch] = useMyCart();
     const [selectedSize, setSelectedSize] = useState('');
     const [quantity, setQuantity] = useState(1);
     const [showAll, setShowAll] = useState(false);
@@ -64,6 +66,7 @@ const SingleProduct = () => {
         axios.post(url, cartProduct)
             .then(response => {
                 if (response.data.insertedId) {
+                    refetch();
                     Swal.fire({
                         icon: "success",
                         title: "Product is added to the cart!",

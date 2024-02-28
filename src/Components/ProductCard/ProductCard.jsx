@@ -4,9 +4,11 @@ import { FaCartArrowDown } from "react-icons/fa6";
 import axios from "axios";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
+import useMyCart from "../../Hooks/useMyCart";
 
 const ProductCard = ({ product }) => {
     const { user } = useAuth();
+    const [, , refetch] = useMyCart();
 
     const {
         _id,
@@ -42,6 +44,7 @@ const ProductCard = ({ product }) => {
         axios.post(url, cartProduct)
             .then(response => {
                 if (response.data.insertedId) {
+                    refetch();
                     Swal.fire({
                         icon: "success",
                         title: "Product is added to the cart!",
