@@ -9,15 +9,18 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import useHosting from '../../Hooks/useHosting';
 import useSingleUser from '../../Hooks/useSingleUser';
+import Swal from 'sweetalert2';
 
 const MyProfile = () => {
-    const { user, loading } = useAuth();
+    const { user, resetPassword, loading } = useAuth();
     const [singleUser, refetch, loadingSingleUser] = useSingleUser();
     const img_hosting_url = useHosting();
 
     const [file, setFile] = useState(null);
+    const [enterUserEmail, setEnterUserEmail] = useState(null);
 
     const mobileNoRef = useRef();
+    const userEmailRef = useRef(null);
 
     const updateInfo = (updatedInfo) => {
         const url = `http://localhost:5000/user/${user.email}`;
@@ -60,6 +63,33 @@ const MyProfile = () => {
         const mobileNo = mobileNoRef.current.value;
         const upadateMobileNo = { mobile: mobileNo }
         updateInfo(upadateMobileNo);
+    }
+
+    const handleEmailOnBlur = (e) => {
+        const email = e.target.value;
+        if (user.email === email) {
+            setEnterUserEmail(email);
+        }
+    }
+
+    const handleResetPassword = () => {
+        if (enterUserEmail) {
+            resetPassword(enterUserEmail)
+                .then(() => {
+                    Swal.fire({
+                        title: "Email Sent!",
+                        text: "Please check your email.",
+                        icon: "success"
+                    });
+                    userEmailRef.current.value = '';
+                    setEnterUserEmail('');
+                })
+                .then(() => { })
+        }
+        else {
+            toast.error("Error! Please Enter your registered email.");
+            userEmailRef.current.value = '';
+        }
     }
 
     return (
@@ -149,8 +179,11 @@ const MyProfile = () => {
                                                 type="email"
                                                 placeholder="Please Enter your Email"
                                                 className="input border-0 border-b-2 border-b-green-600 mr-5 font-bold w-full rounded focus:outline-none"
+                                                onBlur={handleEmailOnBlur}
+                                                ref={userEmailRef}
                                             />
                                             <button
+                                                onClick={handleResetPassword}
                                                 className='w-[120px] btn mx-auto bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600 flex'
                                             >
                                                 Reset <MdLockReset className="text-2xl text-green-800" />

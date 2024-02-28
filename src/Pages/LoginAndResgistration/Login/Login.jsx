@@ -8,13 +8,15 @@ import { FaUserCircle } from 'react-icons/fa';
 import useAuth from '../../../Hooks/useAuth';
 import Swal from 'sweetalert2';
 import SocialLogin from '../../../Components/SocialLogin/SocialLogin';
+import { toast } from 'react-toastify';
 
 const Login = () => {
-    const { logIn } = useAuth();
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { logIn, resetPassword } = useAuth();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const [isOpen, setIsOpen] = useState(false);
     const [loginDisabled, setLoginDisabled] = useState(true);
+    const [enterUserEmail, setEnterUserEmail] = useState('');
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -22,6 +24,7 @@ const Login = () => {
     const from = location.state?.from?.pathname || "/";
 
     const captchaRef = useRef(null);
+    const userEmailRef = useRef(null);
 
     useEffect(() => {
         loadCaptchaEnginge(5);
@@ -44,7 +47,6 @@ const Login = () => {
         logIn(email, password)
             .then(userCredential => {
                 const user = userCredential.user;
-                console.log(user);
                 Swal.fire({
                     icon: "success",
                     title: "Login successfull!",
@@ -53,6 +55,32 @@ const Login = () => {
                 });
                 navigate(from, { replace: true });
             })
+    }
+
+    const handleEmailOnBlur = (e) => {
+        const email = e.target.value;
+        setEnterUserEmail(email);
+    }
+
+    const handleResetPassword = () => {
+        if (enterUserEmail) {
+            resetPassword(enterUserEmail)
+                .then(() => {
+                    Swal.fire({
+                        title: "Email Sent!",
+                        text: "Please check your email.",
+                        icon: "success"
+                    });
+                    reset();
+                    userEmailRef.current.value = '';
+                    setEnterUserEmail('');
+                })
+                .then(() => { })
+        }
+        else {
+            toast.error("Error! Please Enter your registered email.");
+            userEmailRef.current.value = '';
+        }
     }
 
     return (
@@ -72,9 +100,11 @@ const Login = () => {
                             </label>
                             <input
                                 type="email"
+                                ref={userEmailRef}
                                 {...register("email", { required: "Email Address is required" })}
                                 placeholder="user@gmail.com"
                                 className="input input-accent w-full max-w-xs  border-2 border-green-400 focus:outline-none"
+                                onBlur={handleEmailOnBlur}
                             />
                             {
                                 errors.email && <p className='text-red-600'>{errors.email?.message}</p>
@@ -143,7 +173,12 @@ const Login = () => {
                             </div>
 
                             <label className="label mb-5">
-                                <span className="label-text-alt text-blue-600 font-bold hover:link">Forget password?</span>
+                                <span
+                                    className="label-text-alt text-blue-600 font-bold hover:link"
+                                    onClick={handleResetPassword}
+                                >
+                                    Forget password?
+                                </span>
                             </label>
                         </div>
                         <div className="form-control w-full max-w-xs">
