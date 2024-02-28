@@ -7,8 +7,12 @@ import ProductCard from "../../Components/ProductCard/ProductCard";
 import { Transition } from "@headlessui/react";
 import ShareSocialMedia from "../../Components/ShareSocialMedia/ShareSocialMedia";
 import { useLocation } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const SingleProduct = () => {
+    const { user } = useAuth();
     const [products, loading] = useProducts();
     const [product, loadingSingleProduct] = useSingleProduct();
     const [selectedSize, setSelectedSize] = useState('');
@@ -26,7 +30,6 @@ const SingleProduct = () => {
             (relatedProduct._id !== product._id)
     );
 
-    // Function to handle size selection
     const handleSizeSelection = (size) => {
         setSelectedSize(size);
         console.log(size);
@@ -40,6 +43,37 @@ const SingleProduct = () => {
         if (quantity > 1) {
             setQuantity(quantity - 1);
         }
+    };
+
+    const handleAddToCart = (product) => {
+        const cartProduct = {
+            userEmail: user.email,
+            productName: product.name,
+            imageURL: product.imageURL,
+            size: selectedSize,
+            quantity: quantity,
+            price: quantity * (product.discountPrice)
+        }
+
+        const url = 'http://localhost:5000/cart';
+        axios.post(url, cartProduct)
+            .then(response => {
+                if (response.data.insertedId) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Product is added to the cart!",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            })
+            .catch(() => {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...!",
+                    text: "Product is already in cart!",
+                });
+            });
     };
 
     return (
@@ -85,7 +119,6 @@ const SingleProduct = () => {
                                         >
                                             {(ref) => (
                                                 <div ref={ref} className="px-4 py-2 border-t border-2 border-green-400">
-                                                    {/* Accordion content goes here */}
                                                     <p>This is the accordion content!</p>
                                                 </div>
                                             )}
@@ -139,6 +172,7 @@ const SingleProduct = () => {
                                     <div className="mt-5">
                                         <button
                                             className="mr-2 btn px-10 py-3 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600"
+                                            onClick={() => handleAddToCart(product)}
                                         >
                                             Add to cart
                                         </button>

@@ -78,7 +78,7 @@ const Login = () => {
                 .then(() => { })
         }
         else {
-            toast.error("Error! Please Enter your registered email.");
+            toast.error("Error! Please enter your registered email.");
             userEmailRef.current.value = '';
         }
     }

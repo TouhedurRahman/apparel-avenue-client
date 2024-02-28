@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 import { FaCartArrowDown } from "react-icons/fa6";
+import axios from "axios";
+import Swal from "sweetalert2";
+import useAuth from "../../Hooks/useAuth";
 
 const ProductCard = ({ product }) => {
+    const { user } = useAuth();
+
     const {
         _id,
         name,
@@ -23,8 +28,35 @@ const ProductCard = ({ product }) => {
         e.stopPropagation();
     };
 
-    const handleAddToCart = (e) => {
-        console.log("Add to cart");
+    const handleAddToCart = (e, product) => {
+        const cartProduct = {
+            userEmail: user.email,
+            productName: product.name,
+            imageURL: product.imageURL,
+            size: "L",
+            quantity: 1,
+            price: product.discountPrice
+        }
+
+        const url = 'http://localhost:5000/cart';
+        axios.post(url, cartProduct)
+            .then(response => {
+                if (response.data.insertedId) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Product is added to the cart!",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            })
+            .catch(() => {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops..!",
+                    text: "Product is already in cart!",
+                });
+            });
 
         e.preventDefault();
         e.stopPropagation();
@@ -59,7 +91,7 @@ const ProductCard = ({ product }) => {
                         />
                         <FaCartArrowDown
                             className="my-5 mx-2"
-                            onClick={(e) => handleAddToCart(e)}
+                            onClick={(e) => handleAddToCart(e, product)}
                         />
                     </div>
                 </div>
@@ -73,7 +105,7 @@ const ProductCard = ({ product }) => {
                         />
                         <FaCartArrowDown
                             className="my-5 mx-2"
-                            onClick={(e) => handleAddToCart(e)}
+                            onClick={(e) => handleAddToCart(e, product)}
                         />
                     </div>
                 </div>

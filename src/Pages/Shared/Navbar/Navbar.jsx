@@ -7,6 +7,7 @@ import { RiLogoutCircleRFill } from "react-icons/ri";
 import useAuth from "../../../Hooks/useAuth";
 import useLogOut from "../../../Hooks/useLogOut";
 import useSingleUser from "../../../Hooks/useSingleUser";
+import MyCartSidebar from "../../Cart/MyCartSidebar/MyCartSidebar";
 
 const Navbar = () => {
     const { user } = useAuth();
@@ -89,13 +90,12 @@ const Navbar = () => {
                                 <label htmlFor="my-drawer-4" aria-label="close sidebar" className=""></label>
                                 <ul className="menu p-4 w-80 min-h-full bg-green-200 text-base-content">
                                     {/* Sidebar content here */}
-                                    <div className="flex justify-between items-center mx-2">
+                                    <div className="flex justify-between items-center mr-2">
                                         <p className="text-xl">Shopping Cart</p>
                                         <label htmlFor="my-drawer-4" className="drawer-button btn-transparent cursor-pointer hover:bg-green-400 p-1 rounded-badge">❌ Close</label>
                                     </div>
-                                    <hr className="border-black border-b-2 my-4 mx-2" />
-                                    <li><a>Sidebar Item 1</a></li>
-                                    <li><a>Sidebar Item 2</a></li>
+                                    <hr className="border-black border-b-2 my-4 mr-2" />
+                                    <MyCartSidebar />
                                 </ul>
                             </div>
                         </div>
