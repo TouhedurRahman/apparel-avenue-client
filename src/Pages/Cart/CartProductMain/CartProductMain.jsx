@@ -23,26 +23,27 @@ const CartProductMain = ({ product }) => {
 
     return (
         <div>
-            <div className="flex justify-start items-center m-2 bg-white rounded-lg shadow-lg shadow-orange-300">
+            <div className="flex justify-start items-center m-2 bg-white rounded-lg shadow-lg shadow-orange-100">
                 <div className="avatar p-3">
-                    <div className="w-24 rounded">
+                    <div className="w-16 h-40 lg:w-24 lg:h-24 rounded">
                         <img src={product.imageURL} />
                     </div>
                 </div>
-                <div className="w-full flex flex-col p-5">
-                    <div className="w-full flex justify-between items-center mb-5">
+                <div className="w-full flex flex-col p-2 lg:p-5">
+                    <div className="w-full flex justify-between items-center lg:mb-5">
                         <p
                             className="text-2xl font-bold"
                         >
                             {product.productName}
                         </p>
                         <button onClick={() => handleDelete()} className="focus:outline-none">
-                            <FaTrash className="text-red-500" />
+                            <FaTrash className="text-red-500 text-2xl" />
                         </button>
                     </div>
-                    <div className="flex flex-wrap justify-between items-center">
-                        <p className="w-[25%]">
-                            <div className="w-full flex flex-row justify-start items-center">
+                    <div className="flex flex-col lg:flex-row justify-start
+                     lg:justify-between lg:items-center">
+                        <p className="lg:w-[25%]">
+                            <div className="mt-3 lg:mt-0 w-full flex flex-row justify-start items-center">
                                 <label htmlFor="size" className="font-bold mr-2">
                                     Size
                                 </label>
@@ -64,10 +65,10 @@ const CartProductMain = ({ product }) => {
                                 </select>
                             </div>
                         </p>
-                        <p className="w-[25%] ">
+                        <p className="mt-3 lg:mt-0 lg:w-[25%] ">
                             <span className="font-bold mr-1">Price </span>৳ {product.price}/-
                         </p>
-                        <div className="w-[25%] flex justify-center items-center">
+                        <div className="lg:w-[25%] mt-3 lg:mt-0 flex lg:justify-center items-center">
                             <span className="font-bold mr-2">Quantity </span>
                             <QuanntityUpdate
                                 handleIncrement={handleIncrement}
@@ -75,7 +76,7 @@ const CartProductMain = ({ product }) => {
                                 quantity={product.quantity}
                             />
                         </div>
-                        <p className="w-[25%] flex flex-row justify-end items-center">
+                        <p className="lg:w-[25%] mt-3 lg:mt-0 flex flex-row lg:justify-end items-center">
                             <span className="font-bold mr-2">Total Price </span>৳ {(product.price) * (product.quantity)}/-
                         </p>
                     </div>

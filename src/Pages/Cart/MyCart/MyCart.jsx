@@ -41,7 +41,7 @@ const MyCart = () => {
                     cartProduct.length > 0
                         ?
                         <div className="flex flex-col lg:flex-row justify-between mx-3">
-                            <div className="border-2 border-black w-[75%] m-2">
+                            <div className="lg:w-[75%] m-2">
                                 <div className="flex flex-col">
                                     {
                                         cartProduct.map((product, idx) => <CartProductMain
@@ -99,7 +99,7 @@ const MyCart = () => {
                                         {/* delivery section */}
                                         <div className="my-3">
                                             <div className="w-full flex flex-col justify-start items-center">
-                                                <h2 className="w-full text-left">Delivery Charge (+) {deliveryCharge}</h2>
+                                                <h2 className="w-full text-left">Delivery Charge (+)</h2>
                                                 <div className="w-full flex justify-end items-center">
                                                     <label className="flex justify-end items-center cursor-pointer">
                                                         Inside Dhaka <span className="ml-2 text-green-700 font-bold">৳ 80/-</span>
