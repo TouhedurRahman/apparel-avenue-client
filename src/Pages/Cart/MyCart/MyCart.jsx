@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Loading from "../../../Components/Loading/Loading";
 import usePromocodes from "../../../Hooks/usePromocodes";
+import { Parallax } from "react-parallax";
+import CartBannerImage from "../../../../src/assets/images/Banner/banner-7.jpg";
 
 const MyCart = () => {
     const [cartProduct, loadingMyCart, refetch] = useMyCart();
@@ -93,6 +95,27 @@ const MyCart = () => {
 
     return (
         <div className='pt-20'>
+            <Parallax
+                blur={{ min: -50, max: 50 }}
+                bgImage={CartBannerImage}
+                bgImageAlt="Loading..."
+                strength={-200}
+            >
+                <div className="hero h-[200px]">
+                    <div className="hero-overlay bg-opacity-60"></div>
+                    <div className="hero-content text-center text-neutral-content">
+                        <div className="w-full">
+                            <h1 className=" flex flex-col lg:flex-row mb-5 lg:text-5xl font-sans font-extrabold uppercase">
+                                <span className="underline text-green-300">SHOPPING CART</span>
+                                <span className="mx-3">→</span>
+                                <span>CHECKOUT</span>
+                                <span className="mx-3">→</span>
+                                <span>ORDER COMPLETE</span>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </Parallax>
             {
                 loadingMyCart
                     ?
@@ -101,7 +124,7 @@ const MyCart = () => {
                     </div>
                     :
                     <>
-                        <div className="mt-10">
+                        <div className="mt-5">
                             {
                                 cartProduct.length > 0
                                     ?
@@ -120,9 +143,9 @@ const MyCart = () => {
                                                 }
                                             </div>
                                         </div>
-                                        <div className="w-full lg:w-[25%] m-2">
+                                        <div className="w-full lg:w-[25%] mt-10 lg:mt-0 m-2">
                                             <div className="w-full mb-2">
-                                                <h1 className="font-serif font-bold mx-2">
+                                                <h1 className="font-serif font-bold mx-2 text-center md:text-left">
                                                     Have Promocode?
                                                 </h1>
                                                 <div className="flex justify-center items-center mx-2 rounded-lg">
