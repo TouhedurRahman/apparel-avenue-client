@@ -5,7 +5,7 @@ import { FaCartArrowDown, FaShopify } from "react-icons/fa6";
 import CartProductSidebar from "../CartProductSidebar/CartProductSidebar";
 
 const MyCartSidebar = () => {
-    const [cartProduct] = useMyCart();
+    const [cartProduct, , refetch] = useMyCart();
     return (
         <div className="mr-2">
             {
@@ -17,6 +17,7 @@ const MyCartSidebar = () => {
                                 cartProduct.slice(0, 3).map((product) => <CartProductSidebar
                                     key={product._id}
                                     product={product}
+                                    refetch={refetch}
                                 ></CartProductSidebar>)
                             }
                         </div>

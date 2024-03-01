@@ -1,11 +1,35 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { FaTrash } from 'react-icons/fa6';
+import Swal from 'sweetalert2';
 
-const CartProductSidebar = ({ product }) => {
+const CartProductSidebar = ({ product, refetch }) => {
     const [quantity, setQuantity] = useState(product.quantity);
 
     const handleDelete = () => {
-
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete(`http://localhost:5000/cart/${product._id}`)
+                    .then(response => {
+                        if (response.data.deletedCount > 0) {
+                            refetch();
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your item has been deleted.",
+                                icon: "success"
+                            });
+                        }
+                    })
+            }
+        });
     }
 
     const handleIncrement = () => {

@@ -1,6 +1,8 @@
 import { FaTrash } from "react-icons/fa6";
 import QuanntityUpdate from "../../../Components/QuanntityUpdate/QuanntityUpdate";
 import { useState } from "react";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 const CartProductMain = ({ product, newCart, setNewCart, refetch }) => {
     const [selectedSize, setSelectedSize] = useState(product.size);
@@ -30,7 +32,29 @@ const CartProductMain = ({ product, newCart, setNewCart, refetch }) => {
     };
 
     const handleDelete = () => {
-
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete(`http://localhost:5000/cart/${product._id}`)
+                    .then(response => {
+                        if (response.data.deletedCount > 0) {
+                            refetch();
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your item has been deleted.",
+                                icon: "success"
+                            });
+                        }
+                    })
+            }
+        });
     }
 
     return (
