@@ -98,13 +98,13 @@ const Navbar = () => {
                             </div>
                             <div className="drawer-side mt-20 z-[1]">
                                 <label htmlFor="my-cart-drawer" aria-label="close sidebar" className=""></label>
-                                <ul className="menu p-4 w-80 min-h-full bg-green-200 text-base-content">
+                                <ul className="menu p-4 w-[350px] min-h-full bg-green-200 text-base-content">
                                     {/* Sidebar content here */}
-                                    <div className="flex justify-between items-center mr-2">
+                                    <div className="flex justify-between items-center mr-7">
                                         <p className="text-xl">Shopping Cart</p>
                                         <label htmlFor="my-cart-drawer" className="drawer-button btn-transparent cursor-pointer hover:bg-green-400 p-2 rounded-lg">❌ Close</label>
                                     </div>
-                                    <hr className="border-black border-b-2 my-4 mr-2" />
+                                    <hr className="border-black border-b-2 my-4 mr-7" />
                                     <MyCartSidebar />
                                 </ul>
                             </div>

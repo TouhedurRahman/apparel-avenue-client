@@ -2,7 +2,7 @@ import { FaTrash } from "react-icons/fa6";
 import QuanntityUpdate from "../../../Components/QuanntityUpdate/QuanntityUpdate";
 import { useState } from "react";
 
-const CartProductMain = ({ product, newCart, setNewcart, refetch }) => {
+const CartProductMain = ({ product, newCart, setNewCart, refetch }) => {
     const [selectedSize, setSelectedSize] = useState(product.size);
     const [quantity, setQuantity] = useState(product.quantity);
     const sizeOptions = ['S', 'M', 'L', 'XL', 'XXL'];
@@ -16,7 +16,7 @@ const CartProductMain = ({ product, newCart, setNewcart, refetch }) => {
         const currentItem = newCart.find(item => item._id === product._id);
         const restItem = newCart.filter(item => item._id !== product._id);
         currentItem.quantity = currentItem.quantity + 1;
-        setNewcart([...restItem, currentItem]);
+        setNewCart([...restItem, currentItem]);
     };
 
     const handleDecrement = () => {
@@ -25,7 +25,7 @@ const CartProductMain = ({ product, newCart, setNewcart, refetch }) => {
             const currentItem = newCart.find(item => item._id === product._id);
             const restItem = newCart.filter(item => item._id !== product._id);
             currentItem.quantity = currentItem.quantity - 1;
-            setNewcart([...restItem, currentItem]);
+            setNewCart([...restItem, currentItem]);
         }
     };
 
@@ -78,7 +78,7 @@ const CartProductMain = ({ product, newCart, setNewcart, refetch }) => {
                             </div>
                         </p>
                         <p className="mt-3 lg:mt-0 lg:w-[25%] ">
-                            <span className="font-bold mr-1">Price </span>৳ {product.price}/-
+                            <span className="font-bold mr-1">Price </span><span className="font-mono mr-1">৳</span> {product.price}/-
                         </p>
                         <div className="lg:w-[25%] mt-3 lg:mt-0 flex lg:justify-center items-center">
                             <span className="font-bold mr-2">Quantity </span>
@@ -89,7 +89,7 @@ const CartProductMain = ({ product, newCart, setNewcart, refetch }) => {
                             />
                         </div>
                         <p className="lg:w-[25%] mt-3 lg:mt-0 flex flex-row lg:justify-end items-center">
-                            <span className="font-bold mr-2">Total Price </span>৳ {(product.price * quantity)}/-
+                            <span className="font-bold mr-2">Total Price </span><span className="font-mono mr-1">৳</span> {(product.price * quantity)}/-
                         </p>
                     </div>
                 </div>

@@ -11,7 +11,7 @@ const QuanntityUpdate = ({ quantity, handleIncrement, handleDecrement }) => {
             <input
                 type="text"
                 value={quantity}
-                className="w-16 h-8 text-center border border-green-500 font-bold"
+                className="w-16 h-8 text-center border border-green-500 font-bold focus:outline-none"
                 readOnly
             />
             <button

@@ -118,7 +118,7 @@ const ProductCard = ({ product }) => {
                     <div
                         className="absolute w-1/2 mx-[25%] bg-orange-300 mt-[265px] lg:px-4 py-1 rounded-lg border-4 border-green-200 text-center font-serif font-extrabold"
                     >
-                        Save ৳ {price - discountPrice}/-
+                        Save <span className="font-mono mr-1">৳</span>{price - discountPrice}/-
                     </div>
                 }
                 <div className="card-body">
@@ -128,11 +128,11 @@ const ProductCard = ({ product }) => {
                             discountRate > 0
                                 ?
                                 <>
-                                    <span className="text-gray-500">৳ <del>{price}/-</del></span> ৳ {discountPrice}/-
+                                    <span className="text-gray-500"><span className="font-mono mr-1">৳</span><del>{price}/-</del></span><span className="font-mono mr-1">৳</span>{discountPrice}/-
                                 </>
                                 :
                                 <>
-                                    ৳ {discountPrice}/-
+                                    <span className="font-mono mr-1">৳</span>{discountPrice}/-
                                 </>
                         }
                     </h2>
