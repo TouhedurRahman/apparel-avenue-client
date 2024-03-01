@@ -83,10 +83,10 @@ const MyCart = () => {
         }
         const orderProductsDetails = {
             OrderItems: newCart,
-            subTotal: totalPrice,
-            discountPrice: discountPrice,
-            deliveryCharge: deliveryCharge,
-            TotalCost: ((totalPrice + deliveryCharge) - discountPrice).toFixed(2)
+            subTotal: parseFloat(totalPrice),
+            discountPrice: parseFloat(discountPrice),
+            deliveryCharge: parseFloat(deliveryCharge),
+            TotalCost: parseFloat(((totalPrice + deliveryCharge) - discountPrice))
         }
         console.log(orderProductsDetails);
     }
