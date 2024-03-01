@@ -6,9 +6,11 @@ import CartProductMain from "../CartProductMain/CartProductMain";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Loading from "../../../Components/Loading/Loading";
+import usePromocodes from "../../../Hooks/usePromocodes";
 
 const MyCart = () => {
     const [cartProduct, loadingMyCart, refetch] = useMyCart();
+    const [promocodes] = usePromocodes();
     const [promoCode, setPromoCode] = useState('');
     const [errorPromoMsg, setErrorPromoMsg] = useState("");
     const [discountPrice, setDiscountPrice] = useState(0);
@@ -29,18 +31,39 @@ const MyCart = () => {
         )
     }, [cartProduct]);
 
-    // console.log(newCart);
-
     const totalPrice = newCart.reduce((total, product) => {
         return total + (product.price * product.quantity);
     }, 0);
 
-    const handleApplyPromoCode = () => {
-        setErrorPromoMsg("");
-    };
-
     const handlePromoCodeChange = (event) => {
         setPromoCode(event.target.value);
+    };
+
+    const handleApplyPromoCode = () => {
+        if (promoCode === "") {
+            toast.error("Plaease enter your promo code.");
+            return;
+        }
+
+        setErrorPromoMsg("");
+        const foundPromoCode = promocodes.find(
+            code =>
+                (code.promoCode === promoCode)
+                &&
+                (code.active === true)
+                &&
+                (code.usageTime > 0)
+        );
+
+        if (foundPromoCode) {
+            const discountRate = foundPromoCode.discountRate;
+
+            const discount = ((totalPrice) * (discountRate / 100)).toFixed(2);
+            setDiscountPrice(discount);
+
+        } else {
+            setErrorPromoMsg("Inavlid Promo Code");
+        }
     };
 
     const handleDeliveryOptionChange = (option) => {
@@ -63,7 +86,7 @@ const MyCart = () => {
             subTotal: totalPrice,
             discountPrice: discountPrice,
             deliveryCharge: deliveryCharge,
-            TotalCost: ((totalPrice + deliveryCharge) - discountPrice)
+            TotalCost: ((totalPrice + deliveryCharge) - discountPrice).toFixed(2)
         }
         console.log(orderProductsDetails);
     }
@@ -121,7 +144,7 @@ const MyCart = () => {
                                                 {
                                                     errorPromoMsg &&
                                                     <>
-                                                        <p className="text-red-800 font-mono">Invalid or expired promocode.</p>
+                                                        <p className="text-red-800 text-center font-mono">Invalid or expired promocode.</p>
                                                     </>
                                                 }
                                             </div>
@@ -180,7 +203,7 @@ const MyCart = () => {
                                                     <div className="flex justify-between items-center my-3">
                                                         <p>Total Payable </p>
                                                         <p className="text-green-500 text-2xl font-bold font-sans">
-                                                            <span className="font-mono mr-1">৳</span>{((totalPrice + deliveryCharge) - discountPrice)}/-
+                                                            <span className="font-mono mr-1">৳</span>{((totalPrice + deliveryCharge) - discountPrice).toFixed(2)}/-
                                                         </p>
                                                     </div>
                                                     <button onClick={handleCheckout} className="mt-10 w-full mx-auto btn bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600 flex shadow-lg shadow-orange-200"

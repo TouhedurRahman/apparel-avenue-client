@@ -153,12 +153,15 @@ const SingleProduct = () => {
                                                         <span className="font-mono mr-1">৳</span><del>{product.price}/-</del>
                                                     </span>
                                                     <span className="flex justify-center items-center">
-                                                        <span className="font-mono mr-1">৳</span><span className="text-3xl font-sans font-bold">{product.discountPrice}</span>/-
+                                                        <span className="font-mono ml-2 mr-1">৳</span>
+                                                        <span className="text-3xl font-sans font-bold">
+                                                            {product.discountPrice}
+                                                        </span>/-
                                                     </span>
                                                 </div>
                                                 :
                                                 <>
-                                                    <span className="font-mono mr-1">৳</span> <span className="text-3xl font-sans font-bold">{product.discountPrice}</span>/-
+                                                    <span className="font-mono mr-1">৳</span><span className="text-3xl font-sans font-bold">{product.discountPrice}</span>/-
                                                 </>
                                         }
                                     </h2>
