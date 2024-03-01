@@ -78,7 +78,7 @@ const CartProductMain = ({ product, newCart, setNewCart, refetch }) => {
                             </div>
                         </p>
                         <p className="mt-3 lg:mt-0 lg:w-[25%] ">
-                            <span className="font-bold mr-1">Price </span><span className="font-mono mr-1">৳</span> {product.price}/-
+                            <span className="font-bold mr-1">Price </span><span className="font-mono mr-1">৳</span>{product.price}/-
                         </p>
                         <div className="lg:w-[25%] mt-3 lg:mt-0 flex lg:justify-center items-center">
                             <span className="font-bold mr-2">Quantity </span>
@@ -89,7 +89,7 @@ const CartProductMain = ({ product, newCart, setNewCart, refetch }) => {
                             />
                         </div>
                         <p className="lg:w-[25%] mt-3 lg:mt-0 flex flex-row lg:justify-end items-center">
-                            <span className="font-bold mr-2">Total Price </span><span className="font-mono mr-1">৳</span> {(product.price * quantity)}/-
+                            <span className="font-bold mr-2">Total Price </span><span className="font-mono mr-1">৳</span>{(product.price * quantity)}/-
                         </p>
                     </div>
                 </div>

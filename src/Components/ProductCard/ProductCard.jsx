@@ -128,7 +128,7 @@ const ProductCard = ({ product }) => {
                             discountRate > 0
                                 ?
                                 <>
-                                    <span className="text-gray-500"><span className="font-mono mr-1">৳</span><del>{price}/-</del></span><span className="font-mono mr-1">৳</span>{discountPrice}/-
+                                    <span className="text-gray-500"><span className="font-mono mr-1">৳</span><del>{price}/-</del></span><span className="font-mono">৳</span>{discountPrice}/-
                                 </>
                                 :
                                 <>

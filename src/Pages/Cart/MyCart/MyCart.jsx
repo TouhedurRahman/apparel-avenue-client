@@ -132,11 +132,11 @@ const MyCart = () => {
                                                 <div>
                                                     <div className="flex justify-between items-center my-3">
                                                         <p>Subtotal </p>
-                                                        <p><span className="font-mono mr-1">৳</span> {totalPrice}/-</p>
+                                                        <p><span className="font-mono mr-1">৳</span>{totalPrice}/-</p>
                                                     </div>
                                                     <div className="flex justify-between items-center my-3">
                                                         <p>Discount (-) </p>
-                                                        <p><span className="font-mono mr-1">৳</span> {discountPrice}/-</p>
+                                                        <p><span className="font-mono mr-1">৳</span>{discountPrice}/-</p>
                                                     </div>
                                                     <div className='w-full'>
                                                         <hr className="border-orange-300 my-4" />
@@ -147,7 +147,7 @@ const MyCart = () => {
                                                             <h2 className="w-full text-left">Delivery Charge (+)</h2>
                                                             <div className="w-full flex justify-end items-center">
                                                                 <label className="flex justify-end items-center cursor-pointer">
-                                                                    Inside Dhaka <span className="ml-2 text-green-700 font-bold"><span className="font-mono mr-1">৳</span> 80/-</span>
+                                                                    Inside Dhaka <span className="ml-2 text-green-700 font-bold"><span className="font-mono mr-1">৳</span>80/-</span>
                                                                     <input
                                                                         type="radio"
                                                                         name="deliveryOption"
@@ -160,7 +160,7 @@ const MyCart = () => {
                                                             </div>
                                                             <div className="w-full flex justify-end items-center">
                                                                 <label className="flex justify-end items-center cursor-pointer">
-                                                                    Outside Dhaka <span className="ml-2 text-green-700 font-bold"><span className="font-mono mr-1">৳</span> 120/-</span>
+                                                                    Outside Dhaka <span className="ml-2 text-green-700 font-bold"><span className="font-mono mr-1">৳</span>120/-</span>
                                                                     <input
                                                                         type="radio"
                                                                         name="deliveryOption"
