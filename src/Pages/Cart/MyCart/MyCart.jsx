@@ -3,14 +3,38 @@ import { Link } from "react-router-dom";
 import { BsCartXFill } from "react-icons/bs";
 import { FaShopify } from "react-icons/fa6";
 import CartProductMain from "../CartProductMain/CartProductMain";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import useAuth from "../../../Hooks/useAuth";
 
 const MyCart = () => {
-    const [cartProduct] = useMyCart();
+    const { user } = useAuth();
+    const [cartProduct, , refetch] = useMyCart();
     const [promoCode, setPromoCode] = useState('');
     const [errorPromoMsg, setErrorPromoMsg] = useState("");
+    const [discountPrice, setDiscountPrice] = useState(0);
     const [deliveryCharge, setDeliveryCharge] = useState(0);
     const [deliveryOption, setDeliveryOption] = useState(null);
+    const [newCart, setNewcart] = useState([]);
+
+    useEffect(() => {
+        setNewcart(
+            cartProduct.map(item => {
+                return {
+                    _id: item._id,
+                    productName: item.productName,
+                    price: item.price,
+                    quantity: item.quantity,
+                }
+            })
+        )
+    }, [cartProduct]);
+
+    // console.log(newCart);
+
+    const totalPrice = newCart.reduce((total, product) => {
+        return total + (product.price * product.quantity);
+    }, 0);
 
     const handleApplyPromoCode = () => {
         setErrorPromoMsg("");
@@ -24,14 +48,26 @@ const MyCart = () => {
         setDeliveryOption(option);
 
         if (option === 'inside-dhaka') {
-            setDeliveryCharge(0 + 80);
+            setDeliveryCharge(deliveryCharge + 80);
         } else if (option === 'outside-dhaka') {
-            setDeliveryCharge(0 + 120);
+            setDeliveryCharge(deliveryCharge + 120);
         }
     };
 
     const handleCheckout = () => {
-
+        if (deliveryCharge === 0) {
+            toast.error("Please select delivary charge option.")
+            return;
+        }
+        const orderProductsDetails = {
+            userEmail: user.email,
+            OrderItems: newCart,
+            subTotal: totalPrice,
+            discountPrice: discountPrice,
+            deliveryCharge: deliveryCharge,
+            TotalCost: ((totalPrice + deliveryCharge) - discountPrice)
+        }
+        console.log(orderProductsDetails);
     }
 
     return (
@@ -48,6 +84,9 @@ const MyCart = () => {
                                             key={product._id}
                                             product={product}
                                             idx={idx}
+                                            newCart={newCart}
+                                            setNewcart={setNewcart}
+                                            refetch={refetch}
                                         ></CartProductMain>)
                                     }
                                 </div>
@@ -87,11 +126,11 @@ const MyCart = () => {
                                     <div>
                                         <div className="flex justify-between items-center my-3">
                                             <p>Subtotal </p>
-                                            <p>৳ {100}/-</p>
+                                            <p>৳ {totalPrice}/-</p>
                                         </div>
                                         <div className="flex justify-between items-center my-3">
                                             <p>Discount (-) </p>
-                                            <p>৳ {200}/-</p>
+                                            <p>৳ {discountPrice}/-</p>
                                         </div>
                                         <div className='w-full'>
                                             <hr className="border-orange-300 my-4" />
@@ -134,7 +173,9 @@ const MyCart = () => {
 
                                         <div className="flex justify-between items-center my-3">
                                             <p>Total Payable </p>
-                                            <p className="text-green-500 text-2xl font-bold font-sans">৳ {500}/-</p>
+                                            <p className="text-green-500 text-2xl font-bold font-sans">
+                                                ৳ {((totalPrice + deliveryCharge) - discountPrice)}/-
+                                            </p>
                                         </div>
                                         <button onClick={handleCheckout} className="mt-10 w-full mx-auto btn bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600 flex shadow-lg shadow-orange-200"
                                         >

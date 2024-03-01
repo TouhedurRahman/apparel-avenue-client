@@ -2,8 +2,9 @@ import { FaTrash } from "react-icons/fa6";
 import QuanntityUpdate from "../../../Components/QuanntityUpdate/QuanntityUpdate";
 import { useState } from "react";
 
-const CartProductMain = ({ product }) => {
+const CartProductMain = ({ product, newCart, setNewcart, refetch }) => {
     const [selectedSize, setSelectedSize] = useState(product.size);
+    const [quantity, setQuantity] = useState(product.quantity);
     const sizeOptions = ['S', 'M', 'L', 'XL', 'XXL'];
 
     const handleSizeChange = (e) => {
@@ -11,12 +12,23 @@ const CartProductMain = ({ product }) => {
     };
 
     const handleIncrement = () => {
-
-    }
+        setQuantity(quantity + 1);
+        const currentItem = newCart.find(item => item._id === product._id);
+        const restItem = newCart.filter(item => item._id !== product._id);
+        currentItem.quantity = currentItem.quantity + 1;
+        setNewcart([...restItem, currentItem]);
+    };
 
     const handleDecrement = () => {
+        if (quantity > 1) {
+            setQuantity(quantity - 1);
+            const currentItem = newCart.find(item => item._id === product._id);
+            const restItem = newCart.filter(item => item._id !== product._id);
+            currentItem.quantity = currentItem.quantity - 1;
+            setNewcart([...restItem, currentItem]);
+        }
+    };
 
-    }
     const handleDelete = () => {
 
     }
@@ -73,11 +85,11 @@ const CartProductMain = ({ product }) => {
                             <QuanntityUpdate
                                 handleIncrement={handleIncrement}
                                 handleDecrement={handleDecrement}
-                                quantity={product.quantity}
+                                quantity={quantity}
                             />
                         </div>
                         <p className="lg:w-[25%] mt-3 lg:mt-0 flex flex-row lg:justify-end items-center">
-                            <span className="font-bold mr-2">Total Price </span>৳ {(product.price) * (product.quantity)}/-
+                            <span className="font-bold mr-2">Total Price </span>৳ {(product.price * quantity)}/-
                         </p>
                     </div>
                 </div>
