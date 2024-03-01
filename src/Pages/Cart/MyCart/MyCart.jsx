@@ -48,9 +48,9 @@ const MyCart = () => {
         setDeliveryOption(option);
 
         if (option === 'inside-dhaka') {
-            setDeliveryCharge(deliveryCharge + 80);
+            setDeliveryCharge(0 + 80);
         } else if (option === 'outside-dhaka') {
-            setDeliveryCharge(deliveryCharge + 120);
+            setDeliveryCharge(0 + 120);
         }
     };
 
