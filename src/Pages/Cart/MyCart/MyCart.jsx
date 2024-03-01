@@ -25,7 +25,9 @@ const MyCart = () => {
             cartProduct.map(item => {
                 return {
                     _id: item._id,
+                    imageURL: item.imageURL,
                     productName: item.productName,
+                    size: item.size,
                     price: item.price,
                     quantity: item.quantity,
                 }
