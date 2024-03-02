@@ -6,26 +6,30 @@ import useProducts from "../../Hooks/useProducts";
 import ProductCard from "../../Components/ProductCard/ProductCard";
 import { Transition } from "@headlessui/react";
 import ShareSocialMedia from "../../Components/ShareSocialMedia/ShareSocialMedia";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import useMyCart from "../../Hooks/useMyCart";
+import useOrderContext from "../../Hooks/useOrderContext";
 
 const SingleProduct = () => {
     const { user } = useAuth();
     const [products, loading] = useProducts();
     const [product, loadingSingleProduct] = useSingleProduct();
     const [, , refetch] = useMyCart();
+    const { setOrderProductsDetails } = useOrderContext();
     const [selectedSize, setSelectedSize] = useState('');
     const [quantity, setQuantity] = useState(1);
     const [showAll, setShowAll] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
     const location = useLocation();
+    const navigate = useNavigate();
 
     const url = location.pathname;
+
     const relatedProducts = products.filter(
         relatedProduct =>
             (relatedProduct.forGender === product.forGender)
@@ -83,6 +87,32 @@ const SingleProduct = () => {
                 });
             });
     };
+
+    const handleBuyNow = (product) => {
+        if (!selectedSize) {
+            toast.error("Opps! Please select a size.");
+            return;
+        }
+
+        const orderProducts = {
+            orderItems: [
+                {
+                    _id: product._id,
+                    imageURL: product.imageURL,
+                    productName: product.name,
+                    size: selectedSize,
+                    price: product.discountPrice,
+                    quantity: quantity,
+                }
+            ],
+            subTotal: parseFloat(product.discountPrice),
+            discountPrice: parseFloat(0),
+            deliveryCharge: parseFloat(0),
+            totalCost: parseFloat(product.discountPrice)
+        }
+        setOrderProductsDetails(orderProducts);
+        navigate('/buy-now');
+    }
 
     return (
         <div className='pt-20'>
@@ -189,6 +219,7 @@ const SingleProduct = () => {
                                         </button>
                                         <button
                                             className="ml-2 btn px-10 py-3 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600"
+                                            onClick={() => handleBuyNow(product)}
                                         >
                                             Buy Now
                                         </button>
