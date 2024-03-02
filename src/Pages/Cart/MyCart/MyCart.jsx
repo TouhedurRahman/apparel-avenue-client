@@ -78,9 +78,9 @@ const MyCart = () => {
         setDeliveryOption(option);
 
         if (option === 'inside-dhaka') {
-            setDeliveryCharge(0 + 80);
+            setDeliveryCharge(80);
         } else if (option === 'outside-dhaka') {
-            setDeliveryCharge(0 + 120);
+            setDeliveryCharge(120);
         }
     };
 
@@ -90,11 +90,11 @@ const MyCart = () => {
             return;
         }
         const orderProducts = {
-            OrderItems: newCart,
+            orderItems: newCart,
             subTotal: parseFloat(totalPrice),
             discountPrice: parseFloat(discountPrice),
             deliveryCharge: parseFloat(deliveryCharge),
-            TotalCost: parseFloat(((totalPrice + deliveryCharge) - discountPrice))
+            totalCost: parseFloat(((totalPrice + deliveryCharge) - discountPrice))
         }
         setOrderProductsDetails(orderProducts);
         navigate('/buy-now');

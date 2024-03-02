@@ -1,13 +1,16 @@
 import { Parallax } from "react-parallax";
 import BuyNowBannerImage from "../../../../src/assets/images/Banner/banner-8.jpg";
 import useOrderContext from "../../../Hooks/useOrderContext";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import useSingleUser from "../../../Hooks/useSingleUser";
+import CheckOrders from "../CheckOrders/CheckOrders";
 
 const BuyNow = () => {
     const [singleUser] = useSingleUser();
     const { orderProductsDetails } = useOrderContext();
-    console.log(orderProductsDetails);
+
+    const [deliveryCharge, setDeliveryCharge] = useState(0);
+    const [deliveryOption, setDeliveryOption] = useState(null);
 
     const districts = [
         'Dhaka',
@@ -28,6 +31,26 @@ const BuyNow = () => {
     const phoneRef = useRef(null);
     const emailRef = useRef(null);
     const notesRef = useRef(null);
+
+    useEffect(() => {
+        if (orderProductsDetails.deliveryCharge === 80) {
+            setDeliveryOption('inside-dhaka');
+            setDeliveryCharge(80);
+        } else if (orderProductsDetails.deliveryCharge === 120) {
+            setDeliveryOption('outside-dhaka');
+            setDeliveryCharge(120);
+        }
+    }, [orderProductsDetails.deliveryCharge]);
+
+    const handleDeliveryOptionChange = (option) => {
+        setDeliveryOption(option);
+
+        if (option === 'inside-dhaka') {
+            setDeliveryCharge(80);
+        } else if (option === 'outside-dhaka') {
+            setDeliveryCharge(120);
+        }
+    };
 
     return (
         <div className="pt-20">
@@ -80,6 +103,7 @@ const BuyNow = () => {
                                 District
                             </label>
                             <select ref={districtRef} id="district" name="district" className="mt-1 p-2 w-full border-2 border-green-400 rounded-md focus:outline-none">
+                                <option value="">Select a District</option>
                                 {districts.map((district) => (
                                     <option key={district} value={district}>
                                         {district}
@@ -110,6 +134,85 @@ const BuyNow = () => {
                                 Order Notes (Optional)
                             </label>
                             <textarea ref={notesRef} id="notes" name="notes" placeholder="Notes about your order, e.g. special notes for delivery." rows="3" className="mt-1 p-2 w-full border-2 border-green-400 rounded-md focus:outline-none"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h1 className="text-center text-green-600 text-[120px] font-serif font-extrabold">2.</h1>
+                    <h1 className="text-center text-black text-5xl font-serif font-extrabold mb-2">Check Your Order</h1>
+                    <div className="p-3 border border-green-400 rounded-lg">
+                        <div>
+                            <CheckOrders
+                                orderProductsDetails={orderProductsDetails}
+                            />
+                        </div>
+                        <div className='w-full'>
+                            <hr className="border-orange-300 my-4" />
+                        </div>
+                        <div>
+                            <div className="flex justify-between items-center my-3">
+                                <p className="text-xl font-serif font-bold">Subtotal </p>
+                                <p className="text-green-500 text-2xl font-bold font-sans">
+                                    <span className="font-mono mr-1">৳</span>{orderProductsDetails.subTotal.toFixed(2)}/-
+                                </p>
+                            </div>
+                        </div>
+                        <div className='w-full'>
+                            <hr className="border-orange-300 my-4" />
+                        </div>
+                        <div>
+                            <div className="flex justify-between items-center my-3">
+                                <p className="text-xl font-serif font-bold">Discount Price (-)</p>
+                                <p className="text-green-500 text-2xl font-bold font-sans">
+                                    <span className="font-mono mr-1">৳</span>{orderProductsDetails.discountPrice.toFixed(2)}/-
+                                </p>
+                            </div>
+                        </div>
+                        <div className='w-full'>
+                            <hr className="border-orange-300 my-4" />
+                        </div>
+                        <div className="w-full flex flex-col justify-start items-center">
+                            <h2 className="w-full text-xl font-serif font-bold text-left">Delivery Charge (+)</h2>
+                            <div className="w-full flex justify-end items-center">
+                                <label className="flex justify-end items-center cursor-pointer">
+                                    Inside Dhaka <span className="ml-2 text-green-700 font-bold"><span className="font-mono mr-1">৳</span>80/-</span>
+                                    <input
+                                        type="radio"
+                                        name="deliveryOption"
+                                        value="inside-dhaka"
+                                        checked={deliveryOption === 'inside-dhaka'}
+                                        onChange={() => handleDeliveryOptionChange('inside-dhaka')}
+                                        className="ml-2 cursor-pointer h-5 w-5"
+                                    />
+                                </label>
+                            </div>
+                            <div className="w-full flex justify-end items-center">
+                                <label className="flex justify-end items-center cursor-pointer">
+                                    Outside Dhaka <span className="ml-2 text-green-700 font-bold"><span className="font-mono mr-1">৳</span>120/-</span>
+                                    <input
+                                        type="radio"
+                                        name="deliveryOption"
+                                        value="outside-dhaka"
+                                        checked={deliveryOption === 'outside-dhaka'}
+                                        onChange={() => handleDeliveryOptionChange('outside-dhaka')}
+                                        className="ml-2 cursor-pointer h-5 w-5"
+                                    />
+                                </label>
+                            </div>
+                        </div>
+                        <div className='w-full'>
+                            <hr className="border-orange-300 my-4" />
+                        </div>
+                        <div>
+                            <div className="flex justify-between items-center my-3">
+                                <p className="text-xl font-serif font-bold">Total Payable</p>
+                                <p className="text-green-500 text-2xl font-bold font-sans">
+                                    <span className="font-mono mr-1">৳</span>
+                                    {
+                                        ((orderProductsDetails.subTotal + deliveryCharge) - orderProductsDetails.discountPrice).toFixed(2)
+                                    }/-
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
