@@ -4,6 +4,7 @@ import useOrderContext from "../../../Hooks/useOrderContext";
 import { useEffect, useRef, useState } from "react";
 import useSingleUser from "../../../Hooks/useSingleUser";
 import CheckOrders from "../CheckOrders/CheckOrders";
+import { useNavigate } from "react-router";
 
 const BuyNow = () => {
     const [singleUser] = useSingleUser();
@@ -11,6 +12,8 @@ const BuyNow = () => {
 
     const [deliveryCharge, setDeliveryCharge] = useState(0);
     const [deliveryOption, setDeliveryOption] = useState(null);
+
+    const navigate = useNavigate();
 
     const districts = [
         'Dhaka',
@@ -33,14 +36,20 @@ const BuyNow = () => {
     const notesRef = useRef(null);
 
     useEffect(() => {
-        if (orderProductsDetails.deliveryCharge === 80) {
+        if (!orderProductsDetails) {
+            navigate('/');
+        } else if (orderProductsDetails?.deliveryCharge === 80) {
             setDeliveryOption('inside-dhaka');
             setDeliveryCharge(80);
-        } else if (orderProductsDetails.deliveryCharge === 120) {
+        } else if (orderProductsDetails?.deliveryCharge === 120) {
             setDeliveryOption('outside-dhaka');
             setDeliveryCharge(120);
         }
-    }, [orderProductsDetails.deliveryCharge]);
+        else {
+            setDeliveryOption(null);
+            setDeliveryCharge(0)
+        }
+    }, [orderProductsDetails, orderProductsDetails?.deliveryCharge, navigate]);
 
     const handleDeliveryOptionChange = (option) => {
         setDeliveryOption(option);
@@ -153,7 +162,7 @@ const BuyNow = () => {
                             <div className="flex justify-between items-center my-3">
                                 <p className="text-xl font-serif font-bold">Subtotal </p>
                                 <p className="text-green-500 text-2xl font-bold font-sans">
-                                    <span className="font-mono mr-1">৳</span>{orderProductsDetails.subTotal.toFixed(2)}/-
+                                    <span className="font-mono mr-1">৳</span>{orderProductsDetails?.subTotal.toFixed(2)}/-
                                 </p>
                             </div>
                         </div>
@@ -164,7 +173,7 @@ const BuyNow = () => {
                             <div className="flex justify-between items-center my-3">
                                 <p className="text-xl font-serif font-bold">Discount Price (-)</p>
                                 <p className="text-green-500 text-2xl font-bold font-sans">
-                                    <span className="font-mono mr-1">৳</span>{orderProductsDetails.discountPrice.toFixed(2)}/-
+                                    <span className="font-mono mr-1">৳</span>{orderProductsDetails?.discountPrice.toFixed(2)}/-
                                 </p>
                             </div>
                         </div>
@@ -209,7 +218,7 @@ const BuyNow = () => {
                                 <p className="text-green-500 text-2xl font-bold font-sans">
                                     <span className="font-mono mr-1">৳</span>
                                     {
-                                        ((orderProductsDetails.subTotal + deliveryCharge) - orderProductsDetails.discountPrice).toFixed(2)
+                                        ((orderProductsDetails?.subTotal + deliveryCharge) - orderProductsDetails?.discountPrice).toFixed(2)
                                     }/-
                                 </p>
                             </div>

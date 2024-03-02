@@ -1,5 +1,3 @@
-
-
 const CheckOrders = ({ orderProductsDetails }) => {
     return (
         <div>
@@ -19,7 +17,7 @@ const CheckOrders = ({ orderProductsDetails }) => {
                     </thead>
                     <tbody>
                         {
-                            orderProductsDetails.orderItems.map(item =>
+                            orderProductsDetails?.orderItems?.map(item =>
                                 <tr
                                     key={item._id}
                                     className="text-center"
