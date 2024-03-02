@@ -5,10 +5,17 @@ import { useEffect, useRef, useState } from "react";
 import useSingleUser from "../../../Hooks/useSingleUser";
 import CheckOrders from "../CheckOrders/CheckOrders";
 import { useNavigate } from "react-router";
+import usePromocodes from "../../../Hooks/usePromocodes";
+import { toast } from "react-toastify";
 
 const BuyNow = () => {
     const [singleUser] = useSingleUser();
     const { orderProductsDetails } = useOrderContext();
+
+    const [promocodes] = usePromocodes();
+    const [promoCode, setPromoCode] = useState('');
+    const [errorPromoMsg, setErrorPromoMsg] = useState("");
+    const [discountPrice, setDiscountPrice] = useState(orderProductsDetails?.discountPrice);
 
     const [deliveryCharge, setDeliveryCharge] = useState(0);
     const [deliveryOption, setDeliveryOption] = useState(null);
@@ -51,6 +58,37 @@ const BuyNow = () => {
         }
     }, [orderProductsDetails, orderProductsDetails?.deliveryCharge, navigate]);
 
+    const handlePromoCodeChange = (event) => {
+        setPromoCode(event.target.value);
+    };
+
+    const handleApplyPromoCode = () => {
+        if (promoCode === "") {
+            toast.error("Plaease enter your promo code.");
+            return;
+        }
+
+        setErrorPromoMsg("");
+        const foundPromoCode = promocodes.find(
+            code =>
+                (code.promoCode === promoCode)
+                &&
+                (code.active === true)
+                &&
+                (code.usageTime > 0)
+        );
+
+        if (foundPromoCode) {
+            const discountRate = foundPromoCode.discountRate;
+
+            const discount = ((orderProductsDetails.subTotal) * (discountRate / 100)).toFixed(2);
+            setDiscountPrice(discount);
+
+        } else {
+            setErrorPromoMsg("Inavlid Promo Code");
+        }
+    };
+
     const handleDeliveryOptionChange = (option) => {
         setDeliveryOption(option);
 
@@ -85,6 +123,37 @@ const BuyNow = () => {
                 </div>
             </Parallax>
             <div className="max-w-[75%] lg:max-w-[50%] mx-auto">
+                {
+                    discountPrice === 0
+                    &&
+                    <div className="w-full mt-10 border-2 border-green-400 rounded-lg p-10">
+                        <h1 className="font-serif font-bold mx-2 text-center mb-3">
+                            If you have a Promo code, please apply it below.
+                        </h1>
+                        <div className="flex flex-col lg:flex-row justify-center items-center mx-2 rounded-lg">
+                            <input
+                                type="text"
+                                value={promoCode}
+                                onChange={handlePromoCodeChange}
+                                placeholder="Enter Promo Code"
+                                className="w-full lg:w-1/2 h-11 lg:mr-2 p-2 border-2 border-green-400 rounded-lg text-center focus:outline-none"
+                                required
+                            />
+                            <button
+                                onClick={handleApplyPromoCode}
+                                className="w-full lg:w-1/2 lg:h-10 lg:mx-auto btn bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600 flex mt-2 lg:mt-0"
+                            >
+                                Apply
+                            </button>
+                        </div>
+                        {
+                            errorPromoMsg &&
+                            <>
+                                <p className="text-red-800 text-center font-mono">Invalid or expired promocode.</p>
+                            </>
+                        }
+                    </div>
+                }
                 <div>
                     <h1 className="text-center text-green-600 text-[120px] font-serif font-extrabold">1.</h1>
                     <h1 className="text-center text-black text-5xl font-serif font-extrabold mb-2">Billing Details</h1>
@@ -173,7 +242,7 @@ const BuyNow = () => {
                             <div className="flex justify-between items-center my-3">
                                 <p className="text-xl font-serif font-bold">Discount Price (-)</p>
                                 <p className="text-green-500 text-2xl font-bold font-sans">
-                                    <span className="font-mono mr-1">৳</span>{orderProductsDetails?.discountPrice.toFixed(2)}/-
+                                    <span className="font-mono mr-1">৳</span>{discountPrice}/-
                                 </p>
                             </div>
                         </div>
@@ -218,7 +287,7 @@ const BuyNow = () => {
                                 <p className="text-green-500 text-2xl font-bold font-sans">
                                     <span className="font-mono mr-1">৳</span>
                                     {
-                                        ((orderProductsDetails?.subTotal + deliveryCharge) - orderProductsDetails?.discountPrice).toFixed(2)
+                                        ((orderProductsDetails?.subTotal + deliveryCharge) - discountPrice).toFixed(2)
                                     }/-
                                 </p>
                             </div>
