@@ -20,6 +20,8 @@ const BuyNow = () => {
     const [deliveryCharge, setDeliveryCharge] = useState(0);
     const [deliveryOption, setDeliveryOption] = useState(null);
 
+    const [paymentMethod, setPaymentMethod] = useState('cashOnDelivery');
+
     const navigate = useNavigate();
 
     const districts = [
@@ -99,6 +101,10 @@ const BuyNow = () => {
         }
     };
 
+    const handlePaymentMethodChange = (event) => {
+        setPaymentMethod(event.target.value);
+    };
+
     return (
         <div className="pt-20">
             <Parallax
@@ -128,7 +134,7 @@ const BuyNow = () => {
                     &&
                     <div className="w-full mt-10 border-2 border-green-400 rounded-lg p-10">
                         <h1 className="font-serif font-bold mx-2 text-center mb-3">
-                            If you have a Promo code, please apply it below.
+                            If you have a Promo Code, please apply it below.
                         </h1>
                         <div className="flex flex-col lg:flex-row justify-center items-center mx-2 rounded-lg">
                             <input
@@ -291,6 +297,61 @@ const BuyNow = () => {
                                     }/-
                                 </p>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h1 className="text-center text-green-600 text-[120px] font-serif font-extrabold">3.</h1>
+                    <h1 className="text-center text-black text-5xl font-serif font-extrabold mb-2">Payment Information</h1>
+                    <div className="p-3 border border-green-400 rounded-lg">
+                        <div className="p-4">
+                            <div className="mb-4">
+                                {/* <label className="block text-gray-700 text-sm font-bold mb-2">Payment Method:</label> */}
+                                <div className="flex flex-col">
+                                    <div className="flex flex-row items-center mb-1">
+                                        <input
+                                            type="radio"
+                                            id="cashOnDelivery"
+                                            value="cashOnDelivery"
+                                            checked={paymentMethod === 'cashOnDelivery'}
+                                            onChange={handlePaymentMethodChange}
+                                            className="mr-2 cursor-pointer h-5 w-5"
+                                        />
+                                        <label htmlFor="cashOnDelivery" className="mr-4 text-xl font-serif font-bold cursor-pointer">Cash on Delivery</label>
+                                    </div>
+                                    <div className="flex flex-row items-center mb-1">
+                                        <input
+                                            type="radio"
+                                            id="onlinePayment"
+                                            value="onlinePayment"
+                                            checked={paymentMethod === 'onlinePayment'}
+                                            onChange={handlePaymentMethodChange}
+                                            className="mr-2 cursor-pointer h-5 w-5"
+                                        />
+                                        <label htmlFor="onlinePayment" className="text-xl font-serif font-bold cursor-pointer">Online Payment</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {
+                                paymentMethod === 'onlinePayment' && (
+                                    <div className="border p-4 rounded bg-gray-100">
+                                        <h2 className="text-lg font-semibold mb-2">Online Payment Details</h2>
+                                    </div>
+                                )
+                            }
+                            <div className='w-full'>
+                                <hr className="border-orange-300 my-4" />
+                            </div>
+                            <div>
+                                <p className="text-center">
+                                    Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.
+                                </p>
+                            </div>
+                            <button
+                                className="mt-10 w-full mx-auto btn bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600 flex shadow-lg shadow-orange-200"
+                            >
+                                Proceed to Checkout
+                            </button>
                         </div>
                     </div>
                 </div>

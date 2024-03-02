@@ -9,7 +9,7 @@ const CheckOrders = ({ orderProductsDetails }) => {
                             <th>Image</th>
                             <th className="text-left">Name</th>
                             <th>Size</th>
-                            <th>price</th>
+                            <th>Price</th>
                             <th></th>
                             <th>Quantity</th>
                             <th className="text-right">Total</th>
