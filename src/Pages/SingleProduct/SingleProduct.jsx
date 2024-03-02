@@ -108,7 +108,7 @@ const SingleProduct = () => {
             subTotal: parseFloat(product.discountPrice * quantity),
             discountPrice: parseFloat(0),
             deliveryCharge: parseFloat(0),
-            totalCost: parseFloat(product.discountPrice)
+            totalCost: parseFloat(product.discountPrice * quantity)
         }
         setOrderProductsDetails(orderProducts);
         navigate('/buy-now');
