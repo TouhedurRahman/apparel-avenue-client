@@ -12,6 +12,7 @@ import Login from "../../Pages/LoginAndResgistration/Login/Login";
 import Register from "../../Pages/LoginAndResgistration/Register/Register";
 import MyProfile from "../../Pages/MyProfile/MyProfile";
 import MyCart from "../../Pages/Cart/MyCart/MyCart";
+import BuyNow from "../../Pages/BuyNow/BuyNow/BuyNow";
 
 const router = createBrowserRouter([
     {
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
             {
                 path: 'my-cart',
                 element: <MyCart />
+            },
+            {
+                path: 'buy-now',
+                element: <BuyNow />
             }
         ]
     },

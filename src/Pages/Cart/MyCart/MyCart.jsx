@@ -1,5 +1,5 @@
 import useMyCart from "../../../Hooks/useMyCart";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BsCartXFill } from "react-icons/bs";
 import { FaShopify } from "react-icons/fa6";
 import CartProductMain from "../CartProductMain/CartProductMain";
@@ -9,9 +9,11 @@ import Loading from "../../../Components/Loading/Loading";
 import usePromocodes from "../../../Hooks/usePromocodes";
 import { Parallax } from "react-parallax";
 import CartBannerImage from "../../../../src/assets/images/Banner/banner-7.jpg";
+import useOrderContext from "../../../Hooks/useOrderContext";
 
 const MyCart = () => {
     const [cartProduct, loadingMyCart, refetch] = useMyCart();
+    const { setOrderProductsDetails } = useOrderContext();
     const [promocodes] = usePromocodes();
     const [promoCode, setPromoCode] = useState('');
     const [errorPromoMsg, setErrorPromoMsg] = useState("");
@@ -19,6 +21,8 @@ const MyCart = () => {
     const [deliveryCharge, setDeliveryCharge] = useState(0);
     const [deliveryOption, setDeliveryOption] = useState(null);
     const [newCart, setNewCart] = useState([]);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         setNewCart(
@@ -85,14 +89,15 @@ const MyCart = () => {
             toast.error("Please select delivary charge option.")
             return;
         }
-        const orderProductsDetails = {
+        const orderProducts = {
             OrderItems: newCart,
             subTotal: parseFloat(totalPrice),
             discountPrice: parseFloat(discountPrice),
             deliveryCharge: parseFloat(deliveryCharge),
             TotalCost: parseFloat(((totalPrice + deliveryCharge) - discountPrice))
         }
-        console.log(orderProductsDetails);
+        setOrderProductsDetails(orderProducts);
+        navigate('/buy-now');
     }
 
     return (
@@ -109,8 +114,8 @@ const MyCart = () => {
                         <div className="w-full">
                             <h1 className=" flex flex-col lg:flex-row mb-5 lg:text-5xl font-sans font-extrabold uppercase">
                                 <span className="underline text-green-300">SHOPPING CART</span>
-                                <span className="mx-3">→</span>
-                                <span>CHECKOUT</span>
+                                <span className="mx-3 text-orange-300">→</span>
+                                <span><span className="text-orange-300">CHEC</span>KOUT</span>
                                 <span className="mx-3">→</span>
                                 <span>ORDER COMPLETE</span>
                             </h1>
