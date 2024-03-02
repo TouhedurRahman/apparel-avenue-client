@@ -105,6 +105,28 @@ const BuyNow = () => {
         setPaymentMethod(event.target.value);
     };
 
+    const handleCheckoutCOD = () => {
+        if (!nameRef.current.value || !addressRef.current.value || !districtRef.current.value || !phoneRef.current.value || !emailRef.current.value) {
+            toast.error("Opps! Please complete your billing address.");
+            return;
+        } else if (deliveryCharge === 0) {
+            toast.error("Opps! Please, select a delivery charge option.");
+            return;
+        }
+        console.log("Success.");
+    }
+
+    const handleCheckoutOnlinePayment = () => {
+        if (!nameRef.current.value || !addressRef.current.value || !districtRef.current.value || !phoneRef.current.value || !emailRef.current.value) {
+            toast.error("Opps! Please complete your billing address.");
+            return;
+        } else if (deliveryCharge === 0) {
+            toast.error("Opps! Please, select a delivery charge option.");
+            return;
+        }
+        console.log("Success.");
+    }
+
     return (
         <div className="pt-20">
             <Parallax
@@ -166,25 +188,25 @@ const BuyNow = () => {
                     <div className="mx-auto">
                         <div>
                             <label htmlFor="name" className="block text-sm text-black mt-5 font-bold italic">
-                                Name
+                                Name<span className="text-red-600 ml-1">*</span>
                             </label>
                             <input ref={nameRef} id="name" name="name" type="text" required className="mt-1 p-2 w-full border-2 border-green-400 rounded-md focus:outline-none" />
                         </div>
                         <div>
                             <label htmlFor="country" className="block text-sm text-black mt-5 font-bold italic">
-                                Country/Region
+                                Country / Region<span className="text-red-600 ml-1">*</span>
                             </label>
                             <input ref={countryRef} id="country" name="country" type="text" required className="mt-1 p-2 w-full border-2 border-green-400 rounded-md focus:outline-none cursor-not-allowed" defaultValue="Bangladesh" readOnly />
                         </div>
                         <div>
                             <label htmlFor="address" className="block text-sm text-black mt-5 font-bold italic">
-                                Home Address
+                                City / Village / Road<span className="text-red-600 ml-1">*</span>
                             </label>
                             <input ref={addressRef} id="address" name="address" type="text" required className="mt-1 p-2 w-full border-2 border-green-400 rounded-md focus:outline-none" />
                         </div>
                         <div>
                             <label htmlFor="district" className="block text-sm text-black mt-5 font-bold italic">
-                                District
+                                District<span className="text-red-600 ml-1">*</span>
                             </label>
                             <select ref={districtRef} id="district" name="district" className="mt-1 p-2 w-full border-2 border-green-400 rounded-md focus:outline-none">
                                 <option value="">Select a District</option>
@@ -197,19 +219,19 @@ const BuyNow = () => {
                         </div>
                         <div>
                             <label htmlFor="postCode" className="block text-sm text-black mt-5 font-bold italic">
-                                Post Code/ZIP (Optional)
+                                Post Code / ZIP (Optional)
                             </label>
                             <input ref={postCodeRef} id="postCode" name="postCode" type="text" className="mt-1 p-2 w-full border-2 border-green-400 rounded-md focus:outline-none" />
                         </div>
                         <div>
                             <label htmlFor="phone" className="block text-sm text-black mt-5 font-bold italic">
-                                Phone
+                                Phone<span className="text-red-600 ml-1">*</span>
                             </label>
                             <input ref={phoneRef} id="phone" name="phone" type="tel" defaultValue={singleUser.mobile} required className="mt-1 p-2 w-full border-2 border-green-400 rounded-md focus:outline-none" />
                         </div>
                         <div>
                             <label htmlFor="email" className="block text-sm text-black mt-5 font-bold italic">
-                                Email
+                                Email<span className="text-red-600 ml-1">*</span>
                             </label>
                             <input ref={emailRef} id="email" name="email" type="email" defaultValue={singleUser.email} required className="mt-1 p-2 w-full border-2 border-green-400 rounded-md focus:outline-none" />
                         </div>
@@ -347,11 +369,23 @@ const BuyNow = () => {
                                     Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.
                                 </p>
                             </div>
-                            <button
-                                className="mt-10 w-full mx-auto btn bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600 flex shadow-lg shadow-orange-200"
-                            >
-                                Proceed to Checkout
-                            </button>
+                            {
+                                paymentMethod === 'cashOnDelivery'
+                                    ?
+                                    <button
+                                        className="mt-10 w-full mx-auto btn bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600 flex shadow-lg shadow-orange-200"
+                                        onClick={handleCheckoutCOD}
+                                    >
+                                        Proceed to Checkout
+                                    </button>
+                                    :
+                                    <button
+                                        className="mt-10 w-full mx-auto btn bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600 flex shadow-lg shadow-orange-200"
+                                        onClick={handleCheckoutOnlinePayment}
+                                    >
+                                        Proceed to Checkout
+                                    </button>
+                            }
                         </div>
                     </div>
                 </div>
