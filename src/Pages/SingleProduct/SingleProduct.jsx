@@ -105,7 +105,7 @@ const SingleProduct = () => {
                     quantity: quantity,
                 }
             ],
-            subTotal: parseFloat(product.discountPrice),
+            subTotal: parseFloat(product.discountPrice * quantity),
             discountPrice: parseFloat(0),
             deliveryCharge: parseFloat(0),
             totalCost: parseFloat(product.discountPrice)
