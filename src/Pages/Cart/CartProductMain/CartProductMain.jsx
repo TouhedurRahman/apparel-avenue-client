@@ -10,7 +10,14 @@ const CartProductMain = ({ product, newCart, setNewCart, refetch }) => {
     const sizeOptions = ['S', 'M', 'L', 'XL', 'XXL'];
 
     const handleSizeChange = (e) => {
-        setSelectedSize(e.target.value);
+        const newSize = e.target.value;
+        setSelectedSize(newSize);
+
+        const currentItem = newCart.find(item => item._id === product._id);
+        const restItem = newCart.filter(item => item._id !== product._id);
+
+        currentItem.size = newSize;
+        setNewCart([...restItem, currentItem]);
     };
 
     const handleIncrement = () => {
