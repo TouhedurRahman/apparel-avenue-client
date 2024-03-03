@@ -7,6 +7,7 @@ import CheckOrders from "../CheckOrders/CheckOrders";
 import { useNavigate } from "react-router";
 import usePromocodes from "../../../Hooks/usePromocodes";
 import { toast } from "react-toastify";
+import Loading from "../../../Components/Loading/Loading";
 
 const BuyNow = () => {
     const [singleUser] = useSingleUser();
@@ -15,6 +16,7 @@ const BuyNow = () => {
     const [promocodes] = usePromocodes();
     const [promoCode, setPromoCode] = useState('');
     const [errorPromoMsg, setErrorPromoMsg] = useState("");
+    const [loadingPromo, setLoadingPromo] = useState(false);
     const [discountPrice, setDiscountPrice] = useState(orderProductsDetails?.discountPrice);
 
     const [deliveryCharge, setDeliveryCharge] = useState(0);
@@ -70,7 +72,10 @@ const BuyNow = () => {
             return;
         }
 
+        setLoadingPromo(true);
+        setPromoCode(null);
         setErrorPromoMsg("");
+
         const foundPromoCode = promocodes.find(
             code =>
                 (code.promoCode === promoCode)
@@ -86,7 +91,9 @@ const BuyNow = () => {
             const discount = ((orderProductsDetails.subTotal) * (discountRate / 100)).toFixed(2);
             setDiscountPrice(discount);
 
+            setLoadingPromo(false);
         } else {
+            setLoadingPromo(false);
             setErrorPromoMsg("Inavlid Promo Code");
         }
     };
@@ -153,34 +160,48 @@ const BuyNow = () => {
             <div className="max-w-[75%] lg:max-w-[50%] mx-auto">
                 {
                     discountPrice === 0
-                    &&
-                    <div className="w-full mt-10 border-2 border-green-400 rounded-lg p-10">
-                        <h1 className="font-serif font-bold mx-2 text-center mb-3">
-                            If you have a Promo Code, please apply it below.
-                        </h1>
-                        <div className="flex flex-col lg:flex-row justify-center items-center mx-2 rounded-lg">
-                            <input
-                                type="text"
-                                value={promoCode}
-                                onChange={handlePromoCodeChange}
-                                placeholder="Enter Promo Code"
-                                className="w-full lg:w-1/2 h-11 lg:mr-2 p-2 border-2 border-green-400 rounded-lg text-center focus:outline-none"
-                                required
-                            />
-                            <button
-                                onClick={handleApplyPromoCode}
-                                className="w-full lg:w-1/2 lg:h-10 lg:mx-auto btn bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600 flex mt-2 lg:mt-0"
-                            >
-                                Apply
-                            </button>
+                        ?
+                        <div className="w-full mt-10 border-2 border-green-400 rounded-lg p-10">
+                            <h1 className="font-serif font-bold mx-2 text-center mb-3">
+                                If you have a Promo Code, please apply it below.
+                            </h1>
+                            <div className="flex flex-col lg:flex-row justify-center items-center mx-2 rounded-lg">
+                                <input
+                                    type="text"
+                                    value={promoCode}
+                                    onChange={handlePromoCodeChange}
+                                    placeholder="Enter Promo Code"
+                                    className="w-full lg:w-1/2 h-11 lg:mr-2 p-2 border-2 border-green-400 rounded-lg text-center focus:outline-none"
+                                    required
+                                />
+                                <button
+                                    onClick={handleApplyPromoCode}
+                                    className="w-full lg:w-1/2 lg:h-10 lg:mx-auto btn bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600 flex mt-2 lg:mt-0"
+                                >
+                                    {
+                                        loadingPromo
+                                            ?
+                                            <div className="flex justify-center items-center">
+                                                <Loading />
+                                            </div>
+                                            :
+                                            'Apply'
+                                    }
+                                </button>
+                            </div>
+                            {
+                                errorPromoMsg &&
+                                <>
+                                    <p className="text-red-800 text-center font-mono">Invalid or expired promocode.</p>
+                                </>
+                            }
                         </div>
-                        {
-                            errorPromoMsg &&
-                            <>
-                                <p className="text-red-800 text-center font-mono">Invalid or expired promocode.</p>
-                            </>
-                        }
-                    </div>
+                        :
+                        <div className="w-full mt-10 border-2 border-green-400 rounded-lg p-10">
+                            <h1 className="font-serif font-bold mx-2 text-2xl text-center">
+                                Promocode successfully applied.
+                            </h1>
+                        </div>
                 }
                 <div>
                     <h1 className="text-center text-green-600 text-[120px] font-serif font-extrabold">1.</h1>
@@ -263,17 +284,23 @@ const BuyNow = () => {
                                 </p>
                             </div>
                         </div>
-                        <div className='w-full'>
-                            <hr className="border-orange-300 my-4" />
-                        </div>
-                        <div>
-                            <div className="flex justify-between items-center my-3">
-                                <p className="text-xl font-serif font-bold">Discount Price (-)</p>
-                                <p className="text-green-500 text-2xl font-bold font-sans">
-                                    <span className="font-mono mr-1">৳</span>{discountPrice}/-
-                                </p>
-                            </div>
-                        </div>
+                        {
+                            discountPrice !== 0
+                            &&
+                            <>
+                                <div className='w-full'>
+                                    <hr className="border-orange-300 my-4" />
+                                </div>
+                                <div>
+                                    <div className="flex justify-between items-center my-3">
+                                        <p className="text-xl font-serif font-bold">Discount Price (-)</p>
+                                        <p className="text-green-500 text-2xl font-bold font-sans">
+                                            <span className="font-mono mr-1">৳</span>{discountPrice}/-
+                                        </p>
+                                    </div>
+                                </div>
+                            </>
+                        }
                         <div className='w-full'>
                             <hr className="border-orange-300 my-4" />
                         </div>
