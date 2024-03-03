@@ -8,6 +8,14 @@ import { useNavigate } from "react-router";
 import usePromocodes from "../../../Hooks/usePromocodes";
 import { toast } from "react-toastify";
 import Loading from "../../../Components/Loading/Loading";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import CheckOutForm from "../CheckOutForm/CheckOutForm";
+import { FaCcMastercard } from "react-icons/fa6";
+import { RiVisaFill } from "react-icons/ri";
+import { GiPayMoney } from "react-icons/gi";
+
+const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GATEWAY_PK);
 
 const BuyNow = () => {
     const [singleUser] = useSingleUser();
@@ -179,17 +187,6 @@ const BuyNow = () => {
         console.log("Success.");
     }
 
-    const handleCheckoutOnlinePayment = () => {
-        if (!nameRef.current.value || !addressRef.current.value || districtRef.current.value == "Select a District" || !phoneRef.current.value || !emailRef.current.value) {
-            toast.error("Opps! Please complete your billing address.");
-            return;
-        } else if (deliveryCharge === 0) {
-            toast.error("Opps! Please, select a delivery charge option.");
-            return;
-        }
-        console.log("Success.");
-    }
-
     return (
         <div className="pt-20">
             <Parallax
@@ -267,7 +264,7 @@ const BuyNow = () => {
                             <label htmlFor="name" className="block text-sm text-black mt-5 font-bold italic">
                                 Name<span className="text-red-600 ml-1">*</span>
                             </label>
-                            <input ref={nameRef} id="name" name="name" type="text" required className="mt-1 p-2 w-full border-2 border-green-400 rounded-md focus:outline-none" />
+                            <input ref={nameRef} id="name" name="name" type="text" defaultValue={singleUser.name} required className="mt-1 p-2 w-full border-2 border-green-400 rounded-md focus:outline-none" />
                         </div>
                         <div>
                             <label htmlFor="country" className="block text-sm text-black mt-5 font-bold italic">
@@ -427,7 +424,9 @@ const BuyNow = () => {
                                             onChange={handlePaymentMethodChange}
                                             className="mr-2 cursor-pointer h-5 w-5"
                                         />
-                                        <label htmlFor="cashOnDelivery" className="mr-4 text-xl font-serif font-bold cursor-pointer">Cash on Delivery</label>
+                                        <label htmlFor="cashOnDelivery" className="flex justify-start items-center mr-4 text-xl font-serif font-bold cursor-pointer">
+                                            Cash on Delivery <GiPayMoney className="mx-2 text-green-600" />
+                                        </label>
                                     </div>
                                     <div className="flex flex-row items-center mb-1">
                                         <input
@@ -438,41 +437,48 @@ const BuyNow = () => {
                                             onChange={handlePaymentMethodChange}
                                             className="mr-2 cursor-pointer h-5 w-5"
                                         />
-                                        <label htmlFor="onlinePayment" className="text-xl font-serif font-bold cursor-pointer">Online Payment</label>
+                                        <label htmlFor="onlinePayment" className="flex justify-start items-center text-xl font-serif font-bold cursor-pointer">
+                                            Online Payment <FaCcMastercard className="mx-2" /><RiVisaFill className="mx-2 text-[#1332C5]" />
+                                        </label>
                                     </div>
                                 </div>
                             </div>
                             {
-                                paymentMethod === 'onlinePayment' && (
-                                    <div className="border p-4 rounded bg-gray-100">
-                                        <h2 className="text-lg font-semibold mb-2">Online Payment Details</h2>
-                                    </div>
-                                )
-                            }
-                            <div className='w-full'>
-                                <hr className="border-orange-300 my-4" />
-                            </div>
-                            <div>
-                                <p className="text-center">
-                                    Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.
-                                </p>
-                            </div>
-                            {
                                 paymentMethod === 'cashOnDelivery'
                                     ?
-                                    <button
-                                        className="mt-10 w-full mx-auto btn bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600 flex shadow-lg shadow-orange-200"
-                                        onClick={handleCheckoutCOD}
-                                    >
-                                        Proceed to Checkout
-                                    </button>
+                                    <>
+                                        <div className='w-full'>
+                                            <hr className="border-orange-300 my-4" />
+                                        </div>
+                                        <div>
+                                            <p className="text-center">
+                                                Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <span className="font-bold hover:link hover:text-blue-600">privacy policy</span>.
+                                            </p>
+                                        </div>
+                                        <button
+                                            className="mt-10 w-full mx-auto btn bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600 flex shadow-lg shadow-orange-200"
+                                            onClick={handleCheckoutCOD}
+                                        >
+                                            Proceed to Checkout
+                                        </button>
+                                    </>
                                     :
-                                    <button
-                                        className="mt-10 w-full mx-auto btn bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600 flex shadow-lg shadow-orange-200"
-                                        onClick={handleCheckoutOnlinePayment}
-                                    >
-                                        Proceed to Checkout
-                                    </button>
+                                    <>
+                                        <Elements stripe={stripePromise}>
+                                            <CheckOutForm
+                                                orderInformation={orderProductsDetails}
+                                                price={((orderProductsDetails?.subTotal + deliveryCharge) - discountPrice)}
+                                                nameRef={nameRef}
+                                                addressRef={addressRef}
+                                                districtRef={districtRef}
+                                                phoneRef={phoneRef}
+                                                postCodeRef={postCodeRef}
+                                                emailRef={emailRef}
+                                                notesRef={notesRef}
+                                                deliveryCharge={deliveryCharge}
+                                            ></CheckOutForm>
+                                        </Elements>
+                                    </>
                             }
                         </div>
                     </div>
