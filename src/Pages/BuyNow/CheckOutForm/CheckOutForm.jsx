@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const CheckOutForm = ({ orderProductsDetails, price, nameRef, addressRef, districtRef, postCodeRef, phoneRef, emailRef, notesRef, discountPrice, deliveryCharge }) => {
     const { user } = useAuth();
@@ -13,6 +15,8 @@ const CheckOutForm = ({ orderProductsDetails, price, nameRef, addressRef, distri
     const [clientSecret, setClientSecret] = useState("");
     const [processing, setProcessing] = useState(false);
     const [transactionId, setTransactionId] = useState("");
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (price > 0) {
@@ -87,6 +91,52 @@ const CheckOutForm = ({ orderProductsDetails, price, nameRef, addressRef, distri
 
         if (paymentIntent.status === 'succeeded') {
             setTransactionId(paymentIntent.id);
+
+            const order = {
+                // customer's billing details
+                name: nameRef.current.value,
+                email: emailRef.current.value,
+                mobile: phoneRef.current.value,
+                deliveryAddress: {
+                    address: addressRef.current.value,
+                    district: districtRef.current.value,
+                    postCode: postCodeRef.current.value || "N/A",
+                },
+                orderNotes: notesRef.current.value || "N/A",
+
+                // customer's order items details
+                orderProducts: orderProductsDetails?.orderItems?.map(item => {
+                    const { imageURL, productName, size, price, quantity } = item;
+                    return { imageURL, productName, size, price, quantity };
+                }),
+                orderProductsId: orderProductsDetails?.orderItems?.map(item => item._id),
+
+                // order charges
+                subTotal: parseFloat(orderProductsDetails?.subTotal).toFixed(2),
+                discountPrice: parseFloat(discountPrice).toFixed(2),
+                deliveryCharge: parseFloat(deliveryCharge).toFixed(2),
+                totalCost: parseFloat((orderProductsDetails?.subTotal + deliveryCharge) - discountPrice).toFixed(2),
+
+                // customer's payment informations
+                paymentVia: "onlinePayment",
+                transactionId: paymentIntent.id,
+                paymentStatus: "paid",
+
+                // order status
+                orderStatus: "pending"
+            }
+
+            axiosSecure.post('/orders', order)
+                .then(res => {
+                    if (res.data.insertResult.insertedId) {
+                        Swal.fire({
+                            title: "Order successfully Placed!",
+                            text: `Thank you`,
+                            icon: "success"
+                        });
+                        navigate('/');
+                    }
+                })
         }
     }
 

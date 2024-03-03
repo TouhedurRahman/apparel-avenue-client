@@ -215,12 +215,12 @@ const BuyNow = () => {
 
             // customer's payment informations
             paymentVia: "cashOnDelivery",
+            transactionId: "N/A",
             paymentStatus: "unpaid",
 
             // order status
             orderStatus: "pending"
         }
-        console.log(order);
 
         Swal.fire({
             title: "Are you sure?",
