@@ -9,6 +9,7 @@ const useLogOut = () => {
     const handleLogOut = () => {
         logOut()
             .then(() => {
+                localStorage.removeItem('access-token');
                 window.location.reload();
                 navigate('/');
             })

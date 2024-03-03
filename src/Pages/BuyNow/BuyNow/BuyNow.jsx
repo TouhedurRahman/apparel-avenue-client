@@ -26,15 +26,71 @@ const BuyNow = () => {
 
     const navigate = useNavigate();
 
-    const districts = [
-        'Dhaka',
-        'Chittagong',
-        'Rajshahi',
-        'Khulna',
-        'Barishal',
-        'Sylhet',
-        'Rangpur',
-        'Mymensingh',
+    const bangladeshDistricts = [
+        "Bagerhat",
+        "Bandarban",
+        "Barguna",
+        "Barisal",
+        "Bhola",
+        "Bogra",
+        "Brahmanbaria",
+        "Chandpur",
+        "Chapainawabganj",
+        "Chattogram",
+        "Chuadanga",
+        "Comilla",
+        "Cox's Bazar",
+        "Dhaka",
+        "Dinajpur",
+        "Faridpur",
+        "Feni",
+        "Gaibandha",
+        "Gazipur",
+        "Gopalganj",
+        "Habiganj",
+        "Jamalpur",
+        "Jessore",
+        "Jhalokati",
+        "Jhenaidah",
+        "Joypurhat",
+        "Khagrachhari",
+        "Khulna",
+        "Kishoreganj",
+        "Kurigram",
+        "Kushtia",
+        "Lakshmipur",
+        "Lalmonirhat",
+        "Madaripur",
+        "Magura",
+        "Manikganj",
+        "Meherpur",
+        "Moulvibazar",
+        "Munshiganj",
+        "Mymensingh",
+        "Naogaon",
+        "Narail",
+        "Narayanganj",
+        "Narsingdi",
+        "Natore",
+        "Netrokona",
+        "Nilphamari",
+        "Noakhali",
+        "Pabna",
+        "Panchagarh",
+        "Patuakhali",
+        "Pirojpur",
+        "Rajbari",
+        "Rajshahi",
+        "Rangamati",
+        "Rangpur",
+        "Satkhira",
+        "Shariatpur",
+        "Sherpur",
+        "Sirajganj",
+        "Sunamganj",
+        "Sylhet",
+        "Tangail",
+        "Thakurgaon"
     ];
 
     const nameRef = useRef(null);
@@ -113,7 +169,7 @@ const BuyNow = () => {
     };
 
     const handleCheckoutCOD = () => {
-        if (!nameRef.current.value || !addressRef.current.value || !districtRef.current.value || !phoneRef.current.value || !emailRef.current.value) {
+        if (!nameRef.current.value || !addressRef.current.value || districtRef.current.value == "Select a District" || !phoneRef.current.value || !emailRef.current.value) {
             toast.error("Opps! Please complete your billing address.");
             return;
         } else if (deliveryCharge === 0) {
@@ -124,7 +180,7 @@ const BuyNow = () => {
     }
 
     const handleCheckoutOnlinePayment = () => {
-        if (!nameRef.current.value || !addressRef.current.value || !districtRef.current.value || !phoneRef.current.value || !emailRef.current.value) {
+        if (!nameRef.current.value || !addressRef.current.value || districtRef.current.value == "Select a District" || !phoneRef.current.value || !emailRef.current.value) {
             toast.error("Opps! Please complete your billing address.");
             return;
         } else if (deliveryCharge === 0) {
@@ -229,13 +285,18 @@ const BuyNow = () => {
                             <label htmlFor="district" className="block text-sm text-black mt-5 font-bold italic">
                                 District<span className="text-red-600 ml-1">*</span>
                             </label>
-                            <select ref={districtRef} id="district" name="district" className="mt-1 p-2 w-full border-2 border-green-400 rounded-md focus:outline-none">
+                            <select ref={districtRef} id="district" name="district" className="mt-1 p-2 w-full border-2 border-green-400 rounded-md cursor-pointer focus:outline-none">
                                 <option value="">Select a District</option>
-                                {districts.map((district) => (
-                                    <option key={district} value={district}>
-                                        {district}
-                                    </option>
-                                ))}
+                                {
+                                    bangladeshDistricts.map((district) => (
+                                        <option
+                                            key={district}
+                                            value={district}
+                                        >
+                                            {district}
+                                        </option>
+                                    ))
+                                }
                             </select>
                         </div>
                         <div>
