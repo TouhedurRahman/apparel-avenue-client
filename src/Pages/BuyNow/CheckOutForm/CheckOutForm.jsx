@@ -4,7 +4,7 @@ import useAuth from "../../../Hooks/useAuth";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { toast } from "react-toastify";
 
-const CheckOutForm = ({ orderInformation, price, nameRef, addressRef, districtRef, postCodeRef, phoneRef, emailRef, notesRef, deliveryCharge }) => {
+const CheckOutForm = ({ orderProductsDetails, price, nameRef, addressRef, districtRef, postCodeRef, phoneRef, emailRef, notesRef, discountPrice, deliveryCharge }) => {
     const { user } = useAuth();
     const stripe = useStripe();
     const elements = useElements();

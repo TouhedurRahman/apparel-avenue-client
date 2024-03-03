@@ -14,12 +14,15 @@ import CheckOutForm from "../CheckOutForm/CheckOutForm";
 import { FaCcMastercard } from "react-icons/fa6";
 import { RiVisaFill } from "react-icons/ri";
 import { GiPayMoney } from "react-icons/gi";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GATEWAY_PK);
 
 const BuyNow = () => {
     const [singleUser] = useSingleUser();
     const { orderProductsDetails } = useOrderContext();
+    const axiosSecure = useAxiosSecure();
 
     const [promocodes] = usePromocodes();
     const [promoCode, setPromoCode] = useState('');
@@ -184,7 +187,64 @@ const BuyNow = () => {
             toast.error("Opps! Please, select a delivery charge option.");
             return;
         }
-        console.log("Success.");
+
+        const order = {
+            // customer's billing details
+            name: nameRef.current.value,
+            email: emailRef.current.value,
+            mobile: phoneRef.current.value,
+            deliveryAddress: {
+                address: addressRef.current.value,
+                district: districtRef.current.value,
+                postCode: postCodeRef.current.value || "N/A",
+            },
+            orderNotes: notesRef.current.value || "N/A",
+
+            // customer's order items details
+            orderProducts: orderProductsDetails?.orderItems?.map(item => {
+                const { imageURL, productName, size, price, quantity } = item;
+                return { imageURL, productName, size, price, quantity };
+            }),
+            orderProductsId: orderProductsDetails?.orderItems?.map(item => item._id),
+
+            // order charges
+            subTotal: parseFloat(orderProductsDetails?.subTotal).toFixed(2),
+            discountPrice: parseFloat(discountPrice).toFixed(2),
+            deliveryCharge: parseFloat(deliveryCharge).toFixed(2),
+            totalCost: parseFloat((orderProductsDetails?.subTotal + deliveryCharge) - discountPrice).toFixed(2),
+
+            // customer's payment informations
+            paymentVia: "cashOnDelivery",
+            paymentStatus: "unpaid",
+
+            // order status
+            orderStatus: "pending"
+        }
+        console.log(order);
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You want to confirm this order!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Confirm Order."
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.post('/orders', order)
+                    .then(res => {
+                        if (res.data.insertResult.insertedId) {
+                            Swal.fire({
+                                title: "Order successfully Placed!",
+                                text: `Thank you`,
+                                icon: "success"
+                            });
+                            navigate('/');
+                        }
+                    })
+            }
+        });
     }
 
     return (
@@ -425,7 +485,7 @@ const BuyNow = () => {
                                             className="mr-2 cursor-pointer h-5 w-5"
                                         />
                                         <label htmlFor="cashOnDelivery" className="flex justify-start items-center mr-4 text-xl font-serif font-bold cursor-pointer">
-                                            Cash on Delivery <GiPayMoney className="mx-2 text-green-600" />
+                                            Cash on Delivery <GiPayMoney className="mx-2 text-[#BB6536] font-bold" />
                                         </label>
                                     </div>
                                     <div className="flex flex-row items-center mb-1">
@@ -466,7 +526,7 @@ const BuyNow = () => {
                                     <>
                                         <Elements stripe={stripePromise}>
                                             <CheckOutForm
-                                                orderInformation={orderProductsDetails}
+                                                orderProductsDetails={orderProductsDetails}
                                                 price={((orderProductsDetails?.subTotal + deliveryCharge) - discountPrice)}
                                                 nameRef={nameRef}
                                                 addressRef={addressRef}
@@ -475,6 +535,7 @@ const BuyNow = () => {
                                                 postCodeRef={postCodeRef}
                                                 emailRef={emailRef}
                                                 notesRef={notesRef}
+                                                discountPrice={discountPrice}
                                                 deliveryCharge={deliveryCharge}
                                             ></CheckOutForm>
                                         </Elements>
