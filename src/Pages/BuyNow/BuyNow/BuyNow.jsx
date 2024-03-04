@@ -202,8 +202,8 @@ const BuyNow = () => {
 
             // customer's order items details
             orderProducts: orderProductsDetails?.orderItems?.map(item => {
-                const { imageURL, productName, size, price, quantity } = item;
-                return { imageURL, productName, size, price, quantity };
+                const { productId, imageURL, productName, size, price, quantity } = item;
+                return { productId, imageURL, productName, size, price, quantity };
             }),
             orderProductsId: orderProductsDetails?.orderItems?.map(item => item._id),
 
