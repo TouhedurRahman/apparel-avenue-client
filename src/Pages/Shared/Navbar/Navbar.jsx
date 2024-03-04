@@ -2,13 +2,15 @@ import { Link } from "react-router-dom";
 import { GiSelfLove } from "react-icons/gi";
 import { FaCartArrowDown } from "react-icons/fa6";
 import { FaCircleUser } from "react-icons/fa6";
-import { MdDashboardCustomize } from "react-icons/md";
+import { MdDashboardCustomize, MdFeedback } from "react-icons/md";
 import { RiLogoutCircleRFill } from "react-icons/ri";
 import useAuth from "../../../Hooks/useAuth";
 import useLogOut from "../../../Hooks/useLogOut";
 import useSingleUser from "../../../Hooks/useSingleUser";
 import MyCartSidebar from "../../Cart/MyCartSidebar/MyCartSidebar";
 import useMyCart from "../../../Hooks/useMyCart";
+import { IoHome } from "react-icons/io5";
+import { FaShoppingBasket } from "react-icons/fa";
 
 const Navbar = () => {
     const { user } = useAuth();
@@ -22,7 +24,7 @@ const Navbar = () => {
                 to="/"
                 className="mx-3 border-b-4 rounded-none border-b-transparent hover:border-b-white hover:bg-transparent"
             >
-                Home
+                <IoHome />Home
             </Link>
         </li>
         <li>
@@ -30,14 +32,14 @@ const Navbar = () => {
                 to="/shop-now"
                 className="mx-3 border-b-4 rounded-none border-b-transparent hover:border-b-white hover:bg-transparent"
             >
-                Shop Now
+                <FaShoppingBasket />Shop Now
             </Link>
         </li>
         <li>
             <Link
                 className="mx-3 border-b-4 rounded-none border-b-transparent hover:border-b-white hover:bg-transparent"
             >
-                Feedback
+                <MdFeedback />Feedback
             </Link>
         </li>
     </>
