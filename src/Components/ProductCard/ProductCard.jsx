@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
-import { FaCartArrowDown } from "react-icons/fa6";
+import { FaCartArrowDown, FaSearchengin } from "react-icons/fa6";
 import axios from "axios";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
@@ -23,21 +23,29 @@ const ProductCard = ({ product }) => {
         imageURL
     } = product;
 
-    const handleFavourite = (e) => {
+    const handleQuickView = (e, product) => {
+        console.log("Quick View");
+
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    const handleFavourite = (e, product) => {
         console.log("Favourite Added");
 
         e.preventDefault();
         e.stopPropagation();
     };
 
-    const handleAddToCart = (e, product) => {
+    const handleAddToCart = (product) => {
         const cartProduct = {
             userEmail: user.email,
             productName: product.name,
             imageURL: product.imageURL,
             size: "L",
             quantity: 1,
-            price: product.discountPrice
+            price: product.discountPrice,
+            productID: product._id
         }
 
         const url = 'http://localhost:5000/cart';
@@ -60,14 +68,7 @@ const ProductCard = ({ product }) => {
                     text: "Product is already in cart!",
                 });
             });
-
-        e.preventDefault();
-        e.stopPropagation();
     };
-
-    const handleBuyNow = (id) => {
-        console.log(id)
-    }
 
     return (
         <div>
@@ -88,13 +89,13 @@ const ProductCard = ({ product }) => {
                     <div
                         className="m-2 p-1 bg-green-100 border border-orange-600 rounded-badge text-2xl"
                     >
+                        <FaSearchengin
+                            className="my-5 mx-2"
+                            onClick={(e) => handleQuickView(e, product)}
+                        />
                         <FaHeart
                             className="my-5 mx-2"
-                            onClick={(e) => handleFavourite(e)}
-                        />
-                        <FaCartArrowDown
-                            className="my-5 mx-2"
-                            onClick={(e) => handleAddToCart(e, product)}
+                            onClick={(e) => handleFavourite(e, product)}
                         />
                     </div>
                 </div>
@@ -102,13 +103,13 @@ const ProductCard = ({ product }) => {
                     <div
                         className="m-2 p-1 bg-green-100 border border-orange-600 rounded-badge text-2xl"
                     >
+                        <FaSearchengin
+                            className="my-5 mx-2"
+                            onClick={(e) => handleQuickView(e, product)}
+                        />
                         <FaHeart
                             className="my-5 mx-2"
-                            onClick={(e) => handleFavourite(e)}
-                        />
-                        <FaCartArrowDown
-                            className="my-5 mx-2"
-                            onClick={(e) => handleAddToCart(e, product)}
+                            onClick={(e) => handleFavourite(e, product)}
                         />
                     </div>
                 </div>
@@ -140,10 +141,13 @@ const ProductCard = ({ product }) => {
             </Link>
             <div className="flex justify-center items-center bg-green-200 border-2 border-orange-100 border-t-0">
                 <button
-                    className="w-full btn rounded-none bg-green-400 font-serif font-extrabold hover:bg-white hover:border-orange-300 hover:text-orange-800"
-                    onClick={() => handleBuyNow(_id)}
+                    className="w-full btn rounded-none bg-green-400 text-xl font-serif font-extrabold hover:bg-white hover:border-orange-300 hover:text-orange-800"
+                    onClick={() => handleAddToCart(product)}
                 >
-                    Buy Now
+                    <FaCartArrowDown
+                        className="mr-1"
+                    />
+                    Add to Cart
                 </button>
             </div>
         </div>

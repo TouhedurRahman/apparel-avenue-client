@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { FaTrash } from 'react-icons/fa6';
+import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const CartProductSidebar = ({ product, refetch }) => {
@@ -45,19 +46,23 @@ const CartProductSidebar = ({ product, refetch }) => {
     return (
         <div className='w-full flex flex-row justify-center items-center my-2 shadow-lg shadow-orange-100 rounded-b-lg p-1'>
             <div>
-                <img
-                    src={product.imageURL}
-                    className='h-24 w-16 rounded-lg'
-                    alt="Loading..."
-                />
+                <Link to={`/product/${product.productID}`}>
+                    <img
+                        src={product.imageURL}
+                        className='h-24 w-16 rounded-lg'
+                        alt="Loading..."
+                    />
+                </Link>
             </div>
             <div className='w-full ms-2'>
                 <div className="w-full flex justify-between items-center">
-                    <p
-                        className="font-bold"
-                    >
-                        {product.productName}
-                    </p>
+                    <Link to={`/product/${product.productID}`}>
+                        <p
+                            className="font-bold hover:text-blue-900"
+                        >
+                            {product.productName}
+                        </p>
+                    </Link>
                     <button onClick={() => handleDelete()} className="focus:outline-none">
                         <FaTrash className="text-red-500 ml-2" />
                     </button>

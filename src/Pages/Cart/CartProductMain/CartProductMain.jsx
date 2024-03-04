@@ -3,6 +3,7 @@ import QuanntityUpdate from "../../../Components/QuanntityUpdate/QuanntityUpdate
 import { useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const CartProductMain = ({ product, newCart, setNewCart, refetch }) => {
     const [selectedSize, setSelectedSize] = useState(product.size);
@@ -68,17 +69,21 @@ const CartProductMain = ({ product, newCart, setNewCart, refetch }) => {
         <div>
             <div className="flex justify-start items-center m-2 bg-white rounded-lg shadow-lg shadow-orange-100">
                 <div className="avatar p-3">
-                    <div className="w-16 h-40 lg:w-24 lg:h-24 rounded">
-                        <img src={product.imageURL} />
-                    </div>
+                    <Link to={`/product/${product.productID}`}>
+                        <div className="w-16 h-40 lg:w-24 lg:h-24 rounded">
+                            <img src={product.imageURL} />
+                        </div>
+                    </Link>
                 </div>
                 <div className="w-full flex flex-col p-2 lg:p-5">
                     <div className="w-full flex justify-between items-center lg:mb-5">
-                        <p
-                            className="text-2xl font-bold"
-                        >
-                            {product.productName}
-                        </p>
+                        <Link to={`/product/${product.productID}`}>
+                            <p
+                                className="text-2xl font-bold hover:text-blue-900"
+                            >
+                                {product.productName}
+                            </p>
+                        </Link>
                         <button onClick={() => handleDelete()} className="focus:outline-none">
                             <FaTrash className="text-red-500 text-2xl" />
                         </button>

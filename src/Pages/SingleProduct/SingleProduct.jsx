@@ -63,7 +63,8 @@ const SingleProduct = () => {
             imageURL: product.imageURL,
             size: selectedSize,
             quantity: quantity,
-            price: product.discountPrice
+            price: product.discountPrice,
+            productID: product._id
         }
 
         const url = 'http://localhost:5000/cart';
