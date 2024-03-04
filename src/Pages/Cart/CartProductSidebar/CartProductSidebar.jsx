@@ -49,7 +49,7 @@ const CartProductSidebar = ({ product, refetch }) => {
                 <Link to={`/product/${product.productID}`}>
                     <img
                         src={product.imageURL}
-                        className='h-24 w-16 rounded-lg'
+                        className='h-24 w-16 rounded-lg p-1 hover:border hover:border-orange-600'
                         alt="Loading..."
                     />
                 </Link>

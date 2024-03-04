@@ -70,7 +70,7 @@ const CartProductMain = ({ product, newCart, setNewCart, refetch }) => {
             <div className="flex justify-start items-center m-2 bg-white rounded-lg shadow-lg shadow-orange-100">
                 <div className="avatar p-3">
                     <Link to={`/product/${product.productID}`}>
-                        <div className="w-16 h-40 lg:w-24 lg:h-24 rounded">
+                        <div className="w-16 h-40 lg:w-24 lg:h-24 rounded p-1 hover:border-2 hover:border-green-600">
                             <img src={product.imageURL} />
                         </div>
                     </Link>

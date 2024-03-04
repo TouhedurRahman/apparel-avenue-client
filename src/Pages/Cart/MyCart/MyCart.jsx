@@ -152,34 +152,48 @@ const MyCart = () => {
                                             </div>
                                         </div>
                                         <div className="w-full lg:w-[25%] mt-10 lg:mt-0 m-2">
-                                            <div className="w-full mb-2">
-                                                <h1 className="font-serif font-bold mx-2 text-center md:text-left">
-                                                    Have Promocode?
-                                                </h1>
-                                                <div className="flex justify-center items-center mx-2 rounded-lg">
-                                                    <input
-                                                        type="text"
-                                                        value={promoCode}
-                                                        onChange={handlePromoCodeChange}
-                                                        placeholder="Enter Promo Code"
-                                                        className="w-full h-11 mr-2 p-2 border-2 border-green-400 rounded-lg focus:outline-none"
-                                                        required
-                                                    />
-                                                    <button
-                                                        onClick={handleApplyPromoCode}
-                                                        className="h-10 mx-auto btn bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600 flex"
-                                                    >
-                                                        Apply
-                                                    </button>
-                                                </div>
+                                            <div className="w-full mr-2 mb-2">
                                                 {
-                                                    errorPromoMsg &&
-                                                    <>
-                                                        <p className="text-red-800 text-center font-mono">Invalid or expired promocode.</p>
-                                                    </>
+                                                    discountPrice === 0
+                                                        ?
+                                                        <>
+                                                            <h1 className="font-serif font-bold mx-2 text-center md:text-left">
+                                                                Have Promocode?
+                                                            </h1>
+                                                            <div className="flex justify-center items-center mx-2 rounded-lg">
+                                                                <input
+                                                                    type="text"
+                                                                    value={promoCode}
+                                                                    onChange={handlePromoCodeChange}
+                                                                    placeholder="Enter Promo Code"
+                                                                    className="w-full h-11 mr-2 p-2 border-2 border-green-400 rounded-lg focus:outline-none"
+                                                                    required
+                                                                />
+                                                                <button
+                                                                    onClick={handleApplyPromoCode}
+                                                                    className="h-10 mx-auto btn bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600 flex"
+                                                                >
+                                                                    Apply
+                                                                </button>
+                                                            </div>
+                                                            {
+                                                                errorPromoMsg &&
+                                                                <>
+                                                                    <p className="text-red-800 text-center font-mono">Invalid or expired promocode.</p>
+                                                                </>
+                                                            }
+                                                        </>
+                                                        :
+                                                        <>
+                                                            <div className="w-full border-2 border-green-400 rounded-lg p-3 mb-2">
+                                                                <h1 className="font-serif font-bold mx-2 text-center">
+                                                                    Promocode successfully applied.
+                                                                </h1>
+                                                            </div>
+                                                        </>
                                                 }
                                             </div>
-                                            <div className="mx-2 my-3">
+                                            <div className="me-2 my-3">
                                                 <div className="text-center font-extrabold uppercase font-serif border-b-2 border-b-green-400 border-dotted mb-6 p-5 rounded-lg shadow-lg shadow-orange-200">
                                                     Order Summary
                                                 </div>
