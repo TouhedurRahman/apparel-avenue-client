@@ -163,7 +163,7 @@ const MyCart = () => {
                                                             <h1 className="font-serif font-bold mx-2 text-center mb-1 md:text-left">
                                                                 Have Promocode?
                                                             </h1>
-                                                            <div className="flex flex-col lg:flex-row  justify-center items-center mx-2 rounded-lg">
+                                                            <div className="flex flex-col lg:flex-row justify-center items-center rounded-lg">
                                                                 <input
                                                                     type="text"
                                                                     value={promoCode}

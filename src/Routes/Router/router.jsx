@@ -13,6 +13,7 @@ import Register from "../../Pages/LoginAndResgistration/Register/Register";
 import MyProfile from "../../Pages/MyProfile/MyProfile";
 import MyCart from "../../Pages/Cart/MyCart/MyCart";
 import BuyNow from "../../Pages/BuyNow/BuyNow/BuyNow";
+import DashboardHome from "../../Pages/Dashboard/DashboardHome/DashboardHome";
 
 const router = createBrowserRouter([
     {
@@ -62,9 +63,13 @@ const router = createBrowserRouter([
             {
                 path: 'buy-now',
                 element: <BuyNow />
+            },
+            {
+                path: '/dashboard',
+                element: <DashboardHome />
             }
         ]
-    },
+    }
 ]);
 
 export default router;

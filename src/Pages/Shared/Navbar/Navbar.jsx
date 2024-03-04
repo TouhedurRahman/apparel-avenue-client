@@ -133,7 +133,7 @@ const Navbar = () => {
                                     </div>
                                     <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-[#40ca91] rounded-box w-52 rounded-t-none shadow-0">
                                         <li><Link to="my-profile"><FaCircleUser />Profile</Link></li>
-                                        <li><Link to=""><MdDashboardCustomize />Dashboard</Link></li>
+                                        <li><Link to="/dashboard"><MdDashboardCustomize />Dashboard</Link></li>
                                         <li><Link onClick={handleLogOut}><RiLogoutCircleRFill />Log Out</Link></li>
                                     </ul>
                                 </div>
