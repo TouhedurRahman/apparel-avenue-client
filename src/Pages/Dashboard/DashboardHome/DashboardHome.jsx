@@ -8,7 +8,7 @@ import { GiSelfLove } from "react-icons/gi";
 import { RiCoupon2Fill, RiCoupon3Fill, RiLogoutCircleRFill, RiMenuSearchFill } from "react-icons/ri";
 import { useState } from "react";
 import { BsMenuButtonFill } from "react-icons/bs";
-import { FaUsersGear } from "react-icons/fa6";
+import { FaMapLocationDot, FaUsersGear } from "react-icons/fa6";
 import useSingleUser from "../../../Hooks/useSingleUser";
 
 const DashboardHome = () => {
@@ -80,34 +80,135 @@ const DashboardHome = () => {
                                 <>
                                     <li><Link to=""><MdDashboardCustomize className="mr-2" />Dashboard</Link></li>
                                     <li><Link to=""><IoHome className="mr-2" />User Home</Link></li>
-                                    <li><Link to=""><TfiMenuAlt className="mr-2" />Orders</Link></li>
                                     <li><Link to="">< GiSelfLove className="mr-2" />Favourites</Link></li>
+                                    <li><Link to=""><TfiMenuAlt className="mr-2" />Orders</Link></li>
+                                    <li><Link to="">< FaMapLocationDot className="mr-2" />Address</Link></li>
                                 </>
                         }
                         <li><Link> <RiLogoutCircleRFill className="mr-2" />Logout</Link></li>
                     </ul>
                 </div>
-                <div className="border-2 border-black w-full h-96 mx-1 my-1 p-2">
+                <div className="border-2 border-black w-full mx-1 my-1 p-2">
                     {
                         location?.pathname?.includes('/dashboard')
                             ?
                             <>
-                                <div>
+                                <div className="pb-5">
                                     <p className="text-xl">
                                         Hey, <span className="font-bold">{singleUser.name}</span> <span className="text-gray-500">(not <span className="font-bold">{singleUser.name}</span>? <span className="hover:text-blue-400 cursor-pointer">Log Out</span>)</span>.
                                     </p>
-                                    <p className="my-3 text-xl font-sans text-gray-600">
+                                    <p className="my-3 text-xl font-sans text-gray-600 text-justify">
                                         From your account dashboard you can view your recent orders, manage your shipping and billing addresses, edit profile and account details.
                                     </p>
                                 </div>
                                 {
                                     isAdmin
                                         ?
-                                        <>
-                                        </>
+                                        <div className="grid grid-cols md:grid-cols-3 gap-4 mx-10">
+                                            <Link to="" className="flex flex-col justify-center items-center border-2 border-green-400 hover:border-orange-400 p-3 rounded-lg hover:shadow-lg hover:shadow-green-300">
+                                                <div>
+                                                    <IoHome className="w-24 h-24 text-gray-500" />
+                                                </div>
+                                                <div>
+                                                    <p className="text-4xl text-gray-600 font-bold mt-3 mb-2">
+                                                        Admin Home
+                                                    </p>
+                                                </div>
+                                            </Link>
+                                            <Link to="" className="flex flex-col justify-center items-center border-2 border-green-400 hover:border-orange-400 p-3 rounded-lg hover:shadow-lg hover:shadow-green-300">
+                                                <div>
+                                                    <FaUsersGear className="w-24 h-24 text-gray-500" />
+                                                </div>
+                                                <div>
+                                                    <p className="text-4xl text-gray-600 font-bold mt-3 mb-2">
+                                                        All Users
+                                                    </p>
+                                                </div>
+                                            </Link>
+                                            <Link to="" className="flex flex-col justify-center items-center border-2 border-green-400 hover:border-orange-400 p-3 rounded-lg hover:shadow-lg hover:shadow-green-300">
+                                                <div>
+                                                    <RiMenuSearchFill className="w-24 h-24 text-gray-500" />
+                                                </div>
+                                                <div>
+                                                    <p className="text-4xl text-gray-600 font-bold mt-3 mb-2">
+                                                        All Products
+                                                    </p>
+                                                </div>
+                                            </Link>
+                                            <Link to="" className="flex flex-col justify-center items-center border-2 border-green-400 hover:border-orange-400 p-3 rounded-lg hover:shadow-lg hover:shadow-green-300">
+                                                <div>
+                                                    <MdDomainAdd className="w-24 h-24 text-gray-500" />
+                                                </div>
+                                                <div>
+                                                    <p className="text-4xl text-gray-600 font-bold mt-3 mb-2">
+                                                        Add Products
+                                                    </p>
+                                                </div>
+                                            </Link>
+                                            <Link to="" className="flex flex-col justify-center items-center border-2 border-green-400 hover:border-orange-400 p-3 rounded-lg hover:shadow-lg hover:shadow-green-300">
+                                                <div>
+                                                    <RiCoupon2Fill className="w-24 h-24 text-gray-500" />
+                                                </div>
+                                                <div>
+                                                    <p className="text-4xl text-gray-600 font-bold mt-3 mb-2">
+                                                        All Promocodes
+                                                    </p>
+                                                </div>
+                                            </Link>
+                                            <Link to="" className="flex flex-col justify-center items-center border-2 border-green-400 hover:border-orange-400 p-3 rounded-lg hover:shadow-lg hover:shadow-green-300">
+                                                <div>
+                                                    <RiCoupon3Fill className="w-24 h-24 text-gray-500" />
+                                                </div>
+                                                <div>
+                                                    <p className="text-4xl text-gray-600 font-bold mt-3 mb-2">
+                                                        Add Promocode
+                                                    </p>
+                                                </div>
+                                            </Link>
+                                        </div>
                                         :
-                                        <>
-                                        </>
+                                        <div className="grid grid-cols md:grid-cols-2 gap-4 mx-10">
+                                            <Link to="" className="flex flex-col justify-center items-center border-2 border-green-400 hover:border-orange-400 p-3 rounded-lg hover:shadow-lg hover:shadow-green-300">
+                                                <div>
+                                                    <IoHome className="w-24 h-24 text-gray-500" />
+                                                </div>
+                                                <div>
+                                                    <p className="text-4xl text-gray-600 font-bold mt-3 mb-2">
+                                                        User Home
+                                                    </p>
+                                                </div>
+                                            </Link>
+                                            <Link to="" className="flex flex-col justify-center items-center border-2 border-green-400 hover:border-orange-400 p-3 rounded-lg hover:shadow-lg hover:shadow-green-300">
+                                                <div>
+                                                    <GiSelfLove className="w-24 h-24 text-gray-500" />
+                                                </div>
+                                                <div>
+                                                    <p className="text-4xl text-gray-600 font-bold mt-3 mb-2">
+                                                        Favourites
+                                                    </p>
+                                                </div>
+                                            </Link>
+                                            <Link to="" className="flex flex-col justify-center items-center border-2 border-green-400 hover:border-orange-400 p-3 rounded-lg hover:shadow-lg hover:shadow-green-300">
+                                                <div>
+                                                    <TfiMenuAlt className="w-24 h-24 text-gray-500" />
+                                                </div>
+                                                <div>
+                                                    <p className="text-4xl text-gray-600 font-bold mt-3 mb-2">
+                                                        Orders
+                                                    </p>
+                                                </div>
+                                            </Link>
+                                            <Link to="" className="flex flex-col justify-center items-center border-2 border-green-400 hover:border-orange-400 p-3 rounded-lg hover:shadow-lg hover:shadow-green-300">
+                                                <div>
+                                                    <FaMapLocationDot className="w-24 h-24 text-gray-500" />
+                                                </div>
+                                                <div>
+                                                    <p className="text-4xl text-gray-600 font-bold mt-3 mb-2">
+                                                        Address
+                                                    </p>
+                                                </div>
+                                            </Link>
+                                        </div>
                                 }
                             </>
                             :
