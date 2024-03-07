@@ -29,15 +29,15 @@ const router = createBrowserRouter([
                 element: <ShopNow />
             },
             {
-                path: 'mens-collections',
+                path: 'mens-collections/:category',
                 element: <MensCollections />
             },
             {
-                path: 'womens-collections',
+                path: 'womens-collections/:category',
                 element: <WomensCollections />
             },
             {
-                path: 'kids-collections',
+                path: 'kids-collections/:category',
                 element: <KidsCollections />
             },
             {

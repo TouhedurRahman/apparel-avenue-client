@@ -1,9 +1,12 @@
 import { useState } from "react";
 import ProductCard from "../../../Components/ProductCard/ProductCard";
 import CoverImage from "../../Shared/CoverImage/CoverImage";
+import { useParams } from "react-router-dom";
 
 const SingleCollections = ({ title, img, products, categories, loading }) => {
-    const [showCategory, setShowCategory] = useState('All');
+    let { category } = useParams();
+
+    const [showCategory, setShowCategory] = useState(category || 'all');
 
     const filterCategory = products.filter(singleCategory => singleCategory.category === showCategory);
 
@@ -37,7 +40,7 @@ const SingleCollections = ({ title, img, products, categories, loading }) => {
                                 onChange={handleCategoryChange}
                                 className="select border-2 border-green-400 shadow-lg shadow-orange-200 text-center font-bold hover:border-orange-400 w-[200px]  ml-1 focus:border-orange-400 focus:shadow-lg focus:shadow-green-200 focus:outline-none"
                             >
-                                <option defaultValue>All</option>
+                                <option value="all">All</option>
                                 {
                                     categories.map((categorySingle, index) => {
                                         const categoryName = categorySingle.category.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
@@ -57,7 +60,7 @@ const SingleCollections = ({ title, img, products, categories, loading }) => {
                         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2 mx-5">
                             {
 
-                                showCategory === "All"
+                                showCategory === "all"
                                     ?
                                     products.map(product => <ProductCard
                                         key={product._id}
