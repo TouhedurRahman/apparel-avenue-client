@@ -37,16 +37,22 @@ const SingleCollections = ({ title, img, products, categories, loading }) => {
                                 onChange={handleCategoryChange}
                                 className="select border-2 border-green-400 shadow-lg shadow-orange-200 text-center font-bold hover:border-orange-400 w-[200px]  ml-1 focus:border-orange-400 focus:shadow-lg focus:shadow-green-200 focus:outline-none"
                             >
-                                <option default selected>All</option>
-                                {categories.map((categorySingle, index) => (
-                                    <option
-                                        key={index}
-                                        value={categorySingle.category}
-                                    >
-                                        {categorySingle.category.charAt(0).toUpperCase() + categorySingle.category.slice(1)}
-                                    </option>
-                                ))}
+                                <option defaultValue>All</option>
+                                {
+                                    categories.map((categorySingle, index) => {
+                                        const categoryName = categorySingle.category.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+                                        return (
+                                            <option
+                                                key={index}
+                                                value={categorySingle.category}
+                                            >
+                                                {categoryName}
+                                            </option>
+                                        );
+                                    })
+                                }
                             </select>
+
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2 mx-5">
                             {
