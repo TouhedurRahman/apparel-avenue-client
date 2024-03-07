@@ -95,7 +95,7 @@ const DashboardHome = () => {
                             <>
                                 <div className="pb-5">
                                     <p className="text-xl">
-                                        Hey, <span className="font-bold">{singleUser.name}</span> <span className="text-gray-500">(not <span className="font-bold">{singleUser.name}</span>? <span className="hover:text-blue-400 cursor-pointer">Log Out</span>)</span>.
+                                        👋 Hey, <span className="font-bold">{singleUser.name}</span> <span className="text-gray-500">(not <span className="font-bold">{singleUser.name}</span>? <span className="hover:text-blue-400 cursor-pointer">Log Out</span>)</span>.
                                     </p>
                                     <p className="my-3 text-xl font-sans text-gray-600 text-justify">
                                         From your account dashboard you can view your recent orders, manage your shipping and billing addresses, edit profile and account details.
