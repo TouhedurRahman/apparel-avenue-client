@@ -39,7 +39,7 @@ const DashboardHome = () => {
                             isAdmin
                                 ?
                                 <>
-                                    <li><Link to=""><MdDashboardCustomize className="mr-2" />Dashboard</Link></li>
+                                    <li><Link to="/dashboard/home"><MdDashboardCustomize className="mr-2" />Dashboard</Link></li>
                                     <li><Link to=""><IoHome className="mr-2" />Admin Home</Link></li>
                                     <li><Link to=""><FaUsersGear className="mr-2" />All Users</Link></li>
                                     <li>
@@ -74,7 +74,7 @@ const DashboardHome = () => {
                                             <li><Link to=""><MdDomainAdd className="mr-2" />Add Promocode</Link></li>
                                         </div>
                                     }
-                                    <li><Link to=""><TfiMenuAlt className="mr-2" />Orders</Link></li>
+                                    <li><Link to="/dashboard/orders"><TfiMenuAlt className="mr-2" />Orders</Link></li>
 
                                 </>
                                 :
@@ -91,7 +91,7 @@ const DashboardHome = () => {
                 </div>
                 <div className="border-2 border-black w-full mx-1 my-1 p-2">
                     {
-                        location?.pathname?.includes('/dashboard')
+                        location?.pathname?.includes('/dashboard/home')
                             ?
                             <>
                                 <div className="pb-5">
@@ -166,7 +166,7 @@ const DashboardHome = () => {
                                                     </p>
                                                 </div>
                                             </Link>
-                                            <Link to="" className="flex flex-col justify-center items-center border-2 border-green-400 hover:border-orange-400 p-3 rounded-lg hover:shadow-lg hover:shadow-green-300">
+                                            <Link to="/dashboard/orders" className="flex flex-col justify-center items-center border-2 border-green-400 hover:border-orange-400 p-3 rounded-lg hover:shadow-lg hover:shadow-green-300">
                                                 <div>
                                                     <TfiMenuAlt className="w-24 h-24 text-gray-500" />
                                                 </div>
