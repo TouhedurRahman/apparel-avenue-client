@@ -14,7 +14,8 @@ import MyProfile from "../../Pages/MyProfile/MyProfile";
 import MyCart from "../../Pages/Cart/MyCart/MyCart";
 import BuyNow from "../../Pages/BuyNow/BuyNow/BuyNow";
 import DashboardHome from "../../Pages/Dashboard/DashboardHome/DashboardHome";
-import Orders from "../../Pages/Dashboard/AdminPanel/Orders/Orders";
+import Orders from "../../Pages/Dashboard/AdminPanel/Orders/Orders/Orders";
+import AllOrders from "../../Pages/Dashboard/AdminPanel/Orders/AllOrders/AllOrders";
 
 const router = createBrowserRouter([
     {
@@ -75,7 +76,13 @@ const router = createBrowserRouter([
                     },
                     {
                         path: 'orders',
-                        element: <Orders />
+                        element: <Orders />,
+                        children: [
+                            {
+                                path: "all-orders",
+                                element: <AllOrders />
+                            }
+                        ]
                     }
                 ]
             }
