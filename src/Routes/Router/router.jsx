@@ -16,6 +16,7 @@ import BuyNow from "../../Pages/BuyNow/BuyNow/BuyNow";
 import DashboardHome from "../../Pages/Dashboard/DashboardHome/DashboardHome";
 import Orders from "../../Pages/Dashboard/AdminPanel/Orders/Orders/Orders";
 import AllOrders from "../../Pages/Dashboard/AdminPanel/Orders/AllOrders/AllOrders";
+import PendingOrders from "../../Pages/Dashboard/AdminPanel/Orders/PendingOrders/PendingOrders";
 
 const router = createBrowserRouter([
     {
@@ -81,6 +82,10 @@ const router = createBrowserRouter([
                             {
                                 path: "all-orders",
                                 element: <AllOrders />
+                            },
+                            {
+                                path: "pending-orders",
+                                element: <PendingOrders />
                             }
                         ]
                     }

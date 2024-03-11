@@ -1,15 +1,17 @@
-import useOrders from '../../../../../Hooks/useOrders';
-import Loading from '../../../../../Components/Loading/Loading';
-import { GrValidate } from 'react-icons/gr';
-import { TbListDetails, TbTruckDelivery } from "react-icons/tb";
-import { TiCancel, TiTick } from "react-icons/ti";
-import { useState } from 'react';
-import { FaCopy } from 'react-icons/fa6';
+import { MdPending } from "react-icons/md";
+import Loading from "../../../../../Components/Loading/Loading";
+import useOrders from "../../../../../Hooks/useOrders";
+import { useState } from "react";
+import { TbListDetails } from "react-icons/tb";
+import { FaCopy } from "react-icons/fa6";
+import { TiTick } from "react-icons/ti";
 
-const AllOrders = () => {
+const PendingOrders = () => {
     const [orders, loading] = useOrders();
     const [order, setOrder] = useState(null);
     const [copy, setCopy] = useState(null);
+
+    const orderPendings = orders.filter(order => order.orderStatus === 'pending');
 
     const openModal = (orderData) => {
         setOrder(orderData);
@@ -27,11 +29,6 @@ const AllOrders = () => {
                 setCopy(text);
             })
     };
-
-    const handleUpdateStatus = (id, updateStatus) => {
-        const data = { updateStatus }
-        console.log(data);
-    }
 
     return (
         <div className='m-5'>
@@ -54,7 +51,7 @@ const AllOrders = () => {
                             </thead>
                             <tbody className="my-3">
                                 {
-                                    orders.map((order, idx) => <tr
+                                    orderPendings.map((order, idx) => <tr
                                         key={order._id}
                                         className="border border-b-black border-t-black text-center"
                                     >
@@ -93,36 +90,11 @@ const AllOrders = () => {
                                             </div>
                                         </td>
                                         <td>
-                                            {
-                                                order.orderStatus !== 'pending'
-                                                    ?
-                                                    <>
-                                                        <button className="w-28 px-3 py-3 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600 rounded-lg shadow-lg cursor-not-allowed">
-                                                            <span className='flex justify-between items-center '>
-                                                                Deliverd<GrValidate size={24} className='text-green-700 font-extrabold ml-2' />
-                                                            </span>
-                                                        </button>
-                                                    </>
-                                                    :
-                                                    <div className='flex flex-col justify-center items-center'>
-                                                        <button
-                                                            onClick={() => handleUpdateStatus(order._id, "delivered")}
-                                                            className="w-28 btn mx-auto my-1 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600">
-                                                            <span className='flex justify-between items-center '>
-                                                                Deliver
-                                                                <TbTruckDelivery size={24} className='text-yellow-800 font-extrabold ml-2' />
-                                                            </span>
-                                                        </button>
-                                                        <button
-                                                            onClick={() => handleUpdateStatus(order._id, "delivered")}
-                                                            className="w-28 btn mx-auto my-1 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600">
-                                                            <span className='flex justify-between items-center '>
-                                                                Cancel
-                                                                <TiCancel size={24} className='text-red-600 font-extrabold ml-2' />
-                                                            </span>
-                                                        </button>
-                                                    </div>
-                                            }
+                                            <button className="w-28 px-3 py-3 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600 rounded-lg shadow-lg cursor-not-allowed">
+                                                <span className='flex justify-between items-center '>
+                                                    Pending<MdPending size={24} className='text-orange-700 font-extrabold ml-2' />
+                                                </span>
+                                            </button>
                                         </td>
                                     </tr>)
                                 }
@@ -189,4 +161,4 @@ const AllOrders = () => {
     );
 };
 
-export default AllOrders;
+export default PendingOrders;

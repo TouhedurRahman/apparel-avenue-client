@@ -20,6 +20,7 @@ const Orders = () => {
                         ALL
                     </Link>
                     <Link
+                        to="/dashboard/orders/pending-orders"
                         className={`mr-2 px-4 py-2 font-bold italic border-2 border-green-400 shadow-lg shadow-orange-100 rounded-lg  ${selected === "PENDING" && 'bg-orange-500 text-white'}`}
                         onClick={() => handleSelection("PENDING")}
                     >
