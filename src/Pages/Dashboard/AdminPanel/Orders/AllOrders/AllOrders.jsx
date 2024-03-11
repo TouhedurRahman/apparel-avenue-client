@@ -1,5 +1,8 @@
 import useOrders from '../../../../../Hooks/useOrders';
 import Loading from '../../../../../Components/Loading/Loading';
+import { GrValidate } from 'react-icons/gr';
+import { TbTruckDelivery } from "react-icons/tb";
+import { TiCancel } from "react-icons/ti";
 
 const AllOrders = () => {
     const [orders, loading] = useOrders();
@@ -48,9 +51,9 @@ const AllOrders = () => {
                                                         >
                                                             <p className='font-bold'>{product.productName}</p>
                                                             <div className='flex justify-center items-center'>
-                                                                <p>Price: {product.price}</p>
-                                                                <p className='mx-3'>X</p>
-                                                                <p>{product.quantity}</p>
+                                                                <p>Price {product.price}</p>
+                                                                <p className='mx-1'>X</p>
+                                                                <p>{product.quantity} {product.quantity > 1 ? 'Pieces' : 'Piece'}</p>
                                                             </div>
                                                             {/* <hr /> */}
                                                         </div>
@@ -101,18 +104,36 @@ const AllOrders = () => {
                                                     </>
                                             }
                                         </td>
-                                        <td className='text-center'>
+                                        <td>
                                             {
                                                 order.orderStatus !== 'pending'
                                                     ?
                                                     <>
-                                                        <button className="btn btn-success w-24">Deliverd</button>
+                                                        <button className="w-28 px-3 py-3 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600 rounded-lg shadow-lg cursor-not-allowed">
+                                                            <span className='flex justify-between items-center '>
+                                                                Deliverd<GrValidate size={24} className='text-green-700 font-extrabold ml-2' />
+                                                            </span>
+                                                        </button>
                                                     </>
                                                     :
-                                                    <>
-                                                        <button onClick={() => handleUpdateStatus(order._id, "delivered")} className="btn btn-warning w-24 my-1">Deliver</button>
-                                                        <button onClick={() => handleUpdateStatus(order._id, "canceled")} className="btn btn-error w-24 my-1">Cancel</button>
-                                                    </>
+                                                    <div className='flex flex-col justify-center items-center'>
+                                                        <button
+                                                            onClick={() => handleUpdateStatus(order._id, "delivered")}
+                                                            className="w-28 btn mx-auto my-1 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600">
+                                                            <span className='flex justify-between items-center '>
+                                                                Deliver
+                                                                <TbTruckDelivery size={24} className='text-yellow-800 font-extrabold ml-2' />
+                                                            </span>
+                                                        </button>
+                                                        <button
+                                                            onClick={() => handleUpdateStatus(order._id, "delivered")}
+                                                            className="w-28 btn mx-auto my-1 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600">
+                                                            <span className='flex justify-between items-center '>
+                                                                Cancel
+                                                                <TiCancel size={24} className='text-red-600 font-extrabold ml-2' />
+                                                            </span>
+                                                        </button>
+                                                    </div>
                                             }
                                         </td>
                                         <td>{order.status}</td>
