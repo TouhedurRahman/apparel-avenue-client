@@ -18,6 +18,7 @@ import Orders from "../../Pages/Dashboard/AdminPanel/Orders/Orders/Orders";
 import AllOrders from "../../Pages/Dashboard/AdminPanel/Orders/AllOrders/AllOrders";
 import PendingOrders from "../../Pages/Dashboard/AdminPanel/Orders/PendingOrders/PendingOrders";
 import DeliveredOrders from "../../Pages/Dashboard/AdminPanel/Orders/DeliveredOrders/DeliveredOrders";
+import CanceledOrders from "../../Pages/Dashboard/AdminPanel/Orders/CanceledOrders/CanceledOrders";
 
 const router = createBrowserRouter([
     {
@@ -92,6 +93,10 @@ const router = createBrowserRouter([
                                 path: "delivered-orders",
                                 element: <DeliveredOrders />
                             },
+                            {
+                                path: "cancled-orders",
+                                element: <CanceledOrders />
+                            }
                         ]
                     }
                 ]
