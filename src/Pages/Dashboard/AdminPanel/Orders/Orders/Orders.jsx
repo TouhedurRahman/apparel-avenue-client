@@ -27,6 +27,7 @@ const Orders = () => {
                         Pending
                     </Link>
                     <Link
+                        to="/dashboard/orders/delivered-orders"
                         className={`mr-2 px-4 py-2 font-bold italic border-2 border-green-400 shadow-lg shadow-orange-100 rounded-lg  ${selected === "DELIVERED" && 'bg-green-500 text-white'}`}
                         onClick={() => handleSelection("DELIVERED")}
                     >

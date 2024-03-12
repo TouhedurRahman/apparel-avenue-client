@@ -17,6 +17,7 @@ import DashboardHome from "../../Pages/Dashboard/DashboardHome/DashboardHome";
 import Orders from "../../Pages/Dashboard/AdminPanel/Orders/Orders/Orders";
 import AllOrders from "../../Pages/Dashboard/AdminPanel/Orders/AllOrders/AllOrders";
 import PendingOrders from "../../Pages/Dashboard/AdminPanel/Orders/PendingOrders/PendingOrders";
+import DeliveredOrders from "../../Pages/Dashboard/AdminPanel/Orders/DeliveredOrders/DeliveredOrders";
 
 const router = createBrowserRouter([
     {
@@ -86,7 +87,11 @@ const router = createBrowserRouter([
                             {
                                 path: "pending-orders",
                                 element: <PendingOrders />
-                            }
+                            },
+                            {
+                                path: "delivered-orders",
+                                element: <DeliveredOrders />
+                            },
                         ]
                     }
                 ]
