@@ -20,6 +20,7 @@ import PendingOrders from "../../Pages/Dashboard/AdminPanel/Orders/PendingOrders
 import DeliveredOrders from "../../Pages/Dashboard/AdminPanel/Orders/DeliveredOrders/DeliveredOrders";
 import CanceledOrders from "../../Pages/Dashboard/AdminPanel/Orders/CanceledOrders/CanceledOrders";
 import AddPromoCodes from "../../Pages/Dashboard/AdminPanel/PromoCodes/AddPromoCodes/AddPromoCodes";
+import AllPromoCodes from "../../Pages/Dashboard/AdminPanel/PromoCodes/AllPromoCodes/AllPromoCodes";
 
 const router = createBrowserRouter([
     {
@@ -103,6 +104,10 @@ const router = createBrowserRouter([
                     {
                         path: "add-promocode",
                         element: <AddPromoCodes />
+                    },
+                    {
+                        path: "all-promocodes",
+                        element: <AllPromoCodes />
                     },
                 ]
             }

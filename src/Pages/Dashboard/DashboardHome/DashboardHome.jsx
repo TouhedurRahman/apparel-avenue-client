@@ -54,13 +54,13 @@ const DashboardHome = () => {
                                         productsToggle
                                         &&
                                         <div className="ms-5">
-                                            <li><Link to=""><BsMenuButtonFill className="mr-2" />All Products</Link></li>
+                                            {/* <li><Link to=""><BsMenuButtonFill className="mr-2" />All Products</Link></li> */}
                                             <li><Link to=""><MdDomainAdd className="mr-2" />Add Product</Link></li>
                                         </div>
                                     }
                                     <li>
                                         <Link
-                                            to="/dashboard"
+                                            to="/dashboard/all-promocodes"
                                             onClick={() => setPromocodeToggle(!promocodeToggle)}
                                         >
                                             < RiCoupon2Fill className="mr-2" />Promocodes
@@ -70,8 +70,8 @@ const DashboardHome = () => {
                                         promocodeToggle
                                         &&
                                         <div className="ms-5">
-                                            <li><Link to=""><RiCoupon3Fill className="mr-2" />All Promocodes</Link></li>
-                                            <li><Link to="/dashboard/add-promocode"><MdDomainAdd className="mr-2" />Add Promocode</Link></li>
+                                            {/* <li><Link to="/dashboard/all-promocodes"><RiCoupon3Fill className="mr-2" />All Promocodes</Link></li> */}
+                                            <li><Link to="/dashboard/add-promocode"><RiCoupon3Fill className="mr-2" />Add Promocode</Link></li>
                                         </div>
                                     }
                                     <li><Link to="/dashboard/orders/all-orders"><TfiMenuAlt className="mr-2" />Orders</Link></li>
@@ -146,7 +146,7 @@ const DashboardHome = () => {
                                                     </p>
                                                 </div>
                                             </Link>
-                                            <Link to="" className="flex flex-col justify-center items-center border-2 border-green-400 hover:border-orange-400 p-3 rounded-lg hover:shadow-lg hover:shadow-green-300">
+                                            <Link to="/dashboard/all-promocodes" className="flex flex-col justify-center items-center border-2 border-green-400 hover:border-orange-400 p-3 rounded-lg hover:shadow-lg hover:shadow-green-300">
                                                 <div>
                                                     <RiCoupon2Fill className="w-24 h-24 text-gray-500" />
                                                 </div>
