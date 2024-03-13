@@ -71,7 +71,7 @@ const DashboardHome = () => {
                                         &&
                                         <div className="ms-5">
                                             <li><Link to=""><RiCoupon3Fill className="mr-2" />All Promocodes</Link></li>
-                                            <li><Link to=""><MdDomainAdd className="mr-2" />Add Promocode</Link></li>
+                                            <li><Link to="/dashboard/add-promocode"><MdDomainAdd className="mr-2" />Add Promocode</Link></li>
                                         </div>
                                     }
                                     <li><Link to="/dashboard/orders/all-orders"><TfiMenuAlt className="mr-2" />Orders</Link></li>
@@ -156,7 +156,7 @@ const DashboardHome = () => {
                                                     </p>
                                                 </div>
                                             </Link>
-                                            <Link to="" className="flex flex-col justify-center items-center border-2 border-green-400 hover:border-orange-400 p-3 rounded-lg hover:shadow-lg hover:shadow-green-300">
+                                            <Link to="/dashboard/add-promocode" className="flex flex-col justify-center items-center border-2 border-green-400 hover:border-orange-400 p-3 rounded-lg hover:shadow-lg hover:shadow-green-300">
                                                 <div>
                                                     <RiCoupon3Fill className="w-24 h-24 text-gray-500" />
                                                 </div>
