@@ -124,7 +124,23 @@ const DeliveredOrders = () => {
                                     <p className='text-xl font-bold text-center bg-green-200 my-2 rounded-full'>Payment Information</p>
                                     <p><span className='font-bold italic'>Total Payment: </span><span className='font-mono mr-1'>৳</span>{order?.totalCost}/-</p>
                                     <p><span className='font-bold italic'>Payment Via: </span>{(order?.paymentVia) === 'cashOnDelivery' ? 'Cash on Delivery' : 'Online Payment'}</p>
-                                    <p><span className='font-bold italic'>Payment status: </span>{(order?.paymentStatus) === 'paid' ? 'Paid' : 'Unpaid'}</p>
+                                    <p>
+                                        <span className='font-bold italic'>Payment status: </span>
+                                        {
+                                            (order?.paymentStatus) === 'paid'
+                                                ? 'Paid'
+                                                :
+                                                <>
+                                                    {
+                                                        (order?.paymentStatus) === 'unpaid'
+                                                            ?
+                                                            'Unpaid'
+                                                            :
+                                                            'Refunded'
+                                                    }
+                                                </>
+                                        }
+                                    </p>
                                     {
                                         (order?.transactionId) !== "N/A" && (
                                             <p className='flex justify-start items-center'>
