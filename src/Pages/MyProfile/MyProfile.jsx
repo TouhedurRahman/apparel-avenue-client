@@ -160,7 +160,7 @@ const MyProfile = () => {
                                             <input
                                                 type="text"
                                                 defaultValue={singleUser.mobile}
-                                                placeholder="Please Enter your Email"
+                                                placeholder="Please enter your mobile no."
                                                 className="input border-0 border-b-2 border-b-green-600 mr-5 font-bold w-full rounded focus:outline-none"
                                                 ref={mobileNoRef}
                                             />
@@ -177,7 +177,7 @@ const MyProfile = () => {
                                         <div className='w-full flex justify-between items-center my-3'>
                                             <input
                                                 type="email"
-                                                placeholder="Please Enter your Email"
+                                                placeholder="Please enter your email"
                                                 className="input border-0 border-b-2 border-b-green-600 mr-5 font-bold w-full rounded focus:outline-none"
                                                 onBlur={handleEmailOnBlur}
                                                 ref={userEmailRef}

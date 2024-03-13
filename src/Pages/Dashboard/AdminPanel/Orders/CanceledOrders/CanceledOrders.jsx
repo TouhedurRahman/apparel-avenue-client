@@ -117,7 +117,7 @@ const CanceledOrders = () => {
                                                     ?
                                                     <>
                                                         <button
-                                                            onClick={() => handleUpdateStatus(order._id, "refund")}
+                                                            onClick={() => handleUpdateStatus(order._id, "refunded")}
                                                             className="w-28 btn mx-auto my-1 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600">
                                                             <span className='flex justify-between items-center '>
                                                                 Refund

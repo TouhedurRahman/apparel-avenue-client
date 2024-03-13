@@ -124,7 +124,7 @@ const AllOrders = () => {
                                                                 </button>
                                                                 :
                                                                 <button className="w-28 px-3 py-3 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600 rounded-lg shadow-lg cursor-not-allowed">
-                                                                    <span className='flex justify-between items-center '>
+                                                                    <span className='flex justify-between items-center'>
                                                                         Canceled<TiCancel size={24} className='text-red-700 font-extrabold ml-2' />
                                                                     </span>
                                                                 </button>
