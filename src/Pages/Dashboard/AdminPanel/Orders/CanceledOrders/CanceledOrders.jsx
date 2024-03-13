@@ -91,7 +91,7 @@ const CanceledOrders = () => {
                                         <td>
                                             <button className="w-28 px-3 py-3 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600 rounded-lg shadow-lg cursor-not-allowed">
                                                 <span className='flex justify-between items-center '>
-                                                    Canceled<TiCancel size={24} className='text-red-700 font-extrabold ml-2' />
+                                                    Canceled<TiCancel size={36} className='text-red-700 font-extrabold ml-2' />
                                                 </span>
                                             </button>
                                         </td>
@@ -121,6 +121,7 @@ const CanceledOrders = () => {
                                 </div>
                                 <div className=''>
                                     <p className='text-xl font-bold text-center bg-green-200 my-2 rounded-full'>Payment Information</p>
+                                    <p><span className='font-bold italic'>Total Payment: </span><span className='font-mono mr-1'>৳</span>{order?.totalCost}/-</p>
                                     <p><span className='font-bold italic'>Payment Via: </span>{(order?.paymentVia) === 'cashOnDelivery' ? 'Cash on Delivery' : 'Online Payment'}</p>
                                     <p><span className='font-bold italic'>Payment status: </span>{(order?.paymentStatus) === 'paid' ? 'Paid' : 'Unpaid'}</p>
                                     {

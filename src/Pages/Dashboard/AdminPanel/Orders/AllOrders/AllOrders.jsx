@@ -5,11 +5,15 @@ import { TbListDetails, TbTruckDelivery } from "react-icons/tb";
 import { TiCancel, TiTick } from "react-icons/ti";
 import { useState } from 'react';
 import { FaCopy } from 'react-icons/fa6';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import useAxiosSecure from '../../../../../Hooks/useAxiosSecure';
 
 const AllOrders = () => {
-    const [orders, loading] = useOrders();
+    const [orders, loading, refetch] = useOrders();
     const [order, setOrder] = useState(null);
     const [copy, setCopy] = useState(null);
+    const axiosSecure = useAxiosSecure();
 
     const openModal = (orderData) => {
         setOrder(orderData);
@@ -29,8 +33,22 @@ const AllOrders = () => {
     };
 
     const handleUpdateStatus = (id, updateStatus) => {
-        const data = { updateStatus }
-        console.log(data);
+        const updatedStatus = {
+            orderStatus: updateStatus
+        }
+
+        axiosSecure.patch(`http://localhost:5000/order/${id}`, updatedStatus)
+            .then(response => {
+                if (response.data.modifiedCount) {
+                    refetch();
+                    Swal.fire({
+                        icon: "success",
+                        title: "Status successfully updated!",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                }
+            })
     }
 
     return (
@@ -97,31 +115,43 @@ const AllOrders = () => {
                                                 order.orderStatus !== 'pending'
                                                     ?
                                                     <>
-                                                        <button className="w-28 px-3 py-3 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600 rounded-lg shadow-lg cursor-not-allowed">
-                                                            <span className='flex justify-between items-center '>
-                                                                Deliverd<GrValidate size={24} className='text-green-700 font-extrabold ml-2' />
-                                                            </span>
-                                                        </button>
+                                                        {
+                                                            order.orderStatus === 'delivered'
+                                                                ?
+                                                                <button className="w-28 px-3 py-3 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600 rounded-lg shadow-lg cursor-not-allowed">
+                                                                    <span className='flex justify-between items-center '>
+                                                                        Deliverd<GrValidate size={24} className='text-green-700 font-extrabold ml-2' />
+                                                                    </span>
+                                                                </button>
+                                                                :
+                                                                <button className="w-28 px-3 py-3 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600 rounded-lg shadow-lg cursor-not-allowed">
+                                                                    <span className='flex justify-between items-center '>
+                                                                        Canceled<TiCancel size={36} className='text-red-700 font-extrabold ml-2' />
+                                                                    </span>
+                                                                </button>
+                                                        }
                                                     </>
                                                     :
-                                                    <div className='flex flex-col justify-center items-center'>
-                                                        <button
-                                                            onClick={() => handleUpdateStatus(order._id, "delivered")}
-                                                            className="w-28 btn mx-auto my-1 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600">
-                                                            <span className='flex justify-between items-center '>
-                                                                Deliver
-                                                                <TbTruckDelivery size={24} className='text-yellow-800 font-extrabold ml-2' />
-                                                            </span>
-                                                        </button>
-                                                        <button
-                                                            onClick={() => handleUpdateStatus(order._id, "delivered")}
-                                                            className="w-28 btn mx-auto my-1 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600">
-                                                            <span className='flex justify-between items-center '>
-                                                                Cancel
-                                                                <TiCancel size={24} className='text-red-600 font-extrabold ml-2' />
-                                                            </span>
-                                                        </button>
-                                                    </div>
+                                                    <>
+                                                        <div className='flex flex-col justify-center items-center'>
+                                                            <button
+                                                                onClick={() => handleUpdateStatus(order._id, "delivered")}
+                                                                className="w-28 btn mx-auto my-1 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600">
+                                                                <span className='flex justify-between items-center '>
+                                                                    Deliver
+                                                                    <TbTruckDelivery size={24} className='text-yellow-800 font-extrabold ml-2' />
+                                                                </span>
+                                                            </button>
+                                                            <button
+                                                                onClick={() => handleUpdateStatus(order._id, "canceled")}
+                                                                className="w-28 btn mx-auto my-1 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600">
+                                                                <span className='flex justify-between items-center '>
+                                                                    Cancel
+                                                                    <TiCancel size={24} className='text-red-600 font-extrabold ml-2' />
+                                                                </span>
+                                                            </button>
+                                                        </div>
+                                                    </>
                                             }
                                         </td>
                                     </tr>)
@@ -150,6 +180,7 @@ const AllOrders = () => {
                                 </div>
                                 <div className=''>
                                     <p className='text-xl font-bold text-center bg-green-200 my-2 rounded-full'>Payment Information</p>
+                                    <p><span className='font-bold italic'>Total Payment: </span><span className='font-mono mr-1'>৳</span>{order?.totalCost}/-</p>
                                     <p><span className='font-bold italic'>Payment Via: </span>{(order?.paymentVia) === 'cashOnDelivery' ? 'Cash on Delivery' : 'Online Payment'}</p>
                                     <p><span className='font-bold italic'>Payment status: </span>{(order?.paymentStatus) === 'paid' ? 'Paid' : 'Unpaid'}</p>
                                     {
