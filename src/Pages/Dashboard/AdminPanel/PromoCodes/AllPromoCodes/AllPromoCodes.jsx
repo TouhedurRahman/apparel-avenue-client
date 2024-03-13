@@ -10,7 +10,7 @@ const AllPromoCodes = () => {
             <h1 className="text-xl font-bold my-5 text-center font-serif">All Promo Code(s)</h1>
             <div className="flex flex-col lg:flex-row justify-between items-center">
                 <Link to="/dashboard/add-promocode" className="btn my-2 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600">Add New Promo</Link>
-                <p className="text-xl font-bold text-center font-serif">Total Promo Code(s): {(promocodes.length + 1) < 10 ? `0${promocodes.length + 1}` : `${promocodes.length + 1}`}</p>
+                <p className="text-xl font-bold text-center font-serif">Total Promo Code(s): {(promocodes.length) < 10 ? `0${promocodes.length}` : `${promocodes.length}`}</p>
             </div>
             <div className="mt-5">
                 {
