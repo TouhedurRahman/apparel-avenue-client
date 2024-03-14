@@ -98,7 +98,7 @@ const SingleProduct = () => {
         const orderProducts = {
             orderItems: [
                 {
-                    _id: product._id,
+                    productId: product._id,
                     imageURL: product.imageURL,
                     productName: product.name,
                     size: selectedSize,
