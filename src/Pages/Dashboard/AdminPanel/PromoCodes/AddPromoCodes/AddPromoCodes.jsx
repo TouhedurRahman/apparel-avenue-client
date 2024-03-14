@@ -1,9 +1,11 @@
 import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 function AddPromoCodes() {
     const { handleSubmit, register, control, reset } = useForm();
+    const navigate = useNavigate();
 
     const handleAddPromocode = (data) => {
         const { promoCodes, startDate, endDate, discountRate, usageTime, active } = data;
@@ -20,6 +22,7 @@ function AddPromoCodes() {
             .then(data => {
                 if (data.data.insertedId) {
                     reset();
+                    navigate('/dashboard/all-promocodes');
                     Swal.fire({
                         icon: "success",
                         title: "New Promocode successfully added!",

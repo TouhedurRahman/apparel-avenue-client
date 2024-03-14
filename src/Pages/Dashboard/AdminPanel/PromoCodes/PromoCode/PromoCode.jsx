@@ -1,7 +1,11 @@
+import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../../../../Hooks/useAxiosSecure";
 
-const PromoCode = ({ idx, promocode }) => {
+const PromoCode = ({ idx, promocode, refetch }) => {
     const { _id, promoCode, startDate, endDate, discountRate, usageTime, active, createdAt } = promocode;
+    const axiosSecure = useAxiosSecure();
 
     const date = new Date(createdAt);
     const formattedDate = date.toLocaleString('en-US', {
@@ -11,6 +15,32 @@ const PromoCode = ({ idx, promocode }) => {
     });
 
     const formattedString = `${formattedDate}, ${date.toLocaleDateString()}`;
+
+    const handleDelete = (id, promo) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.delete(`http://localhost:5000/promocode/${id}`)
+                    .then(response => {
+                        if (response.data.deletedCount > 0) {
+                            refetch();
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: `Promo ${promo} has been deleted.`,
+                                icon: "success"
+                            });
+                        }
+                    })
+            }
+        });
+    }
 
     return (
         <div className="mb-5 bg-white rounded-lg shadow-lg px-3 border-2 border-green-400">
@@ -22,16 +52,19 @@ const PromoCode = ({ idx, promocode }) => {
                 <div className="flex items-center">
                     <Link
                         to={`/dashboard/update-promocode/${_id}`}
-                        className="btn m-2 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600"
                     >
-                        Edit
+                        <FaEdit className="text-2xl text-yellow-700 mx-2 cursor-pointer" />
                     </Link>
+                    <FaTrashAlt
+                        onClick={() => handleDelete(_id, promoCode)}
+                        className="text-2xl text-red-500 mx-2 cursor-pointer"
+                    />
                     {
                         active
                             ?
-                            <button className="p-2 bg-green-300 text-orange-800 border-2 border-orange-400 rounded-lg w-[100px]">Active</button>
+                            <button className="p-2 bg-green-300 text-orange-800 border-2 border-orange-400 rounded-lg w-[100px] ml-1">Active</button>
                             :
-                            <button className="p-2 bg-orange-300 text-green-800 border-2 border-green-400 rounded-lg w-[100px]">Deactive</button>
+                            <button className="p-2 bg-orange-300 text-green-800 border-2 border-green-400 rounded-lg w-[100px] ml-1">Deactive</button>
                     }
                 </div>
             </div>
