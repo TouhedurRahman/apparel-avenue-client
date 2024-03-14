@@ -21,6 +21,7 @@ import DeliveredOrders from "../../Pages/Dashboard/AdminPanel/Orders/DeliveredOr
 import CanceledOrders from "../../Pages/Dashboard/AdminPanel/Orders/CanceledOrders/CanceledOrders";
 import AddPromoCodes from "../../Pages/Dashboard/AdminPanel/PromoCodes/AddPromoCodes/AddPromoCodes";
 import AllPromoCodes from "../../Pages/Dashboard/AdminPanel/PromoCodes/AllPromoCodes/AllPromoCodes";
+import UpdatePromoCode from "../../Pages/Dashboard/AdminPanel/PromoCodes/UpdatePromoCode/UpdatePromoCode";
 
 const router = createBrowserRouter([
     {
@@ -109,6 +110,10 @@ const router = createBrowserRouter([
                         path: "all-promocodes",
                         element: <AllPromoCodes />
                     },
+                    {
+                        path: "update-promocode/:id",
+                        element: <UpdatePromoCode />
+                    }
                 ]
             }
         ]

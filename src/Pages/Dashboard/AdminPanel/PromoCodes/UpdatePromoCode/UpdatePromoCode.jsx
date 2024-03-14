@@ -1,14 +1,28 @@
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useForm, Controller } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../../../Hooks/useAxiosSecure";
 
-function AddPromoCodes() {
+const UpdatePromoCode = () => {
     const { handleSubmit, register, control, reset } = useForm();
+    const axiosSecure = useAxiosSecure();
 
-    const handleAddPromocode = (data) => {
-        const { promoCodes, startDate, endDate, discountRate, usageTime, active } = data;
-        const newPromoCode = {
-            promoCode: promoCodes.toUpperCase(),
+    const { id } = useParams();
+    const navigate = useNavigate();
+
+    const { data: promo = {} } = useQuery({
+        queryKey: ['promo', id],
+        queryFn: async () => {
+            const { data } = await axios.get(`http://localhost:5000/promocode/${id}`);
+            return data;
+        },
+    });
+
+    const handleUpdatePromocode = (data) => {
+        const { startDate, endDate, discountRate, usageTime, active } = data;
+        const updatedPromo = {
             startDate,
             endDate,
             discountRate: parseInt(discountRate),
@@ -16,30 +30,33 @@ function AddPromoCodes() {
             active
         };
 
-        axios.post('http://localhost:5000/promocodes', newPromoCode)
-            .then(data => {
-                if (data.data.insertedId) {
+        axiosSecure.patch(`http://localhost:5000/promocode/${promo._id}`, updatedPromo)
+            .then(response => {
+                if (response.data.modifiedCount) {
                     reset();
+                    navigate("/dashboard/all-promocodes");
                     Swal.fire({
                         icon: "success",
-                        title: "New Promocode successfully added!",
+                        title: "Promo Code successfully updated!",
                         showConfirmButton: false,
-                        timer: 1000
+                        timer: 1500,
                     });
                 }
-            });
-    };
+            })
+    }
 
     return (
         <div className="w-[97%] lg:w-[70%] mx-auto bg-green-50 p-8 my-2 rounded-lg shadow-lg shadow-orange-100">
-            <h1 className="text-xl font-bold mb-5 text-center font-serif">Add New Promo Code</h1>
-            <form onSubmit={handleSubmit(handleAddPromocode)}>
+            <h1 className="text-xl font-bold mb-5 text-center font-serif">Update Promo Code</h1>
+            <form onSubmit={handleSubmit(handleUpdatePromocode)}>
                 <div className="mb-4">
                     <label htmlFor="promoCodes" className="block mb-2 font-bold text-gray-700">
-                        Promo Code
+                        Promo Codes
                     </label>
                     <input
                         id="promoCodes"
+                        defaultValue={promo?.promoCode}
+                        readOnly
                         className="w-full px-3 py-2 border-2 border-green-400 rounded-lg focus:outline-none focus:border-orange-400"
                         type="text"
                         {...register("promoCodes", { required: true })}
@@ -52,6 +69,7 @@ function AddPromoCodes() {
                     </label>
                     <input
                         type="date"
+                        defaultValue={promo.startDate}
                         {...register("startDate", { required: true })}
                         className="w-full px-3 py-2 border-2 border-green-400 rounded-lg focus:outline-none focus:border-orange-400"
                     />
@@ -63,6 +81,7 @@ function AddPromoCodes() {
                     </label>
                     <input
                         type="date"
+                        defaultValue={promo.endDate}
                         {...register("endDate", { required: true })}
                         className="w-full px-3 py-2 border-2 border-green-400 rounded-lg focus:outline-none focus:border-orange-400"
                     />
@@ -76,6 +95,7 @@ function AddPromoCodes() {
                         id="discountRate"
                         className="w-full px-3 py-2 border-2 border-green-400 rounded-lg focus:outline-none focus:border-orange-400"
                         type="number"
+                        defaultValue={promo.discountRate}
                         step="0"
                         {...register("discountRate", { required: true })}
                     />
@@ -89,6 +109,7 @@ function AddPromoCodes() {
                         id="usageTime"
                         className="w-full px-3 py-2 border-2 border-green-400 rounded-lg focus:outline-none focus:border-orange-400"
                         type="text"
+                        defaultValue={promo.usageTime}
                         {...register("usageTime", { required: true })}
                     />
                 </div>
@@ -124,14 +145,14 @@ function AddPromoCodes() {
                 <div className="flex items-center justify-center">
                     <button
                         type="submit"
-                        className="btn my-2 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600"
+                        className="btn my-2 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-60"
                     >
-                        Add Promo Code
+                        Update Promo
                     </button>
                 </div>
             </form>
         </div>
     );
-}
+};
 
-export default AddPromoCodes;
+export default UpdatePromoCode;

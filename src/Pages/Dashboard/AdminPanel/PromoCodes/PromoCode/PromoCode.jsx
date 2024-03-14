@@ -21,7 +21,7 @@ const PromoCode = ({ idx, promocode }) => {
                 </div>
                 <div className="flex items-center">
                     <Link
-                        to={`/admindashboard/update-promocode/${_id}`}
+                        to={`/dashboard/update-promocode/${_id}`}
                         className="btn m-2 bg-transparent border-2 border-green-400 text-black font-bold hover:bg-orange-100 hover:border-green-600"
                     >
                         Edit
