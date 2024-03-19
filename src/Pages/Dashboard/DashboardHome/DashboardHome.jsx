@@ -41,7 +41,7 @@ const DashboardHome = () => {
                                 <>
                                     <li><Link to="/dashboard/home"><MdDashboardCustomize className="mr-2" />Dashboard</Link></li>
                                     <li><Link to=""><IoHome className="mr-2" />Admin Home</Link></li>
-                                    <li><Link to=""><FaUsersGear className="mr-2" />All Users</Link></li>
+                                    <li><Link to="/dashboard/all-users"><FaUsersGear className="mr-2" />All Users</Link></li>
                                     <li>
                                         <Link
                                             to="/dashboard"
@@ -116,7 +116,7 @@ const DashboardHome = () => {
                                                     </p>
                                                 </div>
                                             </Link>
-                                            <Link to="" className="flex flex-col justify-center items-center border-2 border-green-400 hover:border-orange-400 p-3 rounded-lg hover:shadow-lg hover:shadow-green-300">
+                                            <Link to="/dashboard/all-users" className="flex flex-col justify-center items-center border-2 border-green-400 hover:border-orange-400 p-3 rounded-lg hover:shadow-lg hover:shadow-green-300">
                                                 <div>
                                                     <FaUsersGear className="w-24 h-24 text-gray-500" />
                                                 </div>
