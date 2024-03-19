@@ -44,7 +44,7 @@ const DashboardHome = () => {
                                     <li><Link to="/dashboard/all-users"><FaUsersGear className="mr-2" />All Users</Link></li>
                                     <li>
                                         <Link
-                                            to="/dashboard"
+                                            to="/dashboard/all-products"
                                             onClick={() => setProductsToggle(!productsToggle)}
                                         >
                                             <RiMenuSearchFill className="mr-2" />Products
@@ -126,7 +126,7 @@ const DashboardHome = () => {
                                                     </p>
                                                 </div>
                                             </Link>
-                                            <Link to="" className="flex flex-col justify-center items-center border-2 border-green-400 hover:border-orange-400 p-3 rounded-lg hover:shadow-lg hover:shadow-green-300">
+                                            <Link to="/dashboard/all-products" className="flex flex-col justify-center items-center border-2 border-green-400 hover:border-orange-400 p-3 rounded-lg hover:shadow-lg hover:shadow-green-300">
                                                 <div>
                                                     <RiMenuSearchFill className="w-24 h-24 text-gray-500" />
                                                 </div>
