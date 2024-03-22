@@ -1,11 +1,57 @@
 import { useForm } from "react-hook-form";
+import useHosting from "../../../../../Hooks/useHosting";
+import useAxiosSecure from "../../../../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const AddNewProducts = () => {
     const { handleSubmit, register, reset } = useForm();
+    const img_hosting_url = useHosting();
+    const axiosSecure = useAxiosSecure();
 
-    const handleAddProduct = () => {
+    const handleAddProduct = (data) => {
+        const formData = new FormData();
+        formData.append("image", data.image[0]);
 
-    }
+        fetch(img_hosting_url, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(imgResponse => {
+                const imgURL = imgResponse.data.display_url;
+                const { productName, category, gender, price, discountRate, m, l, xl, xxl, description } = data;
+
+                const newProduct = {
+                    name: productName,
+                    category,
+                    forGender: gender,
+                    size: {
+                        M: m.toUpperCase(),
+                        L: l.toUpperCase(),
+                        XL: xl.toUpperCase(),
+                        XXL: xxl.toUpperCase()
+                    },
+                    price: parseInt(price),
+                    discountRate: parseInt(discountRate),
+                    discountPrice: parseInt(Math.ceil((price) - (price * (discountRate / 100)))),
+                    description,
+                    imageURL: imgURL
+                }
+
+                axiosSecure.post('http://localhost:5000/products', newProduct)
+                    .then(data => {
+                        if (data.data.insertedId) {
+                            reset();
+                            Swal.fire({
+                                icon: "success",
+                                title: "New Product successfully added!",
+                                showConfirmButton: false,
+                                timer: 1000
+                            });
+                        }
+                    })
+            })
+    };
 
     return (
         <div className="w-[97%] lg:w-[70%] mx-auto bg-green-50 p-8 my-2 rounded-lg shadow-lg shadow-orange-100">
