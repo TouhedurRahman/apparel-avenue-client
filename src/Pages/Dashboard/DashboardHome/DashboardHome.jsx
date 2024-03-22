@@ -55,7 +55,7 @@ const DashboardHome = () => {
                                         &&
                                         <div className="ms-5">
                                             {/* <li><Link to=""><BsMenuButtonFill className="mr-2" />All Products</Link></li> */}
-                                            <li><Link to=""><MdDomainAdd className="mr-2" />Add Product</Link></li>
+                                            <li><Link to="/dashboard/add-product"><MdDomainAdd className="mr-2" />Add Product</Link></li>
                                         </div>
                                     }
                                     <li>
@@ -136,7 +136,7 @@ const DashboardHome = () => {
                                                     </p>
                                                 </div>
                                             </Link>
-                                            <Link to="" className="flex flex-col justify-center items-center border-2 border-green-400 hover:border-orange-400 p-3 rounded-lg hover:shadow-lg hover:shadow-green-300">
+                                            <Link to="/dashboard/add-product" className="flex flex-col justify-center items-center border-2 border-green-400 hover:border-orange-400 p-3 rounded-lg hover:shadow-lg hover:shadow-green-300">
                                                 <div>
                                                     <MdDomainAdd className="w-24 h-24 text-gray-500" />
                                                 </div>

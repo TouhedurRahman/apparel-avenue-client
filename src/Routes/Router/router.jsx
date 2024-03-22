@@ -24,6 +24,7 @@ import AllPromoCodes from "../../Pages/Dashboard/AdminPanel/PromoCodes/AllPromoC
 import UpdatePromoCode from "../../Pages/Dashboard/AdminPanel/PromoCodes/UpdatePromoCode/UpdatePromoCode";
 import AllUsers from "../../Pages/Dashboard/AdminPanel/AllUsers/AllUsers";
 import AllProducts from "../../Pages/Dashboard/AdminPanel/Products/AllProducts/AllProducts";
+import AddNewProducts from "../../Pages/Dashboard/AdminPanel/Products/AddNewProducts/AddNewProducts";
 
 const router = createBrowserRouter([
     {
@@ -89,6 +90,10 @@ const router = createBrowserRouter([
                     {
                         path: 'all-products',
                         element: <AllProducts />
+                    },
+                    {
+                        path: 'add-product',
+                        element: <AddNewProducts />
                     },
                     {
                         path: 'orders',
