@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ProductCard from "../../../Components/ProductCard/ProductCard";
 import CoverImage from "../../Shared/CoverImage/CoverImage";
 import { useParams } from "react-router-dom";
@@ -9,29 +9,26 @@ const SingleCollections = ({ title, img, products, categories, loading }) => {
     const [showCategory, setShowCategory] = useState(category || 'all');
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(8); // Adjust the number of items per page as needed
+    const [itemsPerPage] = useState(8);
 
     const handleCategoryChange = (e) => {
         setShowCategory(e.target.value);
-        setCurrentPage(1); // Reset to the first page when the category changes
+        setCurrentPage(1);
     };
 
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
-        setCurrentPage(1); // Reset to the first page when the search term changes
+        setCurrentPage(1);
     };
 
-    // Filter products by category
     const filteredProducts = showCategory === "all"
         ? products
         : products.filter(product => product.category === showCategory);
 
-    // Filter products by search term
     const searchedProducts = filteredProducts.filter(product =>
         product.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    // Pagination logic
     const indexOfLastProduct = currentPage * itemsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
     const currentProducts = searchedProducts.slice(indexOfFirstProduct, indexOfLastProduct);
